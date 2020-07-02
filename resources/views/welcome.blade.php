@@ -31,7 +31,7 @@
     <meta name="msapplication-TileImage" content="assets/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
     <!-- Main styles for this application-->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <!-- Global site tag (gtag.js) - Google Analytics-->
 
     <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"></script>
@@ -49,11 +49,11 @@
     </script>
 
     <link rel="stylesheet" href="https://unpkg.com/@coreui/icons@2.0.0-beta.3/css/all.min.css">
-    <link href="fontawesome5.13.1/css/all.css" rel="stylesheet">
+    <link href="{{ asset('fontawesome5.13.1/css/all.css') }}" rel="stylesheet">
     <!--load all styles -->
     <link href="{{ asset('vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="css/component-chosen.css" rel="stylesheet" />
-    <link href="css/stylos.css" rel="stylesheet" />
+    <link href="{{ asset('css/component-chosen.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/stylos.css') }}" rel="stylesheet" />
     <link href="{{ asset('vendors/parsleyjs/dist/parsley.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('js/css/alertify.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('js/css/themes/default.min.css') }}" />
@@ -89,36 +89,36 @@
          $logo = \App\Empresa::select('logo')->first(); 
       @endphp
             <div id="logoWelcome">
-            <img src="{{ $logo->logo }}" alt="" width="118" height="46" class="img-fluid">
+            <img src="{{ asset("$logo->logo") }}" alt="" width="118" height="46" class="img-fluid">
             </div>
 
             <svg class="c-sidebar-brand-minimized" width="46" height="46" alt="CoreUI Logo">
-                <use xlink:href="assets/brand/coreui.svg#signet"></use>
+                <use xlink:href="{{ asset('assets/brand/coreui.svg#signet') }}"></use>
             </svg>
         </div>
         <ul class="c-sidebar-nav">
             <li class="c-sidebar-nav-item">
                 <a class="c-sidebar-nav-link" href="/">
                     <svg class="c-sidebar-nav-icon">
-                        <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-speedometer"></use>
+                        <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-speedometer') }}"></use>
                     </svg> Tablero
                 </a>
             </li>
             <li class="c-sidebar-nav-title">Opciones del Sistema</li>
             @can('gestionar_pension')
                 <li class="c-sidebar-nav-item">
-                    <a class="c-sidebar-nav-link" href="gestionar-pension">
+                    <a class="c-sidebar-nav-link" href="{{URL::to('/gestionar-pension')}}">
                         <svg class="c-sidebar-nav-icon">
-                            <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-beach-access"></use>
+                            <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-beach-access') }}"></use>
                         </svg> Gestionar Pensión
                     </a>
                 </li>
             @endcan
             @can('gestionar_clientes')
                 <li class="c-sidebar-nav-item">
-                    <a class="c-sidebar-nav-link" href="gestion-clientes">
+                    <a class="c-sidebar-nav-link" href="{{URL::to('/gestion-clientes')}}">
                         <svg class="c-sidebar-nav-icon">
-                            <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-contact"></use>
+                            <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-contact') }}"></use>
                         </svg> Clientes
                     </a>
                 </li>
@@ -127,33 +127,33 @@
             <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
                 <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
                     <svg class="c-sidebar-nav-icon">
-                        <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-print"></use>
+                        <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-print') }}"></use>
                     </svg> Informes
                 </a>
                 <ul class="c-sidebar-nav-dropdown-items">
                     @can('informe1')
                     <li class="c-sidebar-nav-item">
-                        <a class="c-sidebar-nav-link" href="base/breadcrumb.html">
+                        <a class="c-sidebar-nav-link" href="#">
                             <svg class="c-sidebar-nav-icon">
-                                <use xlink:href="vendors/@coreui/icons/svg/brand.svg#cib-adobe-acrobat-reader"></use>
+                                <use xlink:href="{{ asset('vendors/@coreui/icons/svg/brand.svg#cib-adobe-acrobat-reader') }}"></use>
                             </svg> Informe 1
                         </a>
                     </li>
                     @endcan
                     @can('informe2')
                     <li class="c-sidebar-nav-item">
-                        <a class="c-sidebar-nav-link" href="base/breadcrumb.html">
+                        <a class="c-sidebar-nav-link" href="#">
                             <svg class="c-sidebar-nav-icon">
-                                <use xlink:href="vendors/@coreui/icons/svg/brand.svg#cib-adobe-acrobat-reader"></use>
+                                <use xlink:href="{{ asset('vendors/@coreui/icons/svg/brand.svg#cib-adobe-acrobat-reader') }}"></use>
                             </svg> Informe 2
                         </a>
                     </li>
                     @endcan
                     @can('informe3')
                     <li class="c-sidebar-nav-item">
-                        <a class="c-sidebar-nav-link" href="base/breadcrumb.html">
+                        <a class="c-sidebar-nav-link" href="#">
                             <svg class="c-sidebar-nav-icon">
-                                <use xlink:href="vendors/@coreui/icons/svg/brand.svg#cib-adobe-acrobat-reader"></use>
+                                <use xlink:href="{{ asset('vendors/@coreui/icons/svg/brand.svg#cib-adobe-acrobat-reader') }}"></use>
                             </svg> Informe 3
                         </a>
                     </li>
@@ -165,32 +165,32 @@
                 <li class="c-sidebar-nav-item c-sidebar-nav-dropdown"><a
                         class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
                         <svg class="c-sidebar-nav-icon">
-                            <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-settings"></use>
+                            <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-settings') }}"></use>
                         </svg> Configuración</a>
                     <ul class="c-sidebar-nav-dropdown-items">
                         @can('mantenimiento_usuarios')
                             <li class="c-sidebar-nav-item">
-                                <a class="c-sidebar-nav-link" href="gestion-usuarios">
+                                <a class="c-sidebar-nav-link" href="{{URL::to('/gestion-usuarios')}}">
                                     <svg class="c-sidebar-nav-icon">
-                                        <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-user"></use>
+                                        <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-user') }}"></use>
                                     </svg> Gestión de Usuarios
                                 </a>
                             </li>
                         @endcan
                         @can('mantenimiento_empresa')
                             <li class="c-sidebar-nav-item">
-                                <a class="c-sidebar-nav-link" href="informacion-empresa">
+                                <a class="c-sidebar-nav-link" href="{{URL::to('/informacion-empresa')}}">
                                     <svg class="c-sidebar-nav-icon">
-                                        <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-building"></use>
+                                        <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-building') }}"></use>
                                     </svg> Información de Empresa
                                 </a>
                             </li>
                         @endcan
                         @can('gestion_roles')
                             <li class="c-sidebar-nav-item">
-                                <a class="c-sidebar-nav-link" href="gestion-roles">
+                                <a class="c-sidebar-nav-link" href="{{URL::to('/gestion-roles')}}">
                                     <svg class="c-sidebar-nav-icon">
-                                        <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-shield-alt"></use>
+                                        <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-shield-alt') }}"></use>
                                     </svg> Gestión de Roles
                                 </a>
                             </li>
@@ -207,38 +207,38 @@
             <button class="c-header-toggler c-class-toggler d-lg-none mfe-auto" type="button" data-target="#sidebar"
                 data-class="c-sidebar-show">
                 <svg class="c-icon c-icon-lg">
-                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-menu"></use>
+                    <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-menu') }}"></use>
                 </svg>
             </button>
             <a class="c-header-brand d-lg-none" href="#">
                 {{-- <svg width="118" height="46" alt="CoreUI Logo">
                     <use xlink:href="assets/brand/coreui.svg#full"></use>
                 </svg></a> --}}
-                <img src="img/logo.png" alt="" width="118" height="46">
+                <img src="{{ asset('img/logo.png') }}" alt="" width="118" height="46">
             </a>
             <button class="c-header-toggler c-class-toggler mfs-3 d-md-down-none" type="button" data-target="#sidebar"
                 data-class="c-sidebar-lg-show" responsive="true">
                 <svg class="c-icon c-icon-lg">
-                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-menu"></use>
+                    <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-menu') }}"></use>
                 </svg>
             </button>
 
             <ul class="c-header-nav ml-auto mr-4">
                 <li class="c-header-nav-item d-md-down-none mx-2"><a class="c-header-nav-link" href="#">
                         <svg class="c-icon">
-                            <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-bell"></use>
+                            <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-bell') }}"></use>
                         </svg></a></li>
                 <li class="c-header-nav-item d-md-down-none mx-2"><a class="c-header-nav-link" href="#">
                         <svg class="c-icon">
-                            <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-list-rich"></use>
+                            <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-list-rich') }}"></use>
                         </svg></a></li>
                 <li class="c-header-nav-item d-md-down-none mx-2"><a class="c-header-nav-link" href="#">
                         <svg class="c-icon">
-                            <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-envelope-open"></use>
+                            <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-envelope-open') }}"></use>
                         </svg></a></li>
                 <li class="c-header-nav-item dropdown"><a class="c-header-nav-link" data-toggle="dropdown" href="#"
                         role="button" aria-haspopup="true" aria-expanded="false">
-                        <div class="c-avatar"><img class="c-avatar-img" src="img/user-icon.png" alt="user@email.com">
+                        <div class="c-avatar"><img class="c-avatar-img" src="{{ asset('img/user-icon.png') }}" alt="user@email.com">
                         </div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right pt-0">
@@ -246,25 +246,25 @@
                         <div class="dropdown-header bg-light py-2">
                             <strong>Configuración</strong>
                         </div>
-                        <a class="dropdown-item" href="ver-perfil">
+                        <a class="dropdown-item" href="{{URL::to('/ver-perfil')}}">
                             <svg class="c-icon mr-2">
-                                <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-user"></use>
+                                <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-user') }}"></use>
                             </svg> Perfil
                         </a>
-                        <a class="dropdown-item" href="cambiar-contrasena">
+                        <a class="dropdown-item" href="{{URL::to('/cambiar-contrasena')}}">
                             <svg class="c-icon mr-2">
-                                <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-settings"></use>
+                                <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-settings') }}"></use>
                             </svg> Cambiar Contraseña
                         </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">
                             <svg class="c-icon mr-2">
-                                <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-lock-locked"></use>
+                                <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-lock-locked') }}"></use>
                             </svg> Bloquear Cuenta
                         </a>
                         <a class="dropdown-item" href="{{ route('logout') }}">
                             <svg class="c-icon mr-2">
-                                <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-account-logout"></use>
+                                <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-account-logout') }}"></use>
                             </svg> Cerrar Sesión
                         </a>
                     </div>
@@ -293,20 +293,20 @@
         </div>
     </div>
     <!-- CoreUI and necessary plugins-->
-    <script src="vendors/@coreui/coreui/js/coreui.bundle.min.js"></script>
+    <script src="{{ asset('vendors/@coreui/coreui/js/coreui.bundle.min.js') }}"></script>
     <!--[if IE]><!-->
-    <script src="vendors/@coreui/icons/js/svgxuse.min.js"></script>
+    <script src="{{ asset('vendors/@coreui/icons/js/svgxuse.min.js') }}"></script>
     <!--<![endif]-->
-    <!-- Plugins and scripts required by this view-->
-    <script src="vendors/@coreui/chartjs/js/coreui-chartjs.bundle.js"></script>
-    <script src="vendors/@coreui/utils/js/coreui-utils.js"></script>
-    <script src="js/main.js"></script>
+
+    <script src="{{ asset('vendors/@coreui/chartjs/js/coreui-chartjs.bundle.js') }}"></script>
+    <script src="{{ asset('vendors/@coreui/utils/js/coreui-utils.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
 
     <script src="{{ asset('vendors/jquery/dist/jquery.js') }}"></script>
     
 
     <script src="{{ asset('vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js') }}" type="text/javascript"></script>
-    <script src="js/popper.min.js"></script>
+    <script src="{{ asset('js/popper.min.js') }}"></script>
     <!-- Bootstrap -->
     <script src="{{ asset('vendors/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
     <!-- FastClick -->
@@ -317,6 +317,7 @@
     <script src="{{ asset('js/jquery.blockUI.js') }}"></script>
     <script src="{{ asset('vendors/parsleyjs/dist/parsley.js') }}"></script>
     <script src="{{ asset('vendors/parsleyjs/dist/es.js') }}"></script>
+    <script src="{{ asset('vendors/parsleyjs/dist/comparison.js') }}"></script>
     <script src="{{ asset('js/alertify.min.js') }}"></script>
     <script src="{{ asset('vendors/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('vendors/datatables.net-bs/js/dataTables.bootstrap4.min.js') }}">

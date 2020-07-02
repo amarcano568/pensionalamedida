@@ -1,4 +1,7 @@
-<div id="divGestionarPension" style="padding: 1em;margin-top: -2em;opacity:0">
+@extends('welcome')
+@section('contenido')
+<br><br>
+<div id="divGestionarPension" style="padding: 1em;margin-top: -2em;">
     {{-- <form id="FormPensiones" method="post" enctype="multipart/form-data" action="actualizar-pension"
         data-parsley-validate="">
         @csrf --}}
@@ -15,6 +18,9 @@
                                     <input class="cliente-seeker form-control" id="nombreCliente" name="nombreCliente"
                                         type="text" placeholder="Comienze a escribir para buscar un cliente"
                                         style="width: 165%;">
+                                        <br><br>
+                                    <button id="btn-cargar-cotizaciones" class="btn btn-sm btn-outline-info"><i class="cil-cloud-download"></i>
+                                         Cargar cotizaciones</button>
                                 </div>
                                 <div class="form-group col-sm-6">
                                     <div class="card shadow ">
@@ -119,3 +125,8 @@
         </div>
     {{-- </form> --}}
 </div>
+@include('pensiones.modal-cargar-cotizaciones') 
+@endsection
+@section('javascript')
+<script src="{{ asset('jsApp/generar-planes.js') }}"></script>
+@stop

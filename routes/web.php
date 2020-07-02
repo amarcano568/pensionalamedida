@@ -80,4 +80,5 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('buscar-cliente', 'GestionarPensionesController@buscarCliente');
 	Route::get('calcular-edad-completa', 'GestionarPensionesController@calcularEdadCompleta');
 	Route::get('calcular-anos-faltante', 'GestionarPensionesController@calcularAnosFaltante');
+	Route::get('generar-planes/{idPension}', 'GestionarPensionesController@generarPlanes');
 });

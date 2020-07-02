@@ -101,4 +101,13 @@ class GestionarPensionesController extends Controller
         $edad = $this->AnosFaltantes($request->fecNac, $request->edadA, $request->fecPlan);
         return response()->json(array('success' => true, 'mensaje' => 'Datos del cliente obtenido', 'data' => $edad));
     }
+
+    public function generarPlanes()
+    {
+        // $roles = Roles::get();
+        // $data = array(
+        //     'roles' => $roles,
+        // );
+        return view('pensiones.generar-planes');
+    }
 }

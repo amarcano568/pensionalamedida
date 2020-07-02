@@ -37,7 +37,7 @@
         </div>
     </div>
 </div>
-@include('pensiones.pensionalamedida')
+
 @endsection
 @section('javascript')
 <script src="{{ asset('jsApp/gestion-pensiones.js') }}"></script>
