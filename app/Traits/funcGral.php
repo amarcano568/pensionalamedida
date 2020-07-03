@@ -29,4 +29,11 @@ trait funcGral
 
         return $fechaPlan->diff($fechaRetiro)->format('%y Años, %m meses y %d días');
     }
+
+    public function DiasEntreFechas($fechaDesde, $fechaHasta)
+    {
+        $fechaDesde = Carbon::parse($fechaDesde);
+        $fechaHasta = Carbon::parse($fechaHasta);
+        return $fechaHasta->diffInDays($fechaDesde);
+    }
 }

@@ -346,4 +346,133 @@ $(document).on("ready", function() {
     $("#btn-cargar-cotizaciones").click(function(ev) {
         $("#modal-cargar-cotizaciones").modal("show");
     });
+
+    $(document).on(
+        "change",
+        ".fechaCotizacionDesde, .fechaCotizacionHasta",
+        function(event) {
+            row = $(this).attr("row");
+            fechaDesde = $("#fechaDesde" + row).val();
+            fechaHasta = $("#fechaHasta" + row).val();
+
+            $.ajax({
+                url: "/calcular-dias-entre-fechas",
+                type: "get",
+                data: { fechaDesde: fechaDesde, fechaHasta: fechaHasta },
+                dataType: "json"
+            })
+                .done(function(response) {
+                    //console.log(response);
+                    $("#dias" + row).val(response.data);
+                    sumaDiasCotizados();
+                    //$("#monto" + row).focus();
+                    calculaTotalCotizacionDias(row);
+                })
+                .fail(function(statusCode, errorThrown) {
+                    $.unblockUI();
+                    console.log(errorThrown);
+                    ajaxError(statusCode, errorThrown);
+                });
+        }
+    );
+
+    function sumaDiasCotizados() {
+        filas = $("#table-cotizaciones >tbody >tr").length + 1;
+        totalDias = 0;
+        $(".diasCotizacion").each(function() {
+            row = $(this).attr("row");
+            totalDias += parseInt($("#dias" + row).val());
+        });
+
+        $("#totalDiasCotizados").text(totalDias);
+    }
+
+    function calculaTotalCotizacionDias(row) {
+        total =
+            parseInt($("#dias" + row).val()) *
+            parseInt($("#monto" + row).val());
+        $("#totalMontoCotizacion" + row).val(total);
+        console.log(total);
+    }
+
+    $(document).on("change", ".montoCotizacion", function(event) {
+        alert("pasa");
+        row = $(this).attr("row");
+        calculaTotalCotizacionDias(row);
+    });
+
+    $(document).on("click", "#addFila", function(event) {
+        event.preventDefault();
+        agregarFila();
+    });
+
+    $("body").on("keydown", function(e) {
+        if (e.ctrlKey && e.which === 65) {
+            e.preventDefault();
+            agregarFila();
+        }
+    });
+
+    $(document).on("click", ".borrar", function(event) {
+        event.preventDefault();
+        $(this)
+            .closest("tr")
+            .remove();
+        sumaDiasCotizados();
+    });
+
+    function agregarFila() {
+        id = $("#table-cotizaciones tr:last").attr("id");
+        ultimoMonto = $("#totalMontoCotizacion" + id).val();
+
+        if (ultimoMonto == 0) {
+            alertify.error(
+                '<i class="fa-2x fas fa-exclamation-triangle"></i><br>Por favor corrija la ultima cotización ingresada antes de intentar agregar una nueva cotización.'
+            );
+            return false;
+        }
+
+        filas = 0;
+        $(".diasCotizacion").each(function() {
+            id = $(this).attr("row");
+            if (id > filas) {
+                filas = id;
+            }
+        });
+
+        filas++;
+        var htmlTags =
+            '<tr id="' +
+            filas +
+            '">' +
+            '<td><input type="date" row="' +
+            filas +
+            '" id="fechaDesde' +
+            filas +
+            '" class="form-control fechaCotizacionDesde" ></td>' +
+            '<td><input type="date" row="' +
+            filas +
+            '" id="fechaHasta' +
+            filas +
+            '" class="form-control fechaCotizacionHasta"></td>' +
+            '<td><input type="text" row="' +
+            filas +
+            '" id="dias' +
+            filas +
+            '" class="form-control diasCotizacion" readonly></td>' +
+            '<td><input type="number" row="' +
+            filas +
+            '" id="monto' +
+            filas +
+            '" class="form-control montoCotizacion" value="0"></td>' +
+            '<td><input type="text" row="' +
+            filas +
+            '" id="totalMontoCotizacion' +
+            filas +
+            '" class="form-control" readonly></td>' +
+            '<td><a href="#" class="borrar"><i class="text-danger far fa-trash-alt"></i></a></td>' +
+            "</tr>";
+
+        $("#table-cotizaciones tbody").append(htmlTags);
+    }
 });

@@ -110,4 +110,14 @@ class GestionarPensionesController extends Controller
         // );
         return view('pensiones.generar-planes');
     }
+
+    public function calcularDiasEntreFechas(Request $request)
+    {
+        try {
+            $dias = $this->DiasEntreFechas($request->fechaDesde, $request->fechaHasta);
+            return response()->json(array('success' => true, 'mensaje' => 'Diferencia entre fechas obtenido', 'data' => $dias));
+        } catch (Exception $e) {
+            return $this->internalException($e, __FUNCTION__);
+        }
+    }
 }

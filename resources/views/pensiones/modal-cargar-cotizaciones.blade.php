@@ -1,4 +1,4 @@
-    <div id="modal-cargar-cotizaciones" class="modal" tabindex="-1" role="dialog">
+    <div id="modal-cargar-cotizaciones" class="modal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -23,13 +23,13 @@
                                     </tr>
                                 </thead>
                                 <tbody id="body-cotizaciones">
-                                    <tr>
-                                        <td><input type="date" class="form-control"></td>
-                                        <td><input type="date" class="form-control"></td>
-                                        <td><input type="text" class="form-control" readonly></td>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control" readonly></td>
-                                        <td><i class="text-danger far fa-trash-alt"></i></td>
+                                    <tr id="1">
+                                        <td><input type="date" row="1" id="fechaDesde1" class="form-control fechaCotizacionDesde" ></td>
+                                        <td><input type="date" row="1" id="fechaHasta1" class="form-control fechaCotizacionHasta"></td>
+                                        <td><input type="text" row="1" id="dias1" class="form-control diasCotizacion" readonly></td>
+                                        <td><input type="number" row="1" id="monto1" class="form-control montoCotizacion" value="0"></td>
+                                        <td><input type="text" row="1" id="totalMontoCotizacion1" class="form-control" readonly></td>
+                                        <td><a href="#" class="borrar"><i class="text-danger far fa-trash-alt"></i></a></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -39,7 +39,7 @@
                                 <div class="card-body">
                                     <h6 class="card-title"><i class="cil-calendar-check"></i> Días cotizados</h6>
                                     <center>
-                                        <h4>0 días</h4>
+                                        <h4 id="totalDiasCotizados">0 días</h4>
                                     </center>
                                     
                                 </div>
