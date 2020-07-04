@@ -211,6 +211,7 @@ $(document).on("ready", function() {
                         $("#FormCliente")
                             .parsley()
                             .reset();
+                        $("#resultado").html("");
                         $(".errorDescripcion").remove();
                         $("#title-modal").html(
                             '<i class="text-success cil-pencil"></i> Editar datos del Cliente.'
@@ -220,6 +221,9 @@ $(document).on("ready", function() {
                         $("#nombre").val(response.data.nombre);
                         $("#apellidos").val(response.data.apellidos);
                         $("#nroDocumento").val(response.data.nroDocumento);
+                        $("#nroSeguridadSocial").val(
+                            response.data.nroSeguridadSocial
+                        );
                         $("#fecNacimiento").val(response.data.fechaNacimiento);
                         $("#edad").val(response.data.edad);
                         $("#genero")
@@ -237,6 +241,16 @@ $(document).on("ready", function() {
                         $("#telefonofijo").val(response.data.telefonoFijo);
                         $("#telefonoMovil").val(response.data.telefonoMovil);
                         $("#modal-cliente").modal("show");
+
+                        $("#cotizandoM40").prop(
+                            "checked",
+                            response.data.cotizandoM40 == "S" ? true : false
+                        );
+                        $("#enCooperativa").prop(
+                            "checked",
+                            response.data.enCooperativa == "S" ? true : false
+                        );
+
                         $.unblockUI();
                     });
 
@@ -322,6 +336,7 @@ $(document).on("ready", function() {
         $("#FormCliente")
             .parsley()
             .reset();
+        $("#resultado").html("");
         $("#title-modal").html(
             '<i class="fas fa-user-edit"></i> Nuevo Cliente.'
         );
@@ -337,6 +352,24 @@ $(document).on("ready", function() {
         $("#modal-cliente").modal("show");
         $("#nombre").focus();
         $(".errorDescripcion").remove();
+    });
+
+    $("#buscarCurp").click(function(ev) {
+        curp = $("#nroDocumento").val();
+        $.ajax({
+            url: "buscar-curp",
+            type: "get",
+            data: { curp: curp },
+            dataType: "json"
+        })
+            .done(function(response) {
+                console.log(response);
+            })
+            .fail(function(statusCode, errorThrown) {
+                $.unblockUI();
+                console.log(errorThrown);
+                ajaxError(statusCode, errorThrown);
+            });
     });
 
     $("#fecNacimiento").change(function(ev) {

@@ -13,7 +13,6 @@
                         <div class="tab-pane fade show active" id="historial" role="tabpanel"
                             aria-labelledby="historial-tab">
                             <div class="row">
-
                                 <div class="form-group col-sm-4">
                                     <input class="cliente-seeker form-control" id="nombreCliente" name="nombreCliente"
                                         type="text" placeholder="Comienze a escribir para buscar un cliente"

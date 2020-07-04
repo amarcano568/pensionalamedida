@@ -23,7 +23,7 @@
                                     </tr>
                                 </thead>
                                 <tbody id="body-cotizaciones">
-                                    <tr id="1">
+                                    <tr class="row2" id="1">
                                         <td><input type="date" row="1" id="fechaDesde1" class="form-control fechaCotizacionDesde" ></td>
                                         <td><input type="date" row="1" id="fechaHasta1" class="form-control fechaCotizacionHasta"></td>
                                         <td><input type="text" row="1" id="dias1" class="form-control diasCotizacion" readonly></td>

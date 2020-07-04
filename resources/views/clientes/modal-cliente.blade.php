@@ -1,4 +1,4 @@
-<form id="FormCliente" method="post" enctype="multipart/form-data" action="actualizar-cliente" data-parsley-validate="">
+<form autocomplete="off" id="FormCliente" method="post" enctype="multipart/form-data" action="actualizar-cliente" data-parsley-validate="">
     @csrf
     <div id="modal-cliente" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg" role="document">
@@ -11,8 +11,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-sm-1"></div>
-                        <div class="col-sm-10">
+                        <div class="col-sm-12">
                             <div class="card shadow ">
                                 <div class="card-body">
                                     <input class="form-control" id="idCliente" name="idCliente" type="text"
@@ -36,14 +35,25 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="form-group col-sm-5">
+                                            <div class="form-group col-sm-6">
                                                 <label for="nroDocumento">
-                                                    Nro. Documento
+                                                    CURP
                                                 </label>
-                                                <input class="form-control" id="nroDocumento" name="nroDocumento"
-                                                    type="text" placeholder="Nro. de documento" required  data-parsley-required-message="<i class='cil-bolt'></i> El Número de documento es requerido.">
+                                                <input class="form-control" id="nroDocumento" name="nroDocumento" oninput="validarInput(this)"
+                                                    type="text" placeholder="Nro. de documento" required  data-parsley-required-message="<i class='cil-bolt'></i> El Número de CURP es requerido.">
+                                                <pre id="resultado"></pre>
+                                                </div>
+                                            <div class="form-group col-sm-6">
+                                                <label for="nroSeguridadSocial">
+                                                    Nro. Seguridad Social
+                                                </label>
+                                                <input class="form-control" id="nroSeguridadSocial" name="nroSeguridadSocial"
+                                                    type="text" placeholder="Nro. de Seguridad Social" required  data-parsley-required-message="<i class='cil-bolt'></i> El Número de Seguridad Social es requerido.">
                                             </div>
-                                            <div class="form-group col-sm-5">
+                                           
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-sm-4">
                                                 <label for="fecNacimiento">
                                                     <i class="cil-calendar"></i> Fecha de nacimiento
                                                 </label>
@@ -56,9 +66,7 @@
                                                 <input class="form-control" id="edad" name="edad" type="text"
                                                     placeholder="edad" readonly>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-sm-6">
+                                            <div class="form-group col-sm-3">
                                                 <label for="genero">
                                                     Genero
                                                 </label>
@@ -70,7 +78,7 @@
                                                     <option value="F">Femenino</option>
                                                     </select>
                                             </div>
-                                            <div class="form-group col-sm-6">
+                                            <div class="form-group col-sm-3">
                                                 <label for="estadocivil">
                                                     Estado civil
                                                 </label>
@@ -93,10 +101,27 @@
                                                 <input class="form-control" id="email" name="email" type="email"
                                                     placeholder="Email" required  data-parsley-required-message="<i class='cil-bolt'></i> El Email es requerido.">
                                             </div>
+                                           
                                         </div>
                                         <!-- /.row-->
                                         <div class="row">
-                                            <div class="form-group col-sm-6">
+                                            <div class="form-group col-sm-3">
+                                                <label for="cotizandoM40">
+                                                    <i class="cil-mail"></i> Cotizando M40
+                                                </label>
+                                                <label class="c-switch c-switch-label c-switch-opposite-success c-switch-lg">
+                                                    <input id="cotizandoM40" name="cotizandoM40" class="c-switch-input" type="checkbox" checked=""><span class="c-switch-slider" data-checked="Si" data-unchecked="No"></span>
+                                                    </label>
+                                            </div>
+                                            <div class="form-group col-sm-3">
+                                                <label for="email">
+                                                    <i class="cil-mail"></i> En cooperativa
+                                                </label>
+                                                <label class="c-switch c-switch-label c-switch-opposite-success c-switch-lg">
+                                                    <input id="enCooperativa" name="enCooperativa" class="c-switch-input" type="checkbox" checked=""><span class="c-switch-slider" data-checked="Si" data-unchecked="No"></span>
+                                                    </label>
+                                            </div>
+                                            <div class="form-group col-sm-4">
                                                 <label for="estado">
                                                     Estado
                                                 </label>
@@ -110,9 +135,9 @@
                                                 @endforeach
                                             </select>
                                             </div>
-                                            <div class="form-group col-sm-6">
+                                            <div class="form-group col-sm-2">
                                                 <label for="codigopostal">
-                                                    Código postal
+                                                    C.P.
                                                 </label>
                                                 <input class="form-control" id="codigopostal" name="codigopostal" type="text"
                                                     placeholder="Código postal" >

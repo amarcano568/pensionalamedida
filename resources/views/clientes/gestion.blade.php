@@ -1,5 +1,6 @@
 @extends('welcome')
 @section('contenido')
+
 <br><br>
 <div class="container-fluid">
     <div class="fade-in">

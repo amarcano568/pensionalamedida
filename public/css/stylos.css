@@ -835,3 +835,21 @@ div[data-role="editor-toolbar"] {
     width: 50%;
     left: auto;
 }
+
+.row {
+    line-height: 1em;
+}
+
+.row2 {
+    line-height: 0.25em !important;
+}
+
+#resultado {
+    background-color: #A7444E;
+    color: white;
+    font-weight: bold;
+}
+
+#resultado.ok {
+    background-color: #2EB85C;
+}

@@ -52,6 +52,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/calcular-edad', 'MantenimientoClientesController@calcularEdad');
 	Route::post('/actualizar-cliente', 'MantenimientoClientesController@actualizarCliente');
 	Route::get('generar-excel-clientes', 'MantenimientoClientesController@generarExcelClientes');
+	Route::get('buscar-curp', 'MantenimientoClientesController@buscarCurp');
+
 
 	/** Información de la Empresa */
 	Route::group(['middleware' => ['permission:mantenimiento_empresa']], function () {

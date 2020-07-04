@@ -134,8 +134,9 @@ $(document).on("ready", function() {
         var anio = d.getFullYear();
         var fechaHoy = anio + "-" + pad(mes, 2) + "-" + pad(dia, 2);
         $("#fechaPlan").val(fechaHoy);
+        $("#idCliente").val(id);
         calculaFechas();
-        $("#fechaNacimiento").focus();
+        $("#edadDe").focus();
     }
 
     $("#semanasCotizadas,#semanasDescontadas").change(function(ev) {
@@ -383,7 +384,22 @@ $(document).on("ready", function() {
             row = $(this).attr("row");
             totalDias += parseInt($("#dias" + row).val());
         });
-
+        if (totalDias < 875) {
+            $("#totalDiasCotizados").attr(
+                "style",
+                "text-shadow: 1px 1px 2px black, 0 0 25px red, 0 0 5px darkred;color: white;"
+            );
+        } else if (totalDias >= 875 && totalDias < 1750) {
+            $("#totalDiasCotizados").attr(
+                "style",
+                "text-shadow: 1px 1px 2px black, 0 0 25px orange, 0 0 5px darkorange;color: white;"
+            );
+        } else {
+            $("#totalDiasCotizados").attr(
+                "style",
+                "text-shadow: 1px 1px 2px black, 0 0 25px lime, 0 0 5px darkgreen;color: white;"
+            );
+        }
         $("#totalDiasCotizados").text(totalDias);
     }
 
@@ -396,7 +412,6 @@ $(document).on("ready", function() {
     }
 
     $(document).on("change", ".montoCotizacion", function(event) {
-        alert("pasa");
         row = $(this).attr("row");
         calculaTotalCotizacionDias(row);
     });
@@ -442,7 +457,7 @@ $(document).on("ready", function() {
 
         filas++;
         var htmlTags =
-            '<tr id="' +
+            '<tr class="row2" id="' +
             filas +
             '">' +
             '<td><input type="date" row="' +
@@ -474,5 +489,6 @@ $(document).on("ready", function() {
             "</tr>";
 
         $("#table-cotizaciones tbody").append(htmlTags);
+        $("#fechaDesde" + filas).focus();
     }
 });

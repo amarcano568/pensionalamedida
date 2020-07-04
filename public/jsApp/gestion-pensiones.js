@@ -126,13 +126,30 @@ $(document).on("ready", function() {
                     data: "email"
                 },
                 {
-                    data: "pensiones.created_at",
+                    data: "nombrePlan",
                     render: function(data) {
-                        return moment(data).format("DD-MM-YYYY");
+                        if (data == "Plan completo") {
+                            color = "badge-success";
+                        } else if (data == "Plan Cotizando M40") {
+                            color = "badge-primary";
+                        } else if (data == "Plan simple") {
+                            color = "badge-info";
+                        }
+                        return (
+                            '<span class="badge ' +
+                            color +
+                            '">' +
+                            data +
+                            "</span>"
+                        );
                     }
                 },
                 {
-                    data: "name"
+                    data: "name",
+                    render: function(data) {
+                        nombre = data.split(" ");
+                        return nombre[0];
+                    }
                 },
                 {
                     data: "action"
@@ -161,17 +178,17 @@ $(document).on("ready", function() {
                     targets: 4
                 },
                 {
-                    width: "7%",
+                    width: "12%",
                     targets: 5,
                     className: "text-center"
                 },
                 {
-                    width: "10%",
+                    width: "15%",
                     targets: 6,
                     className: "text-center"
                 },
                 {
-                    width: "7.5%",
+                    width: "2.5%",
                     targets: 7,
                     className: "text-center"
                 }

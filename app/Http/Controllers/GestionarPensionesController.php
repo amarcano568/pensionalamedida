@@ -29,23 +29,47 @@ class GestionarPensionesController extends Controller
             DB::beginTransaction();
             $pensiones = Pensiones::join('clientes', 'pensiones.idCliente', 'clientes.id')
                 ->join('users', 'pensiones.created_by', 'users.id')
+                ->join('planes', 'pensiones.tipoPlan', 'planes.id')
                 ->get();
 
             //dd($pensiones);
             return Datatables::of($pensiones)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $btn = '<div class="icono-action text-center">
-                                         <a data-trigger="hover" data-html="true" data-toggle="popover" data-placement="top" data-content="Editar los datos de pensión del cliente (<strong>' . $row->nombre . '</strong>)." href="" data-accion="editar-cliente" idCliente="' . $row->id . '">
-                                             <i style="font-size: 1em;" class="text-success far fa-edit"></i>
-                                         </a>
-                                         <a data-trigger="hover" data-html="true" data-toggle="popover" data-placement="top" data-content="Enviar correo resumen al cliente (<strong>' . $row->nombre . '</strong>)." href="" data-accion="corre-resumen-cliente" idCliente="' . $row->id . '">
-                                             <i style="font-size: 1em;" class="text-warning far fa-envelope"></i>
-                                         </a>
-                                         <a data-trigger="hover" data-html="true" data-toggle="popover" data-placement="top" data-content="Enviar correo detalle al cliente (<strong>' . $row->nombre . '</strong>)." href="" data-accion="corre-resumen-cliente" idCliente="' . $row->id . '">
-                                             <i style="font-size: 1em;" class="text-info far fa-envelope"></i>
-                                         </a>
-                                     </div>';
+                    $btn = '<ul class="nav navbar-left panel_toolbox">
+                                <li class="dropdown dropleft">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="text-info fas fa-ellipsis-h"></i>
+                                </a>
+                                <ul class="dropdown-menu" role="menu" x-placement="left-start" >
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <i style="font-size: 1em;" class="text-success far fa-edit"></i> Editar Pensión
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#" >
+                                            <i style="font-size: 1em;" class="text-primary far fa-file-pdf"></i> Ver pdf resumen
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#"> 
+                                            <i style="font-size: 1em;" class="text-secondary far fa-file-pdf"></i> Ver pdf detalle
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <i style="font-size: 1em;" class="text-warning far fa-envelope"></i> Enviar correo con resumen 
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <i style="font-size: 1em;" class="text-danger far fa-envelope"></i> Enviar correo con detalle 
+                                        </a>
+                                    </li>
+                                </ul>
+                                </li>
+                            </ul>';
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -60,7 +84,7 @@ class GestionarPensionesController extends Controller
     {
 
         $clientes = Clientes::where('nombre', 'like', '%' . $request->buscar . '%')
-            ->where('nombre', 'like', '%' . $request->buscar . '%')
+            ->orWhere('apellidos', 'like', '%' . $request->buscar . '%')
             ->get();
 
         $i = 0;

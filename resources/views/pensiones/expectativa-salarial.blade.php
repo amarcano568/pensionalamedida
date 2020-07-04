@@ -14,7 +14,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="name">Fecha Nac.</label>
-                                        <input class="form-control" id="fechaNacimiento" name="fechaNacimiento"
+                                        <input readonly class="form-control" id="fechaNacimiento" name="fechaNacimiento"
                                             type="date" required data-parsley-required-message="<i class='fas fa-exclamation-triangle'></i> La fecha de Nacimiento es requerida." >
                                     </div>
                                 </div>
