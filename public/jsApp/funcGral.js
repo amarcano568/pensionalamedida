@@ -1,4 +1,52 @@
+var server = "";
+var pathname = document.location.pathname;
+
+var pathnameArray = pathname.split("/public/");
+
+server = pathnameArray.length > 0 ? pathnameArray[0] + "/" : "";
+
 swChat = false;
+
+// Panel toolbox
+$(document).ready(function() {
+    $(".collapse-link").on("click", function() {
+        var $BOX_PANEL = $(this).closest(".x_panel"),
+            $ICON = $(this).find("i"),
+            $BOX_CONTENT = $BOX_PANEL.find(".x_content");
+
+        // fix for some div with hardcoded fix class
+        if ($BOX_PANEL.attr("style")) {
+            $BOX_CONTENT.slideToggle(200, function() {
+                $BOX_PANEL.removeAttr("style");
+            });
+        } else {
+            $BOX_CONTENT.slideToggle(200);
+            $BOX_PANEL.css("height", "auto");
+        }
+
+        $ICON.toggleClass("fa-chevron-up fa-chevron-down");
+    });
+
+    $(".close-link").click(function() {
+        var $BOX_PANEL = $(this).closest(".x_panel");
+
+        $BOX_PANEL.remove();
+    });
+});
+// /Panel toolbox
+
+$(".btn-cerrar-modal").click(function(ev) {
+    if ($(".modal-backdrop").is(":visible")) {
+        $("body").removeClass("modal-open");
+        $(".modal-backdrop").remove();
+    }
+});
+
+function convertNumberPure(data) {
+    data = data.replace(".", "");
+    data = data.replace(",", ".");
+    return parseFloat(data);
+}
 
 function deleteFile(fileDelete) {
     setTimeout(function() {
@@ -63,6 +111,10 @@ function calcularEdad(birthday) {
 }
 
 function loadingUI(message, color) {
+    server = server.replace(pathname, "");
+
+    imgServer = server + "img/bars.svg";
+    //console.log(server);
     $.blockUI({
         baseZ: 2000,
         css: {
@@ -75,7 +127,7 @@ function loadingUI(message, color) {
             color: "#fff",
             message: message
         },
-        message: '<img src="img/bars.svg"> <span class="hidden-xs"></span>'
+        message: '<img src="' + imgServer + '"> <span class="hidden-xs"></span>'
     });
 }
 
@@ -223,4 +275,267 @@ function ConfigChosen() {
         width: "100%",
         allow_single_deselect: true
     };
+}
+
+function calculaFormulasExcel(
+    semanasCotizadas,
+    salarioDiarioPromedio,
+    edadJubilacion,
+    muestraModal
+) {
+    valida = $("#formPaso1")
+        .parsley()
+        .validate();
+    if (valida === false) {
+        return false;
+    }
+    promedioSalario = $("#promedio-salarios").text();
+    edadDe = $("#edadDe").val();
+    totalSemanas = $("#totalSemanas").val();
+
+    if (muestraModal) {
+        $("#modal-formulas").modal("show");
+    }
+
+    $("#formulas-esposa").val($("#esposa").val());
+    $("#formulas-hijos-menores").val($("#hijos").val());
+    $("#formulas-padres").val($("#padres").val());
+
+    //salarioDiarioPromedio = $("#formulas-salario-diario-promedio").val();
+    salarioMinimoDf = $("#formulas-salario-minimo-df").val();
+    salarioPromedioVsm = salarioDiarioPromedio / salarioMinimoDf;
+    $("#formulas-salario-promedio-vsm").val(salarioPromedioVsm.toFixed(2));
+
+    $("#cuantia-basica-salario-promedio").val(salarioDiarioPromedio);
+
+    $("#incremento-anual-cuantia-basica-salario-promedio").val(
+        salarioDiarioPromedio
+    );
+
+    $("#anos-ant-semanas-cotizadas").val($("#formulas-semana-cotizadas").val());
+    $("#anos-ant-500-semanas").val(500);
+    $("#anos-ant-semanas-reconocidas").val(
+        parseInt($("#formulas-semana-cotizadas").val()) - 500
+    );
+
+    anosCompletos = Math.trunc($("#anos-ant-semanas-reconocidas").val() / 52);
+    $("#anos-ant-anos-completos").val(anosCompletos);
+
+    totalPost00 = $("#anos-ant-anos-completos").val() * 52;
+    $("#anos-ant-semanas-completas-posteriores-500").val(totalPost00);
+
+    $("#anos-ant-sem-reconocidas-post-500").val(
+        parseInt($("#formulas-semana-cotizadas").val()) - 500
+    );
+
+    $("#anos-ant-sem-completas-post-500").val(totalPost00);
+
+    semanasResiduos =
+        $("#anos-ant-sem-reconocidas-post-500").val() -
+        $("#anos-ant-sem-completas-post-500").val();
+    $("#anos-ant-semanas-residuo").val(semanasResiduos);
+
+    if (semanasResiduos >= 0 && semanasResiduos <= 12.99) {
+        incrAnual = 0;
+    } else if (semanasResiduos >= 13 && semanasResiduos <= 26) {
+        incrAnual = 0.5;
+    } else if (semanasResiduos > 26) {
+        incrAnual = 1.0;
+    }
+
+    $("#anos-ant-ano-residuo").val(incrAnual);
+
+    $("#anos-ant-comp-reconocdos-post-500").val(
+        $("#anos-ant-anos-completos").val()
+    );
+
+    $("#anos-ant-mas-anos-residuo").val(incrAnual);
+
+    totAnosReconocidos =
+        parseInt($("#anos-ant-comp-reconocdos-post-500").val()) +
+        parseInt($("#anos-ant-mas-anos-residuo").val());
+    $("#anos-ant-tot-anos-reconocidos-post-500").val(totAnosReconocidos);
+    $("#total-anos-reconocidos").val(totAnosReconocidos);
+    // Buscar cuantía basica en tablas formulas-salario-promedio-vsm
+    cuantiaBasica($("#formulas-salario-promedio-vsm").val(), edadJubilacion);
+}
+
+function cuantiaBasica(salarioPromedioVsm, edadJubilacion) {
+    $.ajax({
+        url: "/buscar-cuantia-basica",
+        type: "get",
+        data: { salarioPromedioVsm: salarioPromedioVsm },
+        dataType: "json"
+    })
+        .done(function(response) {
+            // console.log();
+            $("#cuantia-basica-valor").val(response.data.cuantia_basica);
+            $("#incremento-anual-cuantia-basica-valor").val(
+                response.data.incremento_anual
+            );
+
+            cuantiaBasicaSalarioPromedio = $(
+                "#cuantia-basica-salario-promedio"
+            ).val();
+            cuantiaBasicaValor = $("#cuantia-basica-valor").val();
+            cuantiaBasicaDiaria =
+                parseFloat(cuantiaBasicaSalarioPromedio) *
+                parseFloat(cuantiaBasicaValor / 100);
+            $("#cuantia-basica-diaria").val(cuantiaBasicaDiaria.toFixed(2));
+
+            cuantiaBasicaDiaria = parseFloat($("#cuantia-basica-diaria").val());
+            cuantiaBasicaX365 = parseFloat($("#cuantia-basica-x-365").val());
+            cuantiaBasicaAnual = cuantiaBasicaDiaria * cuantiaBasicaX365;
+            $("#cuantia-basica-anual").val(cuantiaBasicaAnual.toFixed(2));
+            cuantiaBasicaMensual = cuantiaBasicaAnual / 12;
+            $("#cuantia-basica-mensual").val(cuantiaBasicaMensual.toFixed(2));
+
+            anualCuantiaBasicaSalarioPromedio = $(
+                "#incremento-anual-cuantia-basica-salario-promedio"
+            ).val();
+            anualCuantiaBasicaValor = $(
+                "#incremento-anual-cuantia-basica-valor"
+            ).val();
+
+            incrementoAnualCuantiaBasicaDiaria =
+                anualCuantiaBasicaSalarioPromedio *
+                (anualCuantiaBasicaValor / 100);
+            $("#incremento-anual-cuantia-basica-diaria").val(
+                incrementoAnualCuantiaBasicaDiaria.toFixed(2)
+            );
+
+            incrementoAnual = incrementoAnualCuantiaBasicaDiaria * 365;
+            $("#incremento-anual-previo").val(incrementoAnual.toFixed(2));
+
+            incrementoAnualPrevio = $("#incremento-anual-previo").val();
+            totalAnosReconocidos = $("#total-anos-reconocidos").val();
+            total3 = incrementoAnualPrevio * totalAnosReconocidos;
+            $("#incremento-anual-a-la-cuantia-basica").val(total3);
+            total4 = total3 / 12;
+            $("#incremento-mensual-cuantia-basica").val(total4.toFixed(2));
+
+            $("#cuanta-anual-pension-basica").val(
+                $("#cuantia-basica-anual").val()
+            );
+
+            $("#cuanta-anual-pension-incremento").val(
+                $("#incremento-anual-a-la-cuantia-basica").val()
+            );
+
+            total5 = parseFloat($("#cuanta-anual-pension-incremento").val());
+            total6 = parseFloat($("#cuanta-anual-pension-basica").val());
+            total7 = total5 + total6;
+            $("#cuanta-anual-pension-igual").val(total7.toFixed(2));
+            total8 = total7 / 12;
+            $("#cuanta-anual-pension-igual-mensual").val(total8.toFixed(2));
+
+            // Ayuda Esposa
+            $("#asig-esposa-cuantia-anual-pension").val(total7.toFixed(2));
+            montoEsposa = $("#esposa").val() == "No" ? 0 : total7 * (15 / 100);
+            $("#asig-esposa-asignacion-viuda").val(montoEsposa.toFixed(2));
+            $("#asig-esposa-mensual").val((montoEsposa / 12).toFixed(2));
+
+            // Ayuda Hijos
+            $("#ayuda-hijos-cuantia-anual-pension").val(total7.toFixed(2));
+            hijos = $("#hijos").val();
+            $("#ayuda-hijos-nro-hijos").val(hijos);
+            total9 = total7 * (10 / 100) * hijos;
+            $("#ayuda-hijos-ayuda-anual").val(total9.toFixed(2));
+            $("#ayuda-hijos-mensual").val((total9 / 12).toFixed(2));
+
+            // Ayuda Padres
+            $("#ayuda-padres-anual-pesion").val(total7.toFixed(2));
+            padres = $("#padres").val();
+            $("#ayuda-padres-nro-padres").val(padres);
+
+            if ($("#esposa").val() == "Si" || hijos > 0) {
+                total10 = 0;
+            } else {
+                total10 = total7 * (20 / 100) * padres;
+            }
+            $("#ayuda-padres-ayuda-anual").val(total10.toFixed(2));
+            $("#ayuda-padres-anual").val((total10 / 12).toFixed(2));
+
+            // Ayuda por Soledad
+            $("#ayuda-soledad-anual-pension").val(total7.toFixed(2));
+            montosoledad =
+                $("#esposa").val() == "No" && hijos == 0 && padres == 0
+                    ? total7 * (15 / 100)
+                    : 0;
+            $("#ayuda-soledad-anual").val(montosoledad.toFixed(2));
+            $("#ayuda-soledad-mensual").val((montosoledad / 12).toFixed(2));
+
+            // Total ayudas
+            totalAyudas = montoEsposa + total9 + total10 + montosoledad;
+            $("#total-ayudas").val(totalAyudas.toFixed(2));
+            $("#total-ayudas-mensual").val((totalAyudas / 12).toFixed(2));
+            $("#total-ayuda-cuantia-anual").val(total7.toFixed(2));
+            $("#total-ayuda-cuantia-anual-mas-ayuda").val(
+                (totalAyudas + total7).toFixed(2)
+            );
+            $("#total-ayuda-cuantia-anual-ayuda-mensual").val(
+                ((totalAyudas + total7) / 12).toFixed(2)
+            );
+
+            $("#cuantia-anual-pension-mas-ayudas").val(
+                (totalAyudas + total7).toFixed(2)
+            );
+            $("#cuantia-anual-pension-mas-ayudas-mensual").val(
+                ((totalAyudas + total7) / 12).toFixed(2)
+            );
+            $("#igual-pension-anual-x-vejez").val(
+                ((totalAyudas + total7) * (111 / 100)).toFixed(2)
+            );
+            $("#igual-pension-anual-x-vejez-mensual").val(
+                (((totalAyudas + total7) * (111 / 100)) / 12).toFixed(2)
+            );
+
+            switch (edadJubilacion) {
+                case 60:
+                    $porc = 75;
+                    break;
+                case 61:
+                    $porc = 80;
+                    break;
+                case 62:
+                    $porc = 85;
+                    break;
+                case 63:
+                    $porc = 90;
+                    break;
+                case 64:
+                    $porc = 95;
+                    break;
+                case 65:
+                    $porc = 100;
+                    break;
+                default:
+                    $porc = 100;
+            }
+            $("#porc-pension-por-edad").val($porc);
+
+            pensionAnualVejez = (totalAyudas + total7) * (111 / 100);
+            $("#pension-anual-x-vejez-fin").val(pensionAnualVejez.toFixed(2));
+
+            $("#pension-anual-x-cesantia").val(
+                (pensionAnualVejez * ($porc / 100)).toFixed(2)
+            );
+
+            $("#pension-anual-x-cesantia-mensual").val(
+                ((pensionAnualVejez * ($porc / 100)) / 12).toFixed(2)
+            );
+
+            $("#pension-anual-fin").text(
+                $.number(pensionAnualVejez * ($porc / 100), 2, ",", ".")
+            );
+
+            $("#pension-mensual-fin").text(
+                $.number((pensionAnualVejez * ($porc / 100)) / 12, 2, ",", ".")
+            );
+        })
+        .fail(function(statusCode, errorThrown) {
+            $.unblockUI();
+            console.log(errorThrown);
+            ajaxError(statusCode, errorThrown);
+        });
 }

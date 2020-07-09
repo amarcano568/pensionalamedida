@@ -853,3 +853,183 @@ div[data-role="editor-toolbar"] {
 #resultado.ok {
     background-color: #2EB85C;
 }
+
+input[readonly] {
+    background-color: #EBEDEF !important;
+}
+
+.table-hoja-1 td {
+    border-bottom: 1px solid #ddd;
+    padding: 0.25em !important;
+}
+
+.ancho-columna-1 {
+    width: 80%;
+}
+
+.ancho-columna-2 {
+    width: 20%;
+}
+
+.table-columna1-cuantia {
+    width: 60%;
+}
+
+.table-columna2-cuantia {
+    width: 20%;
+}
+
+.table-columna3-cuantia {
+    width: 20%;
+}
+
+#table-formulas td {
+    border-bottom: 1px solid #ddd;
+    padding: 0.25em !important;
+}
+
+#modal-hoja-2-estrategias td {
+    border-bottom: 1px solid #ddd;
+    padding: 0.25em !important;
+}
+
+.input-xs {
+    height: 22px;
+    padding: 2px 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    /* If Placeholder of the input is moved up, rem/modify this. */
+    border-radius: 3px;
+}
+
+#table-cuantia-basica td {
+    border-bottom: 1px solid #ddd;
+    padding: 0.25em !important;
+}
+
+.blink_me {
+    animation: blinker 2s linear infinite;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
+
+#modal-formulas input:read-only {
+    text-align: right
+}
+
+#modal-hoja-1-pension-sin-estrategias input:read-only {
+    text-align: right
+}
+
+.x_content {
+    padding: 0 3px 6px;
+    position: relative;
+    width: 100%;
+    float: left;
+    clear: both;
+    margin-top: 5px;
+}
+
+.x_content h4 {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+@media (max-width: 1200px) {
+    .x_title h6 {
+        width: 62%;
+        font-size: 14px;
+    }
+
+    .tile,
+    .graph {
+        zoom: 76%;
+        height: inherit;
+    }
+
+    .item {
+        display: block;
+    }
+}
+
+@media (max-width: 1270px) and (min-width: 192px) {
+    .x_title h2 small {
+        display: none;
+    }
+}
+
+.x_title {
+    border-bottom: 2px solid #E6E9ED;
+    padding: 1px 5px 6px;
+    margin-bottom: 10px;
+}
+
+.x_title .filter {
+    width: 40%;
+    float: right;
+}
+
+.x_title h2 {
+    margin: 5px 0 6px;
+    float: left;
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.x_title h2 small {
+    margin-left: 10px;
+}
+
+.x_title span {
+    color: #BDBDBD;
+}
+
+.dashboard_graph .x_title {
+    padding: 5px 5px 7px;
+}
+
+.dashboard_graph .x_title h3 {
+    margin: 0;
+    font-weight: normal;
+}
+
+.panel_toolbox {
+    float: right;
+    min-width: 70px;
+    margin-top: -1.5em;
+}
+
+.panel_toolbox>li {
+    float: left;
+    cursor: pointer;
+}
+
+.panel_toolbox>li>a {
+    padding: 5px;
+    color: #C5C7CB;
+    font-size: 14px;
+}
+
+.panel_toolbox>li>a:hover {
+    background: #F5F7FA;
+}
+
+.x_content {
+    padding: 0 3px 6px;
+    position: relative;
+    width: 100%;
+    float: left;
+    clear: both;
+    margin-top: 5px;
+}
+
+.x_content h4 {
+    font-size: 16px;
+    font-weight: 500;
+}

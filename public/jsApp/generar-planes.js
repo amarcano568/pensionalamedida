@@ -21,6 +21,8 @@ $(document).on("ready", function() {
             "</ol>"
     );
 
+    $("html, body").animate({ scrollTop: 0 }, 1250);
+
     seeker($(".cliente-seeker"), "clientes", "/buscar-cliente");
 
     function seeker(element, name, url) {
@@ -42,13 +44,15 @@ $(document).on("ready", function() {
                             suggestion: function(data) {
                                 //console.log(data)
                                 return (
-                                    "<p><strong>" +
+                                    "<p><strong><span class='text-secondary'>" +
                                     data.id +
-                                    ": " +
+                                    ": </span>" +
                                     data.nombre +
                                     " " +
                                     data.apellidos +
-                                    "</strong></p>"
+                                    "<span class='text-secondary'> NSS: " +
+                                    data.nroSeguridadSocial +
+                                    "</span></strong></p>"
                                 );
                             }
                         },
@@ -73,6 +77,9 @@ $(document).on("ready", function() {
                 )
                 .on("typeahead:selected", function(evt, item) {
                     //console.log(evt);
+                    $("#formPaso1")
+                        .parsley()
+                        .reset();
                     if (name == "clientes") {
                         muestraCliente(
                             item.id,
@@ -249,7 +256,8 @@ $(document).on("ready", function() {
         selected: 0, // Initial selected step, 0 = first step
         theme: "arrows", // theme for the wizard, related css need to include for other than default theme
         justified: true, // Nav menu justification. true/false
-        autoAdjustHeight: true, // Automatically adjust content height
+        //autoAdjustHeight: true, // Automatically adjust content height
+        autoAdjustHeight: false,
         cycleSteps: false, // Allows to cycle the navigation of steps
         backButtonSupport: true, // Enable the back button support
         enableURLhash: true, // Enable selection of the step based on url hash
@@ -345,17 +353,34 @@ $(document).on("ready", function() {
     });
 
     $("#btn-cargar-cotizaciones").click(function(ev) {
+        idcliente = $("#idCliente").val();
+        if (idcliente == "" || idcliente === null) {
+            alertify.set("notifier", "position", "top-center");
+            alertify.error(
+                "<i class='fa-2x fas fa-exclamation-triangle'></i><br>Primero debe seleccionar un cliente.."
+            );
+            //alertify.set("notifier", "position", "bottom-right");
+            return false;
+        }
         $("#modal-cargar-cotizaciones").modal("show");
     });
 
+    $(".btn-cerrar-modal-cotizaciones").click(function(ev) {
+        if ($(".modal-backdrop").is(":visible")) {
+            $("body").removeClass("modal-open");
+            $(".modal-backdrop").remove();
+        }
+    });
+
     $(document).on(
-        "change",
+        "focusout",
         ".fechaCotizacionDesde, .fechaCotizacionHasta",
         function(event) {
             row = $(this).attr("row");
             fechaDesde = $("#fechaDesde" + row).val();
             fechaHasta = $("#fechaHasta" + row).val();
-
+            console.log(fechaDesde);
+            console.log(fechaHasta);
             $.ajax({
                 url: "/calcular-dias-entre-fechas",
                 type: "get",
@@ -382,7 +407,9 @@ $(document).on("ready", function() {
         totalDias = 0;
         $(".diasCotizacion").each(function() {
             row = $(this).attr("row");
-            totalDias += parseInt($("#dias" + row).val());
+            dias = $("#dias" + row).val();
+            dias = dias === NaN || dias === null || dias == "" ? 0 : dias;
+            totalDias += parseInt(dias);
         });
         if (totalDias < 875) {
             $("#totalDiasCotizados").attr(
@@ -401,6 +428,52 @@ $(document).on("ready", function() {
             );
         }
         $("#totalDiasCotizados").text(totalDias);
+
+        if (totalDias > 1750) {
+            diasExcedidos = totalDias - 1750;
+            $("#dias-cotizados").text(totalDias);
+            $("#dias-excedidos").text(diasExcedidos);
+            $("#dias-aceptados").text(totalDias - diasExcedidos);
+            $("#div-dias-excedidos").show(200);
+
+            $("#dias-excedidos-2").text(diasExcedidos + "d");
+            id = $("#table-cotizaciones tr:last").attr("id");
+            monto = parseFloat($("#monto" + id).val());
+            $("#ultimo-salario").text("$" + monto);
+            $("#salario-auxiliar").text("$" + diasExcedidos * monto);
+
+            totalSalarios =
+                parseFloat(calculaTotalSalarios()) -
+                parseFloat(diasExcedidos * monto);
+            $("#salarios-totales").text($.number(totalSalarios, 2, ",", "."));
+            $("#dias-totales").text(1750);
+            $("#promedio-salarios").text(
+                $.number(totalSalarios / 1750, 2, ",", ".")
+            );
+            $("#btn-hoja-1").show();
+        } else {
+            $("#btn-hoja-1").hide();
+            $("#div-dias-excedidos").hide();
+            $("#dias-cotizados").text(0);
+            $("#dias-excedidos").text(0);
+            $("#dias-aceptados").text(0);
+        }
+    }
+
+    function calculaTotalSalarios() {
+        totalSalarios = 0;
+        $(".totalCotizacion").each(function() {
+            row = $(this).attr("row");
+            montoSalario = $("#totalMontoCotizacion" + row).val();
+            montoSalario =
+                montoSalario === NaN ||
+                montoSalario === null ||
+                montoSalario == ""
+                    ? 0.0
+                    : montoSalario;
+            totalSalarios += parseFloat(montoSalario);
+        });
+        return totalSalarios;
     }
 
     function calculaTotalCotizacionDias(row) {
@@ -439,10 +512,17 @@ $(document).on("ready", function() {
     function agregarFila() {
         id = $("#table-cotizaciones tr:last").attr("id");
         ultimoMonto = $("#totalMontoCotizacion" + id).val();
-
         if (ultimoMonto == 0) {
             alertify.error(
                 '<i class="fa-2x fas fa-exclamation-triangle"></i><br>Por favor corrija la ultima cotización ingresada antes de intentar agregar una nueva cotización.'
+            );
+            return false;
+        }
+
+        totalDiasCotizados = parseInt($("#totalDiasCotizados").text());
+        if (totalDiasCotizados >= 1750) {
+            alertify.warning(
+                '<i class="fa-2x fas fa-exclamation-triangle"></i><br>Ya tiene superado los 1750 días cotizados.'
             );
             return false;
         }
@@ -460,35 +540,123 @@ $(document).on("ready", function() {
             '<tr class="row2" id="' +
             filas +
             '">' +
-            '<td><input type="date" row="' +
+            '<td class="altoFilaTable"><input type="date" row="' +
             filas +
             '" id="fechaDesde' +
             filas +
-            '" class="form-control fechaCotizacionDesde" ></td>' +
-            '<td><input type="date" row="' +
+            '" class="form-control-sm form-control fechaCotizacionDesde" ></td>' +
+            '<td class="altoFilaTable"><input type="date" row="' +
             filas +
             '" id="fechaHasta' +
             filas +
-            '" class="form-control fechaCotizacionHasta"></td>' +
-            '<td><input type="text" row="' +
+            '" class="form-control-sm form-control fechaCotizacionHasta"></td>' +
+            '<td class="altoFilaTable"><input type="text" row="' +
             filas +
             '" id="dias' +
             filas +
-            '" class="form-control diasCotizacion" readonly></td>' +
-            '<td><input type="number" row="' +
+            '" class="form-control-sm form-control diasCotizacion" readonly></td>' +
+            '<td class="altoFilaTable">' +
+            '<div class="input-group">' +
+            '<div class="input-group-prepend">' +
+            '<span class="input-group-text" id="basic-addon1"><i class="fas fa-dollar-sign"></i></span>' +
+            "</div>" +
+            '<input type="number" row="' +
             filas +
             '" id="monto' +
             filas +
-            '" class="form-control montoCotizacion" value="0"></td>' +
-            '<td><input type="text" row="' +
+            '" class="form-control-sm form-control montoCotizacion" value="0">' +
+            "</div>" +
+            "</td>" +
+            '<td class="altoFilaTable">' +
+            '<div class="input-group">' +
+            '<div class="input-group-prepend">' +
+            '<span class="input-group-text" id="basic-addon1"><i class="fas fa-dollar-sign"></i></span>' +
+            "</div>" +
+            '<input type="text" row="' +
             filas +
             '" id="totalMontoCotizacion' +
             filas +
-            '" class="form-control" readonly></td>' +
-            '<td><a href="#" class="borrar"><i class="text-danger far fa-trash-alt"></i></a></td>' +
+            '" class="form-control-sm form-control totalCotizacion" readonly>' +
+            "</div>" +
+            "</td>" +
+            '<td class="altoFilaTable"><a href="#" class="borrar"><i class="text-danger far fa-trash-alt"></i></a></td>' +
             "</tr>";
 
         $("#table-cotizaciones tbody").append(htmlTags);
         $("#fechaDesde" + filas).focus();
+    }
+
+    $("#modal-subir-excel").on("shown.bs.modal", function() {
+        $("#modal-cargar-cotizaciones").modal("hide");
+        iconoDropZone =
+            '<br><br><i class="far fa-file-excel"></i><br><h6>Click para subir el archivo excel con los movimientos salariales.</h6>';
+        configuraDropZone(iconoDropZone);
+    });
+
+    $("#modal-subir-excel").on("hidden.bs.modal", function() {
+        $("#modal-cargar-cotizaciones").modal("show");
+    });
+
+    function configuraDropZone(iconoDropZone) {
+        idMiembro = $("#idMiembro").val();
+        Dropzone.autoDiscover = false;
+        Dropzone.prototype.defaultOptions.dictRemoveFile = "Borrar archivo..";
+        // if (Dropzone.instances.length > 0)
+        //     Dropzone.instances.forEach(bz => bz.destroy());
+        $("#formDropZone").html("");
+        $("#formDropZone").append(
+            "<form action='/subir-excel-cotizaciones' method='POST' files='true' enctype='multipart/form-data' id='dZUpload' class='dropzone borde-dropzone' style='width: 100%;padding: 0;cursor: pointer;'>" +
+                "<div style='padding: 0;margin-top: 0em;' class='dz-default dz-message text-center'>" +
+                iconoDropZone +
+                "</div></form>"
+        );
+
+        myAwesomeDropzone = myAwesomeDropzone = {
+            maxFilesize: 12,
+            acceptedFiles: ".xlsx",
+            addRemoveLinks: true,
+            timeout: 50000,
+            maxFiles: 1,
+            removedfile: function(file) {
+                var name = file.name;
+                // console.log(name);
+                $.ajax({
+                    type: "post",
+                    url: "delete-logo",
+                    data: {
+                        filename: name
+                    },
+                    success: function(data) {
+                        console.log("File has been successfully removed!!");
+                    },
+                    error: function(e) {
+                        console.log(e);
+                    }
+                });
+                var fileRef;
+                return (fileRef = file.previewElement) != null
+                    ? fileRef.parentNode.removeChild(file.previewElement)
+                    : void 0;
+            },
+            params: {},
+            success: function(file, response) {
+                console.log(response);
+                $("#table-cotizaciones tbody").empty();
+                $("#body-cotizaciones").html(response.data);
+                sumaDiasCotizados();
+                $("#modal-subir-excel").modal("hide");
+            },
+            error: function(file, response) {
+                return false;
+            }
+        };
+
+        var myDropzone = new Dropzone("#dZUpload", myAwesomeDropzone);
+
+        // myDropzone.on("queuecomplete", function(file, response) {
+        //     if (Dropzone.instances.length > 0)
+        //         Dropzone.instances.forEach(bz => bz.destroy());
+        //     $("#ModalAgregarLogo").modal("hide");
+        // });
     }
 });

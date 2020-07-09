@@ -1,14 +1,23 @@
 <?php
 
 namespace App\Http\Controllers;
+//namespace App\Imports;
 
 use Illuminate\Http\Request;
 use \App\Pensiones;
 use \App\Clientes;
+use \App\Formulas_tabla;
+use \App\Cotizaciones;
 use Carbon\Carbon;
 use \DataTables;
 use Illuminate\Support\Facades\DB;
 use App\Traits\funcGral;
+use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+use App\Imports\CotizacionesImport;
+use MathParser\StdMathParser;
+use MathParser\Interpreting\Evaluator;
 
 class GestionarPensionesController extends Controller
 {
@@ -98,6 +107,7 @@ class GestionarPensionesController extends Controller
                 'apellidos' => $cliente->apellidos,
                 'email' => $cliente->email,
                 'nroDocumento' => $cliente->nroDocumento,
+                'nroSeguridadSocial' => $cliente->nroSeguridadSocial,
                 'fechaNacimiento' => $cliente->fechaNacimiento,
                 'edad' => Carbon::parse($cliente->fechaNacimiento)->age,
                 'direccion' => $cliente->direccion,
@@ -128,11 +138,11 @@ class GestionarPensionesController extends Controller
 
     public function generarPlanes()
     {
-        // $roles = Roles::get();
-        // $data = array(
-        //     'roles' => $roles,
-        // );
-        return view('pensiones.generar-planes');
+        $tablas = Formulas_tabla::get();
+        $data = array(
+            'tablas' => $tablas,
+        );
+        return view('pensiones.generar-planes',$data);
     }
 
     public function calcularDiasEntreFechas(Request $request)
@@ -143,5 +153,118 @@ class GestionarPensionesController extends Controller
         } catch (Exception $e) {
             return $this->internalException($e, __FUNCTION__);
         }
+    }
+
+    public function subirExcelCotizaciones(Request $request)
+    {
+
+        try {
+            $files    = $request->file('file');
+            $ext      = explode('/',$request->file('file')->getMimeType());
+            $fileName = $files->getClientOriginalName();
+            $extension = $request->file('file')->extension();
+            if ($extension == 'bin'){
+                $extension = $files->getClientOriginalExtension();
+            }
+            
+            \Storage::disk('public')->put($fileName,  \File::get($files));
+
+            Cotizaciones::truncate();
+            Excel::import(new CotizacionesImport, $fileName, 'public' );
+            Cotizaciones::where('desde','1970-01-01')->delete();
+
+            $cotizaciones = Cotizaciones::get();
+            $salida = '';
+            $i = 0;
+            foreach ($cotizaciones as $cotizacion)
+            {
+                ++$i;
+                $dias = $this->DiasEntreFechas($cotizacion->desde, $cotizacion->hasta);
+                $salida .= '<tr class="row2" id="'.$i.'">
+                                <td class="altoFilaTable">
+                                    <input type="date" row="'.$i.'" id="fechaDesde'.$i.'"
+                                        class="form-control-sm form-control fechaCotizacionDesde" value="'.$cotizacion->desde.'">
+                                </td>
+                                <td class="altoFilaTable">
+                                    <input type="date" row="'.$i.'" id="fechaHasta'.$i.'"
+                                        class="form-control-sm form-control fechaCotizacionHasta" value="'.$cotizacion->hasta.'">
+                                </td>
+                                <td class="altoFilaTable">
+                                    <input type="text" row="'.$i.'" id="dias'.$i.'"
+                                        class="form-control-sm form-control diasCotizacion" readonly value="'.$dias.'">
+                                </td>
+                                <td class="altoFilaTable">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-dollar-sign"></i></span>
+                                        </div>
+                                        <input type="number" row="'.$i.'" id="monto'.$i.'" class="form-control-sm form-control montoCotizacion" value="'.$cotizacion->salario.'">
+                                    </div>
+                                </td>
+                                <td class="altoFilaTable">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-dollar-sign"></i></span>
+                                        </div>
+                                        <input type="text" row="'.$i.'" id="totalMontoCotizacion'.$i.'" class="form-control-sm form-control totalCotizacion" readonly value="'.$dias*$cotizacion->salario.'">
+                                    </div>
+                                    
+                                </td>
+                                <td class="altoFilaTable">
+                                    <a href="#" class="borrar">
+                                        <i class="text-danger far fa-trash-alt"></i>
+                                    </a>
+                                </td>
+                            </tr>';
+            }
+
+            return response()->json(array('success' => true, 'mensaje' => 'Excel importado exitosamente', 'data' => $salida));
+            
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            $fallas = $e->failures();
+        
+            // foreach ($fallas as $falla) {
+            //     $falla->row(); // fila en la que ocurrió el error
+            //     $falla->attribute(); // el número de columna o la "llave" de la columna
+            //     $falla->errors(); // Errores de las validaciones de laravel
+            //     $falla->values(); // Valores de la fila en la que ocurrió el error.
+            // }
+            return $this->ValidationException($e, __FUNCTION__);
+        }
+       
+        
+    }
+
+    public function buscarCuantiaBasica(Request $request)
+    {
+        $valor = str_replace(",", ".", $request->salarioPromedioVsm);
+        $cuantia =  DB::table('formulas_tabla')
+        ->whereRaw('? >= de and ? <= a', [$valor,$valor])->first();
+
+        return response()->json(array('success' => true, 'mensaje' => 'Retornando cuantía básica de tablas', 'data' => $cuantia));
+    }
+
+    
+    public function calcularTiempoIndividualFaltanteRetiro(Request $request)
+    {
+        $tiempo = $this->TiempoIndividualFaltanteRetiro($request->fecNac, $request->edadA, $request->fecPlan);
+        return response()->json(array('success' => true, 'mensaje' => 'Datos del tiempo individual del retiro obtenido con exito', 'data' => $tiempo));
+    }
+
+    public function sumarDiasaFechaEstrategias(Request $request)
+    {
+        try {
+
+            $parser = new StdMathParser();
+            $resultado = $parser->parse($request->diasFormulaEvaluar);
+            $evaluator = new Evaluator();
+            $value = $resultado->accept($evaluator);
+           //echo($value);
+            $NewFecha = Carbon::parse($request->fechaDondesumar)->addDays($value)->format('Y-m-d'); 
+            return response()->json(array('success' => true, 'mensaje' => 'Dias sumados a la fecha', 'data' => $NewFecha));
+        } catch (Throwable $t) {
+            
+        }
+      
     }
 }

@@ -84,4 +84,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('calcular-anos-faltante', 'GestionarPensionesController@calcularAnosFaltante');
 	Route::get('generar-planes/{idPension}', 'GestionarPensionesController@generarPlanes');
 	Route::get('calcular-dias-entre-fechas', 'GestionarPensionesController@calcularDiasEntreFechas');
+	Route::post('subir-excel-cotizaciones', 'GestionarPensionesController@subirExcelCotizaciones');
+	Route::get('buscar-cuantia-basica', 'GestionarPensionesController@buscarCuantiaBasica');
+	Route::get('calcular-tiempo-individual-faltante-retiro', 'GestionarPensionesController@calcularTiempoIndividualFaltanteRetiro');
+	Route::get('sumar-dias-a-fecha-estrategias', 'GestionarPensionesController@sumarDiasaFechaEstrategias');
+	
 });

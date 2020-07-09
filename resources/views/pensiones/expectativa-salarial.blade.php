@@ -3,6 +3,7 @@
     <div class="card">
         <div class="card-header"><i class="far fa-money-bill-alt"></i> <strong>Expectativa</strong>
             <small>Salarial</small>
+            <button id="btn-formulas" class="float-right btn btn-success btn-sm"><i class="cil-functions"></i> Formulas</button>
         </div>
         <div class="card-body">
             <div class="row">
@@ -98,15 +99,43 @@
                 </div>
                 <div class="col-sm-2">
                     <div class="card shadow" style="height: 10.5em;">
-                        <div class="card-body">
-                            <h6 class="card-title"><i class="fas fa-people-arrows"></i> Asignaciones Familiares</h6>
+                        <div class="card-body" style="margin-top: -1em;">
+                            <span class="card-title" style="font-size: 12.5px;font-weight: bold;"><i class="fas fa-people-arrows"></i> Asignaciones Familiares</span>
+                            <br><br>
                             <div class="form-group row">
-                                <div class="col-md-12">
-                                    <input class="form-control" id="asignacionesFamiliares"
-                                        name="asignacionesFamiliares" type="text" value="15%">
+                                <div class="col-md-12" style="margin-top: -0.5em;">
+                                    <select name="esposa" id="esposa" class="chosen-select">
+                                        <option value="Si">Esposa: Si</option>
+                                        <option value="No">Esposa: No</option>
+                                    </select>
                                 </div>
                             </div>
-
+                            <div class="form-group row">
+                                <div class="col-md-12" style="margin-top: -0.5em;">
+                                    <select name="hijos" id="hijos" class="chosen-select">
+                                        <option value="0">Hijos: 0</option>
+                                        <option value="1">Hijos: 1</option>
+                                        <option value="2">Hijos: 2</option>
+                                        <option value="3">Hijos: 3</option>
+                                        <option value="4">Hijos: 4</option>
+                                        <option value="5">Hijos: 5</option>
+                                        <option value="6">Hijos: 6</option>
+                                        <option value="7">Hijos: 7</option>
+                                        <option value="8">Hijos: 8</option>
+                                        <option value="9">Hijos: 9</option>
+                                        <option value="10">Hijos: 10</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-12" style="margin-top: -0.5em;">
+                                    <select name="padres" id="padres" class="chosen-select">
+                                        <option value="0">Padres: 0</option>
+                                        <option value="1">Padres: 1</option>
+                                        <option value="2">Padres: 2</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -166,6 +195,22 @@
                             <div class="row">
                                 <div class="col-sm-12" id="divEdadCliente">
 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card shadow" style="height: 10.5em;">
+                        <div class="card-body">
+                            <h6 class="card-title"><i class="fas fa-feather-alt"></i> Otros datos</h6>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="fechaBaja">Fecha de baja</label>
+                                        <input class="form-control" id="fechaBaja"
+                                            name="fechaBaja" type="text" placeholder="Fecha de baja" required>
+                                    </div>
                                 </div>
                             </div>
                         </div>

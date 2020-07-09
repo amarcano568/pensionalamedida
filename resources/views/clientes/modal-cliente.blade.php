@@ -40,7 +40,7 @@
                                                     CURP
                                                 </label>
                                                 <input class="form-control" id="nroDocumento" name="nroDocumento" oninput="validarInput(this)"
-                                                    type="text" placeholder="Nro. de documento" required  data-parsley-required-message="<i class='cil-bolt'></i> El Número de CURP es requerido.">
+                                                    type="text" placeholder="CURP Ejemplo: VADP560117MDFLZZ00" required  data-parsley-required-message="<i class='cil-bolt'></i> El Número de CURP es requerido.">
                                                 <pre id="resultado"></pre>
                                                 </div>
                                             <div class="form-group col-sm-6">
@@ -48,7 +48,8 @@
                                                     Nro. Seguridad Social
                                                 </label>
                                                 <input class="form-control" id="nroSeguridadSocial" name="nroSeguridadSocial"
-                                                    type="text" placeholder="Nro. de Seguridad Social" required  data-parsley-required-message="<i class='cil-bolt'></i> El Número de Seguridad Social es requerido.">
+                                                    type="text" placeholder="NSS Ejemplo: 12345678901" required  data-parsley-required-message="<i class='cil-bolt'></i> El Número de Seguridad Social es requerido."  data-parsley-trigger="keyup" required data-parsley-type="number"
+                                                    data-parsley-trigger="keyup" data-parsley-minlength="11" data-parsley-maxlength="11">
                                             </div>
                                            
                                         </div>

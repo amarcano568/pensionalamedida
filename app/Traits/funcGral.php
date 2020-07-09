@@ -36,4 +36,26 @@ trait funcGral
         $fechaHasta = Carbon::parse($fechaHasta);
         return $fechaHasta->diffInDays($fechaDesde);
     }
+
+    public function TiempoIndividualFaltanteRetiro($fecNacimiento, $edadA, $fechaPlan)
+    {
+        $fechaRetiro = Carbon::parse($fecNacimiento)->addYear($edadA);
+
+        $fechaPlan = Carbon::parse($fechaPlan);
+
+        $anos =  $fechaPlan->diffInYears($fechaRetiro);
+        $meses =  $fechaPlan->diffInMonths($fechaRetiro);
+        $semanas =  $fechaPlan->diffInWeeks($fechaRetiro);
+        $dias =  $fechaPlan->diffInDays($fechaRetiro);
+
+        $detalleTiempo = [
+                            'anos' => $anos,
+                            'meses' => $meses,
+                            'semanas' => $semanas,
+                            'dias' => $dias
+                        ];
+        return $detalleTiempo;
+    }
+
+    
 }
