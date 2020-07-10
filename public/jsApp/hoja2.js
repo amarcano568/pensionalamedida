@@ -120,6 +120,7 @@ $(document).on("ready", function() {
     function cargaTablaCotizaciones() {
         filas = $("#table-cotizaciones >tbody >tr").length + 1;
         i = 0;
+        fila = $("#table-promedio-salarial-2 tr:last").attr("row");
         $(".diasCotizacion").each(function() {
             row = $(this).attr("row");
             fechaDesde = $("#fechaDesde" + row).val();
@@ -128,7 +129,7 @@ $(document).on("ready", function() {
             monto = $("#monto" + row).val();
             totalMontoCotizacion = $("#totalMontoCotizacion" + row).val();
             i++;
-            fila = $("#table-promedio-salarial-2 tr:last").attr("row");
+            fila++;
             agregarTablePromedio(
                 fila,
                 fechaDesde,
@@ -139,6 +140,7 @@ $(document).on("ready", function() {
                 i
             );
         });
+        totaldiasHojas2();
     }
 
     function agregarTablePromedio(
@@ -150,54 +152,53 @@ $(document).on("ready", function() {
         totalMontoCotizacion,
         i
     ) {
-        filas++;
         var htmlTags =
-            '<tr class="row2" id="' +
+            '<tr class="" id="' +
             filas +
             '">' +
             '<td colspan="2" style="vertical-align:middle" class="text-center"> Cotizaciones ' +
             i +
             "</td>" +
-            '<td class="altoFilaTable"><input type="date" row="' +
+            '<td class=""><input type="date" row="' +
             filas +
             '" id="promedio2fechaDesde' +
             filas +
-            '" class="form-control-sm form-control fechaCotizacionDesde" value="' +
+            '" class="input-xs form-control" value="' +
             fechaDesde +
             '" readonly></td>' +
-            '<td class="altoFilaTable"><input type="date" row="' +
+            '<td class=""><input type="date" row="' +
             filas +
             '" id="promedio2fechaHasta' +
             filas +
-            '" class="form-control-sm form-control fechaCotizacionHasta" value="' +
+            '" class="input-xs form-control" value="' +
             fechaHasta +
             '" readonly></td>' +
-            '<td class="altoFilaTable"><input type="text" row="' +
+            '<td class=""><input type="text" row="' +
             filas +
             '" id="promedio2dias' +
             filas +
-            '" class="form-control-sm form-control diasCotizacion" readonly value="' +
+            '" class="input-xs hoja-2-dias form-control" readonly value="' +
             dias +
             '"></td>' +
-            '<td class="altoFilaTable">' +
+            '<td class="">' +
             '<input type="number" row="' +
             filas +
             '" id="promedio2monto' +
             filas +
-            '" class="form-control-sm form-control montoCotizacion" readonly value="' +
+            '" class="input-xs form-control" readonly value="' +
             monto +
             '">' +
             "</td>" +
-            '<td class="altoFilaTable">' +
+            '<td class="">' +
             '<input type="text" row="' +
             filas +
             '" id="promedio2totalMontoCotizacion' +
             filas +
-            '" class="form-control-sm form-control totalCotizacion" readonly value="' +
-            totalMontoCotizacion +
+            '" class="input-xs form-control totalCotizacion" readonly value="' +
+            $.number(totalMontoCotizacion, 2, ",", ".") +
             '">' +
             "</td>" +
-            '<td class="altoFilaTable"><a href="#" class="borrar"><i class="text-danger far fa-trash-alt"></i></a></td>' +
+            '<td class=""><a href="#" class="hoja-2-borrar-cotizacion"><i class="text-danger far fa-trash-alt"></i></a></td>' +
             "</tr>";
 
         $("#table-promedio-salarial-2 tbody").append(htmlTags);
@@ -503,6 +504,58 @@ $(document).on("ready", function() {
         });
     });
 
+    $("#modal-hoja-2-estrategias").on("hide.bs.modal", function() {
+        totaldiasHojas2();
+    });
+
+    function totaldiasHojas2() {
+        diasTotal = 0;
+        $(".hoja-2-dias").each(function() {
+            dias = $(this).val();
+            console.log(dias);
+            if (dias != "") {
+                diasTotal += parseInt(dias);
+            }
+        });
+
+        totalCotiza = 0;
+        $(".totalCotizacion").each(function() {
+            totalCotizacion = $(this).val();
+            //nsole.log(dias);
+            if (totalCotizacion != "") {
+                totalCotiza += parseInt(totalCotizacion);
+            }
+        });
+
+        if (diasTotal < 1750) {
+            $("#hoja-2-total-dias").val($.number(diasTotal, 2, ",", "."));
+            $("#hoja-2-dias-excedidos").val($.number(0, 2, ",", "."));
+            $("#hoja-2-dias-equivalentes-250").val($.number(0, 2, ",", "."));
+            $("#hoja-2-total-dias").attr(
+                "style",
+                "text-shadow: 1px 1px 2px black, 0 0 25px red, 0 0 5px darkred;color: white;"
+            );
+            return false;
+        }
+        $("#hoja-2-total-dias").attr(
+            "style",
+            "text-shadow: 1px 1px 2px black, 0 0 25px lime, 0 0 5px darkgreen;color: white;"
+        );
+        diasExcedidos = diasTotal - 1750;
+        diasEquivalentes250 = diasTotal - diasExcedidos;
+        salarioNeto = diasExcedidos * monto;
+        $("#hoja-2-total-dias").val($.number(diasTotal, 2, ",", "."));
+        $("#hoja-2-dias-excedidos").val($.number(diasExcedidos, 2, ",", "."));
+        $("#hoja-2-dias-equivalentes-250").val(
+            $.number(diasEquivalentes250, 2, ",", ".")
+        );
+
+        id = $("#body-promedio-salarial-2 tr:last").attr("id");
+        monto = parseFloat($("#promedio2monto" + id).val());
+        $("#hoja-2-salarios-excedidos").val($.number(monto, 2, ",", "."));
+        $("#hoja-2-salarios-neto").val($.number(salarioNeto, 2, ",", "."));
+    }
+
     $(".deleteEstrategia").click(function(event) {
         event.preventDefault();
         estrategia = $(this).attr("estrategia");
@@ -518,5 +571,13 @@ $(document).on("ready", function() {
         $("#hoja-2-costo-estrategia-" + estrategia).val("");
         $("#hoja-2-otro-valor-estrategia-" + estrategia).val("");
         $(".estrategia-" + estrategia).val("");
+    });
+
+    $(document).on("click", ".hoja-2-borrar-cotizacion", function(event) {
+        event.preventDefault();
+        $(this)
+            .closest("tr")
+            .remove();
+        totaldiasHojas2();
     });
 });

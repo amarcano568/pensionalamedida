@@ -4,9 +4,19 @@
         padding: 0.25em !important;
     }
 
+    #body-calculos-salarial-2 td {
+        border-bottom: 1px solid #ddd;
+        padding: 0.25em !important;
+    }
+
     #body-promedio-salarial-2 input:read-only {
         text-align: right;
     }
+
+    #body-calculos-salarial-2 input:read-only {
+        text-align: right;
+    }
+
 </style>
 <form id="formPaso2"  method="post" enctype="multipart/form-data" data-parsley-validate="">
     @csrf
@@ -39,9 +49,9 @@
                                 <td class="">M40 -ALTO 2</td>
                                 <td class=""><input id="hoja-2-fecha-desde-mod40-alto" name="hoja-2-fecha-desde-mod40-alto" type="text" class="estrategia-6 form-control input-xs" readonly></td>
                                 <td class=""><input id="hoja-2-fecha-hasta-mod40-alto" name="hoja-2-fecha-hasta-mod40-alto"  type="text" class="estrategia-6 form-control input-xs" readonly></td>
-                                <td class=""><input id="hoja-2-dias-mod40-alto" name="hoja-2-dias-mod40-alto"  type="text" class="estrategia-6 form-control input-xs" readonly></td>
+                                <td class=""><input id="hoja-2-dias-mod40-alto" name="hoja-2-dias-mod40-alto"  type="text" class="hoja-2-dias estrategia-6 form-control input-xs" readonly></td>
                                 <td class=""><input id="hoja-2-sbc-mod40-alto" name="hoja-2-sbc-mod40-alto"  type="text" class="estrategia-6 form-control input-xs" readonly></td>
-                                <td class=""><input id="hoja-2-monto-base-mod40-alto" name="hoja-2-monto-base-mod40-alto" type="text" class="estrategia-6 form-control input-xs" readonly></td>
+                                <td class=""><input id="hoja-2-monto-base-mod40-alto" name="hoja-2-monto-base-mod40-alto" type="text" class="estrategia-6 form-control input-xs totalCotizacion" readonly></td>
                                 <td></td>
                             </tr>
                             <tr row="3">
@@ -49,9 +59,9 @@
                                 <td class="">RETROACTIVO</td>
                                 <td class=""><input id="hoja-2-fecha-desde-mod40-retroactivo" name="hoja-2-fecha-desde-mod40-retroactivo" type="text" class="estrategia-3 form-control input-xs" readonly></td>
                                 <td class=""><input id="hoja-2-fecha-hasta-mod40-retroactivo" name="hoja-2-fecha-hasta-mod40-retroactivo" type="text" class="estrategia-3 form-control input-xs" readonly></td>
-                                <td class=""><input id="hoja-2-dias-mod40-retroactivo" name="hoja-2-dias-mod40-retroactivo"  type="text" type="text" class="estrategia-3 form-control input-xs" readonly></td>
+                                <td class=""><input id="hoja-2-dias-mod40-retroactivo" name="hoja-2-dias-mod40-retroactivo"  type="text" type="text" class="hoja-2-dias estrategia-3 form-control input-xs" readonly></td>
                                 <td class=""><input id="hoja-2-sbc-mod40-retroactivo" name="hoja-2-sbc-mod40-retroactivo"  type="text"  type="text" class="estrategia-3 form-control input-xs" readonly></td>
-                                <td class=""><input id="hoja-2-monto-base-mod40-retroactivo" name="hoja-2-monto-base-mod40-retroactivo" type="text" class="estrategia-3 form-control input-xs" readonly></td>
+                                <td class=""><input id="hoja-2-monto-base-mod40-retroactivo" name="hoja-2-monto-base-mod40-retroactivo" type="text" class="estrategia-3 form-control input-xs totalCotizacion" readonly></td>
                                 <td></td>
                             </tr>
                             <tr row="4">
@@ -59,9 +69,9 @@
                                 <td class="">M40 BARATA</td>
                                 <td class=""><input id="hoja-2-fecha-desde-mod40-barata" name="hoja-2-fecha-desde-mod40-barata" type="text" class="estrategia-5 form-control input-xs" readonly></td>
                                 <td class=""><input id="hoja-2-fecha-hasta-mod40-barata" name="hoja-2-fecha-hasta-mod40-barata" type="text" class="estrategia-5 form-control input-xs" readonly></td>
-                                <td class=""><input id="hoja-2-dias-mod40-barata" name="hoja-2-dias-mod40-barata" type="text" class="estrategia-5 form-control input-xs" readonly></td>
+                                <td class=""><input id="hoja-2-dias-mod40-barata" name="hoja-2-dias-mod40-barata" type="text" class="hoja-2-dias estrategia-5 form-control input-xs" readonly></td>
                                 <td class=""><input id="hoja-2-sbc-mod40-barata" name="hoja-2-sbc-mod40-barata" type="text" class="estrategia-5 form-control input-xs" readonly></td>
-                                <td class=""><input id="hoja-2-monto-base-mod40-barata" name="hoja-2-monto-base-mod40-barata" type="text" class="estrategia-5 form-control input-xs" readonly></td>
+                                <td class=""><input id="hoja-2-monto-base-mod40-barata" name="hoja-2-monto-base-mod40-barata" type="text" class="estrategia-5 form-control input-xs totalCotizacion" readonly></td>
                                 <td></td>
                             </tr>
                             <tr row="5">
@@ -69,9 +79,9 @@
                                 <td class="">COOPERATIVA</td>
                                 <td class=""><input id="hoja-2-fecha-desde-cooperativa" name="hoja-2-fecha-desde-cooperativa" type="text" class="estrategia-2 form-control input-xs" readonly></td>
                                 <td class=""><input id="hoja-2-fecha-hasta-cooperativa" name="hoja-2-fecha-hasta-cooperativa" type="text" class="estrategia-2 form-control input-xs" readonly></td>
-                                <td class=""><input id="hoja-2-dias-cooperativa" name="hoja-2-dias-cooperativa" type="text" class="estrategia-2 form-control input-xs" readonly></td>
+                                <td class=""><input id="hoja-2-dias-cooperativa" name="hoja-2-dias-cooperativa" type="text" class="hoja-2-dias estrategia-2 form-control input-xs" readonly></td>
                                 <td class=""><input id="hoja-2-sbc-cooperativa" name="hoja-2-sbc-cooperativa" type="text" class="estrategia-2 form-control input-xs" readonly></td>
-                                <td class=""><input id="hoja-2-monto-base-cooperativa" name="hoja-2-monto-base-cooperativa" type="text" class="estrategia-2 form-control input-xs" readonly></td>
+                                <td class=""><input id="hoja-2-monto-base-cooperativa" name="hoja-2-monto-base-cooperativa" type="text" class="estrategia-2 form-control input-xs totalCotizacion" readonly></td>
                                 <td></td>
                             </tr>
                             <tr row="6" style="background-color: #EBEDEF">
@@ -82,14 +92,42 @@
                                 <td class="">M40 YA PAGADA</td>
                                 <td class=""><input id="hoja-2-fecha-desde-m40-pagada" name="hoja-2-fecha-desde-m40-pagada" type="text" class="estrategia-4 form-control input-xs" readonly></td>
                                 <td class=""><input id="hoja-2-fecha-hasta-m40-pagada" name="hoja-2-fecha-hasta-m40-pagada" type="text" class="estrategia-4 form-control input-xs" readonly></td>
-                                <td class=""><input id="hoja-2-dias-m40-pagada" name="hoja-2-dias-m40-pagada" type="text" class="estrategia-4 form-control input-xs" readonly></td>
+                                <td class=""><input id="hoja-2-dias-m40-pagada" name="hoja-2-dias-m40-pagada" type="text" class="hoja-2-dias estrategia-4 form-control input-xs" readonly></td>
                                 <td class=""><input id="hoja-2-sbc-m40-pagada" name="hoja-2-sbc-m40-pagada" type="text" class="estrategia-4 form-control input-xs" readonly></td>
-                                <td class=""><input id="hoja-2-monto-base-m40-pagada" name="hoja-2-monto-base-m40-pagada" type="text" class="estrategia-4 form-control input-xs" readonly></td>
+                                <td class=""><input id="hoja-2-monto-base-m40-pagada" name="hoja-2-monto-base-m40-pagada" type="text" class="estrategia-4 form-control input-xs totalCotizacion" readonly></td>
                                 <td></td>
                             </tr>
 
                         </tbody>
                     </table>
+
+                    <table id="table-calculos-salarial-2" style="display: table;width: 100%" class="table table-hover">
+                        <tbody id="body-calculos-salarial-2">
+                            <tr row="1" style="background-color: #EEFAEE">
+                                <td colspan="2" style="width: 35%" class="text-center"></td>
+                                <td style="width: 12.5%" class="text-center">TOTAL DIAS</td>
+                                <td style="width: 12.5%" class="text-center"><input id="hoja-2-total-dias" name="hoja-2-total-dias" type="text" class="form-control input-xs" readonly></td>
+                                <td colspan="2" style="width: 25%" class="text-center"></td>
+                                <td></td>
+                            </tr>
+                            <tr row="1" style="background-color: #EEFAEE">
+                                <td colspan="2" style="width: 35%" class="text-center"></td>
+                                <td style="width: 12.5%" class="text-center text-danger">EXCEDIDOS -</td>
+                                <td style="width: 12.5%" class="text-center"><input id="hoja-2-dias-excedidos" name="hoja-2-dias-excedidos" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 12.5%" class="text-center"><input id="hoja-2-salarios-excedidos" name="hoja-2-salarios-excedidos" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 12.5%" class="text-danger"><input id="hoja-2-salarios-neto" name="hoja-2-salarios-neto" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 12.5%" ></td>
+                            </tr>
+                            <tr row="1" style="background-color: #EEFAEE">
+                                <td colspan="3" style="width: 60%" class="text-right text-primary">DIAS EQUIVALENTES ULTIMAS 250 SEMANAS -</td>
+                                <td style="width: 12.5%" class="text-center"><input id="hoja-2-dias-equivalentes-250" name="hoja-2-dias-equivalentes-250" type="text" class="form-control input-xs" readonly></td>
+                                <td colspan="2" style="width: 25%" class="text-center"></td>
+                                <td></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
                 </div>
                 <div class="col-sm-4" >
                     <table id="table-cuantia-basica" style="display: table;width: 100%"
