@@ -129,6 +129,14 @@ class GestionarPensionesController extends Controller
         return response()->json(array('success' => true, 'mensaje' => 'Datos del cliente obtenido', 'data' => $edad));
     }
 
+    public function edadCliente(Request $request)
+    {
+        $fecNac = Carbon::parse($request->fecNac);
+        $fechaRetiro = Carbon::parse($request->fechaFutura);
+        $edad =  $fecNac->diff($fechaRetiro)->format('%y Años, %m meses');
+        return response()->json(array('success' => true, 'mensaje' => 'Datos del cliente obtenido', 'data' => $edad));
+    }
+
     public function calcularAnosFaltante(Request $request)
     {
 

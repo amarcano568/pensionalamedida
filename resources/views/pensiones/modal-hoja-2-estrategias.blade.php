@@ -18,26 +18,26 @@ data-keyboard="false">
                         class="table-hoja-2 table table-hover">
                         <tbody id="body-hoja1-1">
                             <tr>
-                                <td class="table-columna1-cuantia">
+                                <td style="width: 60%">
                                     <i class="cil-calendar"></i>
                                     Fecha de Nacimiento
                                 </td>
-                                <td class="table-columna2-cuantia"><input id="hoja-2-fecha-nacimiento"
+                                <td style="width: 40%"><input id="hoja-2-fecha-nacimiento"
                                         name="hoja-2-fecha-nacimiento" type="text" class="form-control input-xs"
                                         readonly></td>
                             </tr>
                             <tr>
-                                <td class="table-columna1-cuantia">
+                                <td style="width: 60%">
                                     <i class="cil-calendar"></i>
                                     Fecha del Plan
                                 </td>
-                                <td class="table-columna2-cuantia"><input id="hoja-2-fecha-plan"
+                                <td style="width: 40%"><input id="hoja-2-fecha-plan"
                                         name="hoja-2-fecha-plan" type="text" class="form-control input-xs"
                                         readonly></td>
                             </tr>
                             <tr>
-                                <td class="table-columna1-cuantia"><i class="cil-birthday-cake"></i> Edad</td>
-                                <td class="table-columna2-cuantia"><input id="hoja-2-edad" name="hoja-2-edad"
+                                <td style="width: 60%"><i class="cil-birthday-cake"></i> Edad</td>
+                                <td style="width: 40%"><input id="hoja-2-edad" name="hoja-2-edad"
                                         type="text" class="form-control input-xs" readonly></td>
                             </tr>
                         </tbody>
@@ -128,30 +128,56 @@ data-keyboard="false">
                                 <td colspan="3" class="text-center table-columna1-cuantia">Expectativas</td>
                             </tr>
                             <tr>
-                                <td class="">Edades</td>
-                                <td class=""><input id="hoja-2-edad-desde"
-                                        name="hoja-2-edad-desde" type="text"
-                                        class="form-control input-xs" readonly></td>
-                                <td class=""><input id="hoja-2-edad-hasta"
-                                        name="hoja-2-edad-hasta" type="text"
-                                        class="form-control input-xs" readonly></td>
-                            </tr>
-                            <tr>
-                                <td class="table-columna1-cuantia">Monto Pensión</td>
-                                <td class="table-columna2-cuantia"><input id="hoja-2-monto-pension-desde"
-                                        name="hoja-2-monto-pension-desde" type="text" class="form-control input-xs"
-                                        readonly></td>
-                                <td class="table-columna2-cuantia"><input id="hoja-2-monto-pension-hasta"
-                                        name="hoja-2-monto-pension-hasta" type="text" class="form-control input-xs"
-                                        readonly></td>
-                            </tr>
-                            <tr>
-                                <td class="table-columna1-cuantia">Pagos</td>
-                                <td class="table-columna2-cuantia"><input id="hoja-2-pagos-desde"
-                                        name="hoja-2-pagos-desde" type="text" class="form-control input-xs" readonly>
+                                <td style="width: 33%">Edades</td>
+                                <td style="width: 33%">
+                                    <input id="hoja-2-edad-desde" name="hoja-2-edad-desde" type="text" class="form-control input-xs" readonly>
                                 </td>
-                                <td class="table-columna2-cuantia"><input id="hoja-2-pagos-hasta"
+                                <td style="width: 33%">
+                                    <input id="hoja-2-edad-hasta" name="hoja-2-edad-hasta" type="text" class="form-control input-xs" readonly>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 33%">Monto Pensión</td>
+                                <td style="width: 33%">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input id="hoja-2-monto-pension-desde" name="hoja-2-monto-pension-desde" type="text" class="form-control input-xs"
+                                        readonly>
+                                    </div>                                    
+                                </td>
+                                <td style="width: 33%">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input id="hoja-2-monto-pension-hasta"
+                                        name="hoja-2-monto-pension-hasta" type="text" class="form-control input-xs"
+                                        readonly>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 33%">Pagos</td>
+                                <td style="width: 33%">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input id="hoja-2-pagos-desde"
+                                        name="hoja-2-pagos-desde" type="text" class="form-control input-xs" readonly>
+                                    </div>                                    
+                                </td>
+                                <td style="width: 33%">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input id="hoja-2-pagos-hasta"
                                         name="hoja-2-pagos-hasta" type="text" class="form-control input-xs" readonly>
+                                    </div>
+                                    
                                 </td>
                             </tr>
                         </tbody>
@@ -205,16 +231,44 @@ data-keyboard="false">
                                 <td style="width: 10%" class="text-center"><input estrategia="1" id="hoja-2-edad-estrategia-1" name="hoja-2-edad-estrategia-1" type="text" class="form-control input-xs" readonly></td>
                                 <td style="width: 10%" class="text-center"><input estrategia="1" id="hoja-2-anos-estrategia-1" name="hoja-2-anos-estrategia-1" type="text" class="form-control input-xs" readonly></td>
                                 <td style="width: 10%" class="text-center"><input estrategia="1" id="hoja-2-meses-estrategia-1" name="hoja-2-meses-estrategia-1" type="text" class="form-control input-xs" readonly></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="1" id="hoja-2-semanas-estrategia-1" name="hoja-2-semanas-estrategia-1" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 10%" class="text-center"><input estrategia="1" id="hoja-2-semanas-estrategia-1" name="hoja-2-semanas-estrategia-1" type="text" class="form-control input-xs semanas-cotizadas-estrategia" readonly></td>
                                 <td style="width: 10%" class="text-center"><input estrategia="1" id="hoja-2-dias-estrategia-1" name="hoja-2-dias-estrategia-1" type="text" class="form-control input-xs" readonly></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="1" id="hoja-2-sbc-estrategia-1" name="hoja-2-sbc-estrategia-1" type="text" class="sbc-monto-estrategia form-control input-xs"></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="1" id="hoja-2-total-estrategia-1" name="hoja-2-total-estrategia-1" type="text" class="form-control input-xs" readonly></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="1" id="hoja-2-costo-estrategia-1" name="hoja-2-costo-estrategia-1" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 10%" class="text-center">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input estrategia="1" id="hoja-2-sbc-estrategia-1" name="hoja-2-sbc-estrategia-1" type="number" class="sbc-monto-estrategia form-control input-xs">
+                                    </div>                                    
+                                </td>
+                                <td style="width: 10%" class="text-center">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input estrategia="1" id="hoja-2-total-estrategia-1" name="hoja-2-total-estrategia-1" type="text" class="form-control input-xs" readonly>
+                                    </div>                                     
+                                </td>
+                                <td style="width: 10%" class="text-center">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input estrategia="1" id="hoja-2-costo-estrategia-1" name="hoja-2-costo-estrategia-1" type="text" class="form-control input-xs" readonly>
+                                    </div>                                
+                                </td>
                             </tr>
                             <tr style="background-color: #EBEDEF">
                                 <td><a href=""><i estrategia="1" class="deleteEstrategia text-danger far fa-trash-alt"></i></a></td>
                                 <td colspan="8" style="width: 10%" class="text-center"></td>
-                                <td style="width: 10%" class="text-center"><input type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 10%" class="text-center">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input type="text" class="form-control input-xs" readonly>
+                                    </div>                                    
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -263,22 +317,57 @@ data-keyboard="false">
                                     </div>
                                     <input id="hoja-2-fecha-hasta-estrategia-2" name="hoja-2-fecha-hasta-estrategia-2" type="date" class="form-control input-xs" readonly>
                                 </td>
-                                <td style="width: 10%" class="text-center"><input estrategia="2" id="hoja-2-edad-estrategia-2" name="hoja-2-edad-estrategia-1" type="text" class="form-control input-xs" readonly></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="2" id="hoja-2-anos-estrategia-2" name="hoja-2-anos-estrategia-1" type="text" class="form-control input-xs" readonly></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="2" id="hoja-2-meses-estrategia-2" name="hoja-2-meses-estrategia-1" type="text" class="form-control input-xs" readonly></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="2" id="hoja-2-semanas-estrategia-2" name="hoja-2-semanas-estrategia-1" type="text" class="form-control input-xs" readonly></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="2" id="hoja-2-dias-estrategia-2" name="hoja-2-dias-estrategia-1" type="text" class="form-control input-xs" readonly></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="2" id="hoja-2-sbc-estrategia-2" name="hoja-2-sbc-estrategia-1" type="text" class="form-control input-xs sbc-monto-estrategia"></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="2" id="hoja-2-total-estrategia-2" name="hoja-2-total-estrategia-1" type="text" class="form-control input-xs" readonly></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="2" id="hoja-2-costo-estrategia-2" name="hoja-2-costo-estrategia-1" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 10%" class="text-center"><input estrategia="2" id="hoja-2-edad-estrategia-2" name="hoja-2-edad-estrategia-2" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 10%" class="text-center"><input estrategia="2" id="hoja-2-anos-estrategia-2" name="hoja-2-anos-estrategia-2" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 10%" class="text-center"><input estrategia="2" id="hoja-2-meses-estrategia-2" name="hoja-2-meses-estrategia-2" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 10%" class="text-center"><input estrategia="2" id="hoja-2-semanas-estrategia-2" name="hoja-2-semanas-estrategia-2" type="text" class="form-control input-xs semanas-cotizadas-estrategia" readonly></td>
+                                <td style="width: 10%" class="text-center"><input estrategia="2" id="hoja-2-dias-estrategia-2" name="hoja-2-dias-estrategia-2" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 10%" class="text-center">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input estrategia="2" id="hoja-2-sbc-estrategia-2" name="hoja-2-sbc-estrategia-2" type="number" class="form-control input-xs sbc-monto-estrategia">
+                                    </div>                                    
+                                </td>
+                                <td style="width: 10%" class="text-center">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input estrategia="2" id="hoja-2-total-estrategia-2" name="hoja-2-total-estrategia-1" type="text" class="form-control input-xs" readonly>
+                                    </div>                                    
+                                </td>
+                                <td style="width: 10%" class="text-center">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input estrategia="2" id="hoja-2-costo-estrategia-2" name="hoja-2-costo-estrategia-1" type="text" class="form-control input-xs" readonly>
+                                    </div>                                    
+                                </td>
                             </tr>
                             <tr style="background-color: #EBEDEF">
                                 <td><a href=""><i estrategia="2" class="deleteEstrategia text-danger far fa-trash-alt"></i></a></td>
                                 <td colspan="3" style="width: 10%" class="text-center"></td>
                                 <td colspan="3" class="text-right">Inscripción costo</td>
-                                <td><input estrategia="2" id="hoja-2-inscripcion-cooperativa-estrategia-2" name="hoja-2-inscripcion-cooperativa-estrategia-1" type="text" class="form-control input-xs" value="0"></td>
+                                <td>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input estrategia="2" id="hoja-2-inscripcion-cooperativa-estrategia-2" name="hoja-2-inscripcion-cooperativa-estrategia-1" type="text" class="form-control input-xs" value="0">
+                                    </div>                                    
+                                </td>
                                 <td></td>
-                                <td style="width: 10%" class="text-center"><input id="hoja-2-otro-valor-estrategia-2" name="hoja-2-otro-valor-estrategia-2" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 10%" class="text-center">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input id="hoja-2-otro-valor-estrategia-2" name="hoja-2-otro-valor-estrategia-2" type="text" class="form-control input-xs" readonly>
+                                    </div>                                    
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -327,19 +416,47 @@ data-keyboard="false">
                                     </div>
                                     <input id="hoja-2-fecha-hasta-estrategia-3" name="hoja-2-fecha-hasta-estrategia-3" type="date" class="form-control input-xs" readonly>
                                 </td>
-                                <td style="width: 10%" class="text-center"><input estrategia="3" id="hoja-2-edad-estrategia-3" name="hoja-2-edad-estrategia-1" type="text" class="form-control input-xs" readonly></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="3" id="hoja-2-anos-estrategia-3" name="hoja-2-anos-estrategia-1" type="text" class="form-control input-xs" readonly></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="3" id="hoja-2-meses-estrategia-3" name="hoja-2-meses-estrategia-1" type="text" class="form-control input-xs" readonly></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="3" id="hoja-2-semanas-estrategia-3" name="hoja-2-semanas-estrategia-1" type="text" class="form-control input-xs" readonly></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="3" id="hoja-2-dias-estrategia-3" name="hoja-2-dias-estrategia-1" type="text" class="form-control input-xs" readonly></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="3" id="hoja-2-sbc-estrategia-3" name="hoja-2-sbc-estrategia-1" type="text" class="form-control input-xs sbc-monto-estrategia"></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="3" id="hoja-2-total-estrategia-3" name="hoja-2-total-estrategia-1" type="text" class="form-control input-xs" readonly></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="3" id="hoja-2-costo-estrategia-3" name="hoja-2-costo-estrategia-1" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 10%" class="text-center"><input estrategia="3" id="hoja-2-edad-estrategia-3" name="hoja-2-edad-estrategia-3" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 10%" class="text-center"><input estrategia="3" id="hoja-2-anos-estrategia-3" name="hoja-2-anos-estrategia-3" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 10%" class="text-center"><input estrategia="3" id="hoja-2-meses-estrategia-3" name="hoja-2-meses-estrategia-3" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 10%" class="text-center"><input estrategia="3" id="hoja-2-semanas-estrategia-3" name="hoja-2-semanas-estrategia-3" type="text" class="form-control input-xs semanas-cotizadas-estrategia" readonly></td>
+                                <td style="width: 10%" class="text-center"><input estrategia="3" id="hoja-2-dias-estrategia-3" name="hoja-2-dias-estrategia-3" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 10%" class="text-center">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input estrategia="3" id="hoja-2-sbc-estrategia-3" name="hoja-2-sbc-estrategia-3" type="number" class="form-control input-xs sbc-monto-estrategia">
+                                    </div>                                    
+                                </td>
+                                <td style="width: 10%" class="text-center">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input estrategia="3" id="hoja-2-total-estrategia-3" name="hoja-2-total-estrategia-1" type="text" class="form-control input-xs" readonly>
+                                    </div>                                    
+                                </td>
+                                <td style="width: 10%" class="text-center">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input estrategia="3" id="hoja-2-costo-estrategia-3" name="hoja-2-costo-estrategia-1" type="text" class="form-control input-xs" readonly>
+                                    </div>                                    
+                                </td>
                             </tr>
                             <tr style="background-color: #EBEDEF">
                                 <td><a href=""><i estrategia="3" class="deleteEstrategia text-danger far fa-trash-alt"></i></a></td>
                                 <td colspan="8" style="width: 10%" class="text-center"></td>
-                                <td style="width: 10%" class="text-center"><input id="hoja-2-otro-valor-estrategia-3" name="hoja-2-otro-valor-estrategia-3" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 10%" class="text-center">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input id="hoja-2-otro-valor-estrategia-3" name="hoja-2-otro-valor-estrategia-3" type="text" class="form-control input-xs" readonly>
+                                    </div>                                     
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -388,19 +505,47 @@ data-keyboard="false">
                                     </div>
                                     <input id="hoja-2-fecha-hasta-estrategia-4" name="hoja-2-fecha-hasta-estrategia-4" type="date" class="form-control input-xs" readonly>
                                 </td>
-                                <td style="width: 10%" class="text-center"><input estrategia="4" id="hoja-2-edad-estrategia-4" name="hoja-2-edad-estrategia-1" type="text" class="form-control input-xs" readonly></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="4" id="hoja-2-anos-estrategia-4" name="hoja-2-anos-estrategia-1" type="text" class="form-control input-xs" readonly></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="4" id="hoja-2-meses-estrategia-4" name="hoja-2-meses-estrategia-1" type="text" class="form-control input-xs" readonly></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="4" id="hoja-2-semanas-estrategia-4" name="hoja-2-semanas-estrategia-1" type="text" class="form-control input-xs" readonly></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="4" id="hoja-2-dias-estrategia-4" name="hoja-2-dias-estrategia-1" type="text" class="form-control input-xs" readonly></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="4" id="hoja-2-sbc-estrategia-4" name="hoja-2-sbc-estrategia-1" type="text" class="form-control input-xs sbc-monto-estrategia"></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="4" id="hoja-2-total-estrategia-4" name="hoja-2-total-estrategia-1" type="text" class="form-control input-xs" readonly></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="4" id="hoja-2-costo-estrategia-4" name="hoja-2-costo-estrategia-1" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 10%" class="text-center"><input estrategia="4" id="hoja-2-edad-estrategia-4" name="hoja-2-edad-estrategia-4" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 10%" class="text-center"><input estrategia="4" id="hoja-2-anos-estrategia-4" name="hoja-2-anos-estrategia-4" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 10%" class="text-center"><input estrategia="4" id="hoja-2-meses-estrategia-4" name="hoja-2-meses-estrategia-4" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 10%" class="text-center"><input estrategia="4" id="hoja-2-semanas-estrategia-4" name="hoja-2-semanas-estrategia-4" type="text" class="form-control input-xs semanas-cotizadas-estrategia" readonly></td>
+                                <td style="width: 10%" class="text-center"><input estrategia="4" id="hoja-2-dias-estrategia-4" name="hoja-2-dias-estrategia-4" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 10%" class="text-center">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input estrategia="4" id="hoja-2-sbc-estrategia-4" name="hoja-2-sbc-estrategia-4" type="number" class="form-control input-xs sbc-monto-estrategia">
+                                    </div>
+                                </td>
+                                <td style="width: 10%" class="text-center">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input estrategia="4" id="hoja-2-total-estrategia-4" name="hoja-2-total-estrategia-1" type="text" class="form-control input-xs" readonly>
+                                    </div>                                    
+                                </td>
+                                <td style="width: 10%" class="text-center">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input estrategia="4" id="hoja-2-costo-estrategia-4" name="hoja-2-costo-estrategia-1" type="text" class="form-control input-xs" readonly>
+                                    </div>                                    
+                                </td>
                             </tr>
                             <tr style="background-color: #EBEDEF">
                                 <td><a href=""><i estrategia="4" class="deleteEstrategia text-danger far fa-trash-alt"></i></a></td>
                                 <td colspan="8" style="width: 10%" class="text-center"></td>
-                                <td style="width: 10%" class="text-center"><input id="hoja-2-otro-valor-estrategia-4" name="hoja-2-otro-valor-estrategia-4" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 10%" class="text-center">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input id="hoja-2-otro-valor-estrategia-4" name="hoja-2-otro-valor-estrategia-4" type="text" class="form-control input-xs" readonly>
+                                    </div>                                    
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -449,19 +594,47 @@ data-keyboard="false">
                                     </div>
                                     <input id="hoja-2-fecha-hasta-estrategia-5" name="hoja-2-fecha-hasta-estrategia-5" type="date" class="form-control input-xs" readonly>
                                 </td>
-                                <td style="width: 10%" class="text-center"><input estrategia="5" id="hoja-2-edad-estrategia-5" name="hoja-2-edad-estrategia-1" type="text" class="form-control input-xs" readonly></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="5" id="hoja-2-anos-estrategia-5" name="hoja-2-anos-estrategia-1" type="text" class="form-control input-xs" readonly></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="5" id="hoja-2-meses-estrategia-5" name="hoja-2-meses-estrategia-1" type="text" class="form-control input-xs" readonly></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="5" id="hoja-2-semanas-estrategia-5" name="hoja-2-semanas-estrategia-1" type="text" class="form-control input-xs" readonly></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="5" id="hoja-2-dias-estrategia-5" name="hoja-2-dias-estrategia-1" type="text" class="form-control input-xs" readonly></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="5" id="hoja-2-sbc-estrategia-5" name="hoja-2-sbc-estrategia-1" type="text" class="form-control input-xs sbc-monto-estrategia"></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="5" id="hoja-2-total-estrategia-5" name="hoja-2-total-estrategia-1" type="text" class="form-control input-xs" readonly></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="5" id="hoja-2-costo-estrategia-5" name="hoja-2-costo-estrategia-1" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 10%" class="text-center"><input estrategia="5" id="hoja-2-edad-estrategia-5" name="hoja-2-edad-estrategia-5" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 10%" class="text-center"><input estrategia="5" id="hoja-2-anos-estrategia-5" name="hoja-2-anos-estrategia-5" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 10%" class="text-center"><input estrategia="5" id="hoja-2-meses-estrategia-5" name="hoja-2-meses-estrategia-5" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 10%" class="text-center"><input estrategia="5" id="hoja-2-semanas-estrategia-5" name="hoja-2-semanas-estrategia-5" type="text" class="form-control input-xs semanas-cotizadas-estrategia" readonly></td>
+                                <td style="width: 10%" class="text-center"><input estrategia="5" id="hoja-2-dias-estrategia-5" name="hoja-2-dias-estrategia-5" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 10%" class="text-center">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input estrategia="5" id="hoja-2-sbc-estrategia-5" name="hoja-2-sbc-estrategia-5" type="text" class="form-control input-xs sbc-monto-estrategia">
+                                    </div>                                    
+                                </td>
+                                <td style="width: 10%" class="text-center">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input estrategia="5" id="hoja-2-total-estrategia-5" name="hoja-2-total-estrategia-1" type="text" class="form-control input-xs" readonly>
+                                    </div>                                     
+                                </td>
+                                <td style="width: 10%" class="text-center">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input estrategia="5" id="hoja-2-costo-estrategia-5" name="hoja-2-costo-estrategia-1" type="text" class="form-control input-xs" readonly>
+                                    </div>                                     
+                                </td>
                             </tr>
                             <tr style="background-color: #EBEDEF">
                                 <td><a href=""><i estrategia="5" class="deleteEstrategia text-danger far fa-trash-alt"></i></a></td>
                                 <td colspan="8" style="width: 10%" class="text-center"></td>
-                                <td style="width: 10%" class="text-center"><input id="hoja-2-otro-valor-estrategia-5" name="hoja-2-otro-valor-estrategia-5" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 10%" class="text-center">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input id="hoja-2-otro-valor-estrategia-5" name="hoja-2-otro-valor-estrategia-5" type="text" class="form-control input-xs" readonly>
+                                    </div>                                    
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -510,27 +683,52 @@ data-keyboard="false">
                                     </div>
                                     <input id="hoja-2-fecha-hasta-estrategia-6" name="hoja-2-fecha-hasta-estrategia-6" type="date" class="form-control input-xs" readonly>
                                 </td>
-                                <td style="width: 10%" class="text-center"><input estrategia="6" id="hoja-2-edad-estrategia-6" name="hoja-2-edad-estrategia-1" type="text" class="form-control input-xs" readonly></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="6" id="hoja-2-anos-estrategia-6" name="hoja-2-anos-estrategia-1" type="text" class="form-control input-xs" readonly></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="6" id="hoja-2-meses-estrategia-6" name="hoja-2-meses-estrategia-1" type="text" class="form-control input-xs" readonly></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="6" id="hoja-2-semanas-estrategia-6" name="hoja-2-semanas-estrategia-1" type="text" class="form-control input-xs" readonly></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="6" id="hoja-2-dias-estrategia-6" name="hoja-2-dias-estrategia-1" type="text" class="form-control input-xs" readonly></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="6" id="hoja-2-sbc-estrategia-6" name="hoja-2-sbc-estrategia-1" type="text" class="form-control input-xs sbc-monto-estrategia"></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="6" id="hoja-2-total-estrategia-6" name="hoja-2-total-estrategia-1" type="text" class="form-control input-xs" readonly></td>
-                                <td style="width: 10%" class="text-center"><input estrategia="6" id="hoja-2-costo-estrategia-6" name="hoja-2-costo-estrategia-1" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 10%" class="text-center"><input estrategia="6" id="hoja-2-edad-estrategia-6" name="hoja-2-edad-estrategia-6" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 10%" class="text-center"><input estrategia="6" id="hoja-2-anos-estrategia-6" name="hoja-2-anos-estrategia-6" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 10%" class="text-center"><input estrategia="6" id="hoja-2-meses-estrategia-6" name="hoja-2-meses-estrategia-6" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 10%" class="text-center"><input estrategia="6" id="hoja-2-semanas-estrategia-6" name="hoja-2-semanas-estrategia-6" type="text" class="form-control input-xs semanas-cotizadas-estrategia" readonly></td>
+                                <td style="width: 10%" class="text-center"><input estrategia="6" id="hoja-2-dias-estrategia-6" name="hoja-2-dias-estrategia-6" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 10%" class="text-center">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input estrategia="6" id="hoja-2-sbc-estrategia-6" name="hoja-2-sbc-estrategia-6" type="number" class="form-control input-xs sbc-monto-estrategia">
+                                    </div>                                    
+                                </td>
+                                <td style="width: 10%" class="text-center">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input estrategia="6" id="hoja-2-total-estrategia-6" name="hoja-2-total-estrategia-6" type="text" class="form-control input-xs" readonly>
+                                    </div>                                    
+                                </td>
+                                <td style="width: 10%" class="text-center">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input estrategia="6" id="hoja-2-costo-estrategia-6" name="hoja-2-costo-estrategia-6" type="text" class="form-control input-xs" readonly>
+                                    </div>                                    
+                                </td>
                             </tr>
                             <tr style="background-color: #EBEDEF">
                                 <td><a href=""><i estrategia="6" class="deleteEstrategia text-danger far fa-trash-alt"></i></a></td>
                                 <td colspan="8" style="width: 10%" class="text-center"></td>
-                                <td style="width: 10%" class="text-center"><input id="hoja-2-otro-valor-estrategia-6" name="hoja-2-otro-valor-estrategia-6" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 10%" class="text-center">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input id="hoja-2-otro-valor-estrategia-6" name="hoja-2-otro-valor-estrategia-6" type="text" class="form-control input-xs" readonly>
+                                    </div>                                     
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            
- 
-              
         </div>
         <div class="modal-footer">
             <button type="button" class="btn-cerrar-modal btn btn-secondary btn-info"

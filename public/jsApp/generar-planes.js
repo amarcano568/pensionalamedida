@@ -463,6 +463,7 @@ $(document).on("ready", function() {
     function calculaTotalSalarios() {
         totalSalarios = 0;
         $(".totalCotizacion").each(function() {
+            //alert("pasa");
             row = $(this).attr("row");
             montoSalario = $("#totalMontoCotizacion" + row).val();
             montoSalario =

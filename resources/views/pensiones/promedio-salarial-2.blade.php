@@ -50,8 +50,22 @@
                                 <td class=""><input id="hoja-2-fecha-desde-mod40-alto" name="hoja-2-fecha-desde-mod40-alto" type="text" class="estrategia-6 form-control input-xs" readonly></td>
                                 <td class=""><input id="hoja-2-fecha-hasta-mod40-alto" name="hoja-2-fecha-hasta-mod40-alto"  type="text" class="estrategia-6 form-control input-xs" readonly></td>
                                 <td class=""><input id="hoja-2-dias-mod40-alto" name="hoja-2-dias-mod40-alto"  type="text" class="hoja-2-dias estrategia-6 form-control input-xs" readonly></td>
-                                <td class=""><input id="hoja-2-sbc-mod40-alto" name="hoja-2-sbc-mod40-alto"  type="text" class="estrategia-6 form-control input-xs" readonly></td>
-                                <td class=""><input id="hoja-2-monto-base-mod40-alto" name="hoja-2-monto-base-mod40-alto" type="text" class="estrategia-6 form-control input-xs totalCotizacion" readonly></td>
+                                <td class="">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input id="hoja-2-sbc-mod40-alto" name="hoja-2-sbc-mod40-alto"  type="text" class="estrategia-6 form-control input-xs" readonly>
+                                    </div>
+                                </td>
+                                <td class="">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input id="hoja-2-monto-base-mod40-alto" name="hoja-2-monto-base-mod40-alto" type="text" class="estrategia-6 form-control input-xs total-cotizacion-promedio-salarial-2" readonly>
+                                    </div>
+                                </td>
                                 <td></td>
                             </tr>
                             <tr row="3">
@@ -60,8 +74,22 @@
                                 <td class=""><input id="hoja-2-fecha-desde-mod40-retroactivo" name="hoja-2-fecha-desde-mod40-retroactivo" type="text" class="estrategia-3 form-control input-xs" readonly></td>
                                 <td class=""><input id="hoja-2-fecha-hasta-mod40-retroactivo" name="hoja-2-fecha-hasta-mod40-retroactivo" type="text" class="estrategia-3 form-control input-xs" readonly></td>
                                 <td class=""><input id="hoja-2-dias-mod40-retroactivo" name="hoja-2-dias-mod40-retroactivo"  type="text" type="text" class="hoja-2-dias estrategia-3 form-control input-xs" readonly></td>
-                                <td class=""><input id="hoja-2-sbc-mod40-retroactivo" name="hoja-2-sbc-mod40-retroactivo"  type="text"  type="text" class="estrategia-3 form-control input-xs" readonly></td>
-                                <td class=""><input id="hoja-2-monto-base-mod40-retroactivo" name="hoja-2-monto-base-mod40-retroactivo" type="text" class="estrategia-3 form-control input-xs totalCotizacion" readonly></td>
+                                <td class="">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input id="hoja-2-sbc-mod40-retroactivo" name="hoja-2-sbc-mod40-retroactivo"  type="text"  type="text" class="estrategia-3 form-control input-xs" readonly>
+                                    </div>                                    
+                                </td>
+                                <td class="">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input id="hoja-2-monto-base-mod40-retroactivo" name="hoja-2-monto-base-mod40-retroactivo" type="text" class="estrategia-3 form-control input-xs total-cotizacion-promedio-salarial-2" readonly>
+                                    </div>                                    
+                                </td>
                                 <td></td>
                             </tr>
                             <tr row="4">
@@ -70,8 +98,22 @@
                                 <td class=""><input id="hoja-2-fecha-desde-mod40-barata" name="hoja-2-fecha-desde-mod40-barata" type="text" class="estrategia-5 form-control input-xs" readonly></td>
                                 <td class=""><input id="hoja-2-fecha-hasta-mod40-barata" name="hoja-2-fecha-hasta-mod40-barata" type="text" class="estrategia-5 form-control input-xs" readonly></td>
                                 <td class=""><input id="hoja-2-dias-mod40-barata" name="hoja-2-dias-mod40-barata" type="text" class="hoja-2-dias estrategia-5 form-control input-xs" readonly></td>
-                                <td class=""><input id="hoja-2-sbc-mod40-barata" name="hoja-2-sbc-mod40-barata" type="text" class="estrategia-5 form-control input-xs" readonly></td>
-                                <td class=""><input id="hoja-2-monto-base-mod40-barata" name="hoja-2-monto-base-mod40-barata" type="text" class="estrategia-5 form-control input-xs totalCotizacion" readonly></td>
+                                <td class="">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input id="hoja-2-sbc-mod40-barata" name="hoja-2-sbc-mod40-barata" type="text" class="estrategia-5 form-control input-xs" readonly>
+                                    </div>                                    
+                                </td>
+                                <td class="">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input id="hoja-2-monto-base-mod40-barata" name="hoja-2-monto-base-mod40-barata" type="text" class="estrategia-5 form-control input-xs total-cotizacion-promedio-salarial-2" readonly>
+                                    </div>                                    
+                                </td>
                                 <td></td>
                             </tr>
                             <tr row="5">
@@ -80,8 +122,22 @@
                                 <td class=""><input id="hoja-2-fecha-desde-cooperativa" name="hoja-2-fecha-desde-cooperativa" type="text" class="estrategia-2 form-control input-xs" readonly></td>
                                 <td class=""><input id="hoja-2-fecha-hasta-cooperativa" name="hoja-2-fecha-hasta-cooperativa" type="text" class="estrategia-2 form-control input-xs" readonly></td>
                                 <td class=""><input id="hoja-2-dias-cooperativa" name="hoja-2-dias-cooperativa" type="text" class="hoja-2-dias estrategia-2 form-control input-xs" readonly></td>
-                                <td class=""><input id="hoja-2-sbc-cooperativa" name="hoja-2-sbc-cooperativa" type="text" class="estrategia-2 form-control input-xs" readonly></td>
-                                <td class=""><input id="hoja-2-monto-base-cooperativa" name="hoja-2-monto-base-cooperativa" type="text" class="estrategia-2 form-control input-xs totalCotizacion" readonly></td>
+                                <td class="">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input id="hoja-2-sbc-cooperativa" name="hoja-2-sbc-cooperativa" type="text" class="estrategia-2 form-control input-xs" readonly>
+                                    </div>              
+                                </td>
+                                <td class="">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input id="hoja-2-monto-base-cooperativa" name="hoja-2-monto-base-cooperativa" type="text" class="estrategia-2 form-control input-xs total-cotizacion-promedio-salarial-2" readonly>
+                                    </div> 
+                                </td>
                                 <td></td>
                             </tr>
                             <tr row="6" style="background-color: #EBEDEF">
@@ -93,11 +149,24 @@
                                 <td class=""><input id="hoja-2-fecha-desde-m40-pagada" name="hoja-2-fecha-desde-m40-pagada" type="text" class="estrategia-4 form-control input-xs" readonly></td>
                                 <td class=""><input id="hoja-2-fecha-hasta-m40-pagada" name="hoja-2-fecha-hasta-m40-pagada" type="text" class="estrategia-4 form-control input-xs" readonly></td>
                                 <td class=""><input id="hoja-2-dias-m40-pagada" name="hoja-2-dias-m40-pagada" type="text" class="hoja-2-dias estrategia-4 form-control input-xs" readonly></td>
-                                <td class=""><input id="hoja-2-sbc-m40-pagada" name="hoja-2-sbc-m40-pagada" type="text" class="estrategia-4 form-control input-xs" readonly></td>
-                                <td class=""><input id="hoja-2-monto-base-m40-pagada" name="hoja-2-monto-base-m40-pagada" type="text" class="estrategia-4 form-control input-xs totalCotizacion" readonly></td>
+                                <td class="">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input id="hoja-2-sbc-m40-pagada" name="hoja-2-sbc-m40-pagada" type="text" class="estrategia-4 form-control input-xs" readonly>
+                                    </div>                                    
+                                </td>
+                                <td class="">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input id="hoja-2-monto-base-m40-pagada" name="hoja-2-monto-base-m40-pagada" type="text" class="estrategia-4 form-control input-xs total-cotizacion-promedio-salarial-2" readonly>
+                                    </div>                                    
+                                </td>
                                 <td></td>
                             </tr>
-
                         </tbody>
                     </table>
 
@@ -113,9 +182,23 @@
                             <tr row="1" style="background-color: #EEFAEE">
                                 <td colspan="2" style="width: 35%" class="text-center"></td>
                                 <td style="width: 12.5%" class="text-center text-danger">EXCEDIDOS -</td>
-                                <td style="width: 12.5%" class="text-center"><input id="hoja-2-dias-excedidos" name="hoja-2-dias-excedidos" type="text" class="form-control input-xs" readonly></td>
-                                <td style="width: 12.5%" class="text-center"><input id="hoja-2-salarios-excedidos" name="hoja-2-salarios-excedidos" type="text" class="form-control input-xs" readonly></td>
-                                <td style="width: 12.5%" class="text-danger"><input id="hoja-2-salarios-neto" name="hoja-2-salarios-neto" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 12.5%" class="text-center text-danger"><input id="hoja-2-dias-excedidos" name="hoja-2-dias-excedidos" type="text" class="form-control input-xs" readonly></td>
+                                <td style="width: 12.5%" class="text-center text-danger">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input id="hoja-2-salarios-excedidos" name="hoja-2-salarios-excedidos" type="text" class="form-control input-xs" readonly>
+                                    </div>                                     
+                                </td>
+                                <td style="width: 12.5%" class="text-danger">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input id="hoja-2-salarios-neto" name="hoja-2-salarios-neto" type="text" class="form-control input-xs" readonly>
+                                    </div>                                     
+                                </td>
                                 <td style="width: 12.5%" ></td>
                             </tr>
                             <tr row="1" style="background-color: #EEFAEE">
@@ -124,7 +207,53 @@
                                 <td colspan="2" style="width: 25%" class="text-center"></td>
                                 <td></td>
                             </tr>
-
+                            <tr style="background-color: #EBEDEF">
+                                <td style="width: 10%" class="text-center"></td>
+                                <td style="width: 25%" class="text-center"></td>
+                                <td style="width: 12.5%" class="text-center"></td>
+                                <td style="width: 12.5%" class="text-center"></td>
+                                <td style="width: 12.5%" class="text-center"></td>
+                                <td style="width: 12.5%" class="text-center"></td>
+                                <td style="width: 12.5%" class="text-center"></td>
+                                <td></td>
+                            </tr>
+                            <tr style="background-color: #EEFAEE">
+                                <td colspan="5" style="width: 25%" class="text-right">SALARIO BASE PARA EL PROMEDIO SALARIAL
+                                </td>
+                                <td style="width: 12.5%" class="text-center">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input id="hoja-2-salario-base-promedio" name="hoja-2-salario-base-promedio" type="text" class="form-control input-xs" readonly>
+                                    </div>                                    
+                                </td>
+                                <td style="width: 25%" class="text-center"></td>
+                            </tr>
+                            <tr style="background-color: #EEFAEE">
+                                <td colspan="5" style="width: 25%" class="text-right">ENTRE</td>
+                                <td style="width: 12.5%" class="text-center">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input id="hoja-2-entre" name="hoja-2-entre" type="text" class="form-control input-xs" readonly>
+                                    </div>                                    
+                                </td>
+                                <td style="width: 25%" class="text-center"></td>
+                            </tr>
+                            <tr style="background-color: #EEFAEE">
+                                <td colspan="5" style="width: 25%" class="text-right">SALARIO PROMEDIO ULTIMAS 250 SEMANAS</td>
+                                <td style="width: 12.5%" class="text-center">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input id="hoja-2-prom-ultimas-250-sem" name="hoja-2-prom-ultimas-250-sem" type="text" class="form-control input-xs" readonly>
+                                    </div>                                    
+                                </td>
+                                <td style="width: 25%" class="text-center"></td>
+                            </tr>
                         </tbody>
                     </table>
 
@@ -134,36 +263,61 @@
                         class="table-hoja-2 table table-hover">
                         <tbody id="body-cuantia-basica">
                             <tr style="background-color: #EBEDEF">
-                                <td colspan="2" class="text-center table-columna1-cuantia">PENSION CON M40</td>
+                                <td colspan="2" class="text-center table-columna1-cuantia"><span id="title-pension-con-m40">PENSION CON M40</span></td>
                             </tr>
                             <tr>
                                 <td class="table-columna1-cuantia">Mes</td>
-                                <td class="table-columna2-cuantia"><input id="hoja-2-pension-mesual-con-m40"
-                                        name="hoja-2-pension-mesual-con-m40" type="text"
-                                        class="form-control input-xs" readonly></td>
+                                <td class="table-columna2-cuantia">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input id="hoja-2-pension-mensual-con-m40" name="hoja-2-pension-mensual-con-m40" type="text" class="form-control input-xs" readonly>
+                                    </div>                                    
+                                    </td>
                             </tr>
                             <tr>
                                 <td class="table-columna1-cuantia">12 Meses</td>
-                                <td class="table-columna2-cuantia"><input id="hoja-2-pension-anual-con-m40"
-                                        name="hoja-2-pension-anual-con-m40" type="text"
-                                        class="form-control input-xs" readonly></td>
+                                <td class="table-columna2-cuantia">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input id="hoja-2-pension-anual-con-m40" name="hoja-2-pension-anual-con-m40" type="text" class="form-control input-xs" readonly>
+                                    </div>                                    
+                                    </td>
                             </tr>
                             <tr>
                                 <td class="table-columna1-cuantia">Aguinaldo</td>
-                                <td class="table-columna2-cuantia"><input id="hoja-2-aguinaldo"
-                                        name="hoja-2-aguinaldo" type="text" class="form-control input-xs"
-                                        readonly></td>
+                                <td class="table-columna2-cuantia">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input id="hoja-2-aguinaldo" name="hoja-2-aguinaldo" type="text" class="form-control input-xs" readonly>
+                                    </div>                                   
+                                    </td>
                             </tr>
                             <tr>
                                 <td class="table-columna1-cuantia">Total anual</td>
-                                <td class="table-columna2-cuantia"><input id="hoja-2-total-anual"
-                                        name="hoja-2-total-anual" type="text" class="form-control input-xs"
-                                        readonly></td>
+                                <td class="table-columna2-cuantia">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input id="hoja-2-total-anual" name="hoja-2-total-anual" type="text" class="form-control input-xs" readonly>
+                                    </div>                                    
+                                    </td>
                             </tr>
                             <tr>
-                                <td class="table-columna1-cuantia" id="dif-edad-85">0</td>
-                                <td class="table-columna2-cuantia"><input id="hoja-2-dif-85"
-                                        name="hoja-2-dif-85" type="text" class="form-control input-xs" readonly>
+                                <td class="table-columna1-cuantia" id="hoja-2-dif-edad-85-text">0</td>
+                                <td class="table-columna2-cuantia">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text input-group-text-xs">$</span>
+                                        </div>
+                                        <input id="hoja-2-dif-85" name="hoja-2-dif-85" type="text" class="form-control input-xs" readonly>
+                                    </div>                                    
                                 </td>
                             </tr>
                         </tbody>
