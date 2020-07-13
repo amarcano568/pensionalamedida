@@ -43,8 +43,10 @@ $(".btn-cerrar-modal").click(function(ev) {
 });
 
 function convertNumberPure(data) {
-    data = data.replace(".", "");
-    data = data.replace(",", ".");
+    // post = data.indexOf(",", 0);
+    //alert(post);
+    data = data.replace(/\,/g, "");
+    //data = data.replace(".", ",");
     return parseFloat(data);
 }
 
@@ -243,6 +245,16 @@ function validarInput(input) {
 
     resultado.innerText = "Formato: " + valido;
 }
+function showStackTopLeft(Title, Text) {
+    $(".ui-pnotify").remove();
+    PNotify.info({
+        title: Title,
+        shadow: true,
+        text: Text,
+        textTrusted: true,
+        swipeDismiss: true
+    });
+}
 
 function changeSwitchery(element, checked) {
     if (
@@ -297,6 +309,9 @@ function calculaFormulasExcel(
         $("#modal-formulas").modal("show");
     }
 
+    $("#formulas-semana-cotizadas").val(totalSemanas);
+    $("#formulas-salario-diario-promedio").val(promedioSalario);
+    $("#formulas-edad-jubilacion").val(edadDe);
     $("#formulas-esposa").val($("#esposa").val());
     $("#formulas-hijos-menores").val($("#hijos").val());
     $("#formulas-padres").val($("#padres").val());
@@ -526,11 +541,11 @@ function cuantiaBasica(salarioPromedioVsm, edadJubilacion) {
             );
 
             $("#pension-anual-fin").text(
-                $.number(pensionAnualVejez * ($porc / 100), 2, ",", ".")
+                $.number(pensionAnualVejez * ($porc / 100), 2, ".", ",")
             );
 
             $("#pension-mensual-fin").text(
-                $.number((pensionAnualVejez * ($porc / 100)) / 12, 2, ",", ".")
+                $.number((pensionAnualVejez * ($porc / 100)) / 12, 2, ".", ",")
             );
         })
         .fail(function(statusCode, errorThrown) {

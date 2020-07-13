@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use \App\Pensiones;
 use \App\Clientes;
+use \App\Expectativas_Salariales;
 use \App\Formulas_tabla;
 use \App\Cotizaciones;
 use Carbon\Carbon;
@@ -245,7 +246,7 @@ class GestionarPensionesController extends Controller
 
     public function buscarCuantiaBasica(Request $request)
     {
-        $valor = str_replace(",", ".", $request->salarioPromedioVsm);
+        $valor = $request->salarioPromedioVsm;
         $cuantia =  DB::table('formulas_tabla')
         ->whereRaw('? >= de and ? <= a', [$valor,$valor])->first();
 
@@ -274,5 +275,25 @@ class GestionarPensionesController extends Controller
             
         }
       
+    }
+
+    public function guardarPlanPension(Request $request)
+    {
+        
+        try {
+            DB::beginTransaction();
+            $save = Pensiones::Guardar($request);
+            DB::commit();
+            $mensaje = "Datos del Plan de pensión guardado con exito.";
+            if (!$save) {
+                $mensaje = "Hubo error intentando guardar los datos Cliente.";
+                //App::abort(500, 'Error');
+            }
+
+            return response()->json(array('success' => true, 'mensaje' => $mensaje));
+        } catch (Exception $e) {
+            DB::rollback();
+            return $this->internalException($e, __FUNCTION__);
+        }
     }
 }

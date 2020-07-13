@@ -75,6 +75,7 @@
     <link href="{{ asset('vendors/dropzone/dist/min/dropzone.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/typeahead.css') }}" rel="stylesheet">
     <link href="{{ asset('vendors/jQuery-Smart-Wizard/css/smart_wizard_all.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/PNotifyBrightTheme.css') }}" rel="stylesheet" type="text/css" />
     
     @yield('css')
 </head>
@@ -348,6 +349,8 @@
     <script src="{{ asset('vendors/moment/min/moment-with-locales.min.js') }}"></script>
     <script src="{{ asset('vendors/dropzone/dist/dropzone.js') }}"></script>
     <script src="{{ asset('js/typeahead.bundle.js') }}"></script>
+    <script src="{{ asset('js/PNotify.js') }}"></script>
+    <script src="{{ asset('js/PNotifyBootstrap4.js') }}"></script>
 
    
     @yield('javascript')

@@ -3,12 +3,12 @@
         <tr>
             <td class="ancho-columna-1">No. Semanas Cotizadas</td>
             <td class="ancho-columna-2"><input id="formulas-semana-cotizadas" name="formulas-semana-cotizadas"
-                    type="text" class="form-control input-xs" value="839" readonly></td>
+                    type="text" class="form-control input-xs" value="" readonly></td>
         </tr>
         <tr>
             <td class="ancho-columna-1">Salario Diario Promedio (últimas 250 Semanas)</td>
             <td class="ancho-columna-2"><input id="formulas-salario-diario-promedio"
-                    name="formulas-salario-diario-promedio" type="text" class="form-control input-xs" value="551.38" readonly>
+                    name="formulas-salario-diario-promedio" type="text" class="form-control input-xs" value="" readonly>
             </td>
         </tr>
         <tr>
@@ -29,7 +29,7 @@
         <tr>
             <td class="ancho-columna-1">Edad Jubilación</td>
             <td class="ancho-columna-2"><input type="text" id="formulas-edad-jubilacion" name="formulas-edad-jubilacion"
-                    class="form-control input-xs" value="65" readonly></td>
+                    class="form-control input-xs" value="" readonly></td>
         </tr>
         <tr>
             <td class="ancho-columna-1">Salario Mínimo DF</td>

@@ -1,4 +1,4 @@
-<form id="formPaso1"  method="post" enctype="multipart/form-data" data-parsley-validate="">
+<form id="formPaso1"  method="post" enctype="multipart/form-data" data-parsley-validate=""  action="/guardar-plan-pension" >
     @csrf
     <div class="card">
         <div class="card-header"><i class="far fa-money-bill-alt"></i> <strong>Expectativa</strong>
@@ -203,13 +203,15 @@
                 <div class="col-sm-4">
                     <div class="card shadow" style="height: 10.5em;">
                         <div class="card-body">
-                            <h6 class="card-title"><i class="fas fa-feather-alt"></i> Otros datos</h6>
+                            <h6 class="card-title"><i class="fas fa-feather-alt"></i> Vigente</h6>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="fechaBaja">Fecha de baja</label>
+                                        <label class="c-switch c-switch-label c-switch-success">
+                                            <input class="c-switch-input" type="checkbox" checked="" id="statusRetiro" name="statusRetiro"><span class="c-switch-slider" data-checked="Si" data-unchecked="No"></span>
+                                            </label>
                                         <input class="form-control" id="fechaBaja"
-                                            name="fechaBaja" type="text" placeholder="Fecha de baja" required>
+                                            name="fechaBaja" type="text" placeholder="Fecha de baja" required value="Vigente">
                                     </div>
                                 </div>
                             </div>
@@ -220,14 +222,14 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Peticiones o comentarios adicionales:</label>
-                        <textarea class="form-control" id="peticiones" rows="3"></textarea>
+                        <label for="comentarios">Peticiones o comentarios adicionales:</label>
+                        <textarea class="form-control" id="comentarios" name="comentarios" rows="3"></textarea>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Otros Comentarios:</label>
-                        <textarea class="form-control" id="comentarios" rows="3"></textarea>
+                        <label for="otrosComentarios">Otros Comentarios:</label>
+                        <textarea class="form-control" id="otrosComentarios" name="otrosComentarios" rows="3"></textarea>
                     </div>
                 </div>
             </div>

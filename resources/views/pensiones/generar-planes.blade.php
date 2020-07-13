@@ -37,28 +37,11 @@
                                     <div class="card shadow ">
                                         <div class="card-body" style="padding-top: 1.5em;height: 6em;margin-top: -1em;"
                                             id="datosComplementarios">
-                                            <button class="btn btn-sm btn-outline-success" data-trigger="hover"
+                                            <button id="btn-guardar-pension" class="btn btn-sm btn-outline-success" data-trigger="hover"
                                                 data-html="true" data-toggle="popover" data-placement="top"
                                                 data-content="Agregar nuevo cliente.">
-                                                <i class="cil-user-plus"></i>
+                                                <i class="cil-save"></i> Guardar Pensión
                                             </button>
-                                            <button class="btn btn-sm btn-outline-warning" data-trigger="hover"
-                                                data-html="true" data-toggle="popover" data-placement="top"
-                                                data-content="Enviar resumen de planes.">
-                                                <i class="far fa-envelope"></i>
-                                            </button>
-                                            <button class="btn btn-sm btn-outline-info" data-trigger="hover"
-                                                data-html="true" data-toggle="popover" data-placement="top"
-                                                data-content="Enviar detalle de planes.">
-                                                <i class="far fa-envelope"></i>
-                                            </button>
-                                            <button class="btn btn-sm btn-outline-danger" data-trigger="hover"
-                                                data-html="true" data-toggle="popover" data-placement="top"
-                                                data-content="Generar pdf.">
-                                                <i class="far fa-file-pdf"></i>
-                                            </button>
-
-
                                         </div>
                                     </div>
                                 </div>
@@ -113,10 +96,10 @@
                     @include('pensiones.promedio-salarial-2')
                 </div>
                 <div id="step-3" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
-                    Step 3 Content
+                    @include('pensiones.promedio-salarial-3')
                 </div>
                 <div id="step-4" class="tab-pane" role="tabpanel" aria-labelledby="step-4">
-                    Step 4 Content
+                    @include('pensiones.promedio-salarial-4')
                 </div>
                 <div id="step-5" class="tab-pane" role="tabpanel" aria-labelledby="step-5">
                     Step 5 Content
@@ -134,6 +117,9 @@
 @include('pensiones.modal-formulas')
 @include('pensiones.modal-hoja-1-pension-sin-estrategias')
 @include('pensiones.modal-hoja-2-estrategias')
+@include('pensiones.modal-hoja-3-estrategias')
+@include('pensiones.modal-hoja-4-estrategias')
+@include('pensiones.modal-cambiar-salario')
 @endsection
 @section('javascript')
 <script src="{{ asset('jsApp/generar-planes.js') }}"></script>
@@ -141,4 +127,6 @@
 <script src="{{ asset('jsApp/formulas.js') }}"></script>
 <script src="{{ asset('jsApp/hoja1.js') }}"></script>
 <script src="{{ asset('jsApp/hoja2.js') }}"></script>
+<script src="{{ asset('jsApp/hoja3.js') }}"></script>
+<script src="{{ asset('jsApp/hoja4.js') }}"></script>
 @stop

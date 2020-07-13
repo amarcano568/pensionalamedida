@@ -89,6 +89,6 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('calcular-tiempo-individual-faltante-retiro', 'GestionarPensionesController@calcularTiempoIndividualFaltanteRetiro');
 	Route::get('sumar-dias-a-fecha-estrategias', 'GestionarPensionesController@sumarDiasaFechaEstrategias');
 	Route::get('edad-cliente', 'GestionarPensionesController@edadCliente');
-	
+	Route::post('guardar-plan-pension', 'GestionarPensionesController@guardarPlanPension');
 	
 });

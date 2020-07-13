@@ -64,16 +64,16 @@ $(document).on("ready", function() {
                 $("#hoja-1-pension-mesual-sin-m40").val()
             );
             aguinaldo = aguinaldo * 0.85;
-            $("#hoja-1-aguinaldo").val($.number(aguinaldo, 2, ",", "."));
+            $("#hoja-1-aguinaldo").val($.number(aguinaldo, 2, ".", ","));
 
             totalAnual = convertNumberPure($("#pension-anual-fin").text());
             totalAnual = totalAnual + aguinaldo;
-            $("#hoja-1-total-anual").val($.number(totalAnual, 2, ",", "."));
+            $("#hoja-1-total-anual").val($.number(totalAnual, 2, ".", ","));
 
             difEdad = 85 - parseFloat(edadA);
             $("#dif-edad-85").text(difEdad);
             $("#hoja-1-dif-85").val(
-                $.number(totalAnual * difEdad, 2, ",", ".")
+                $.number(totalAnual * difEdad, 2, ".", ",")
             );
             $("#modal-hoja-1-pension-sin-estrategias").modal("show");
         }, 1500);

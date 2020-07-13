@@ -16,8 +16,8 @@ $(document).on("ready", function() {
         semanasCotizadas = $("#totalSemanas").val();
         salarioDiarioPromedio = $("#promedio-salarios").text();
         edadJubilacion = $("#edadDe").val();
-        salarioDiarioPromedio = salarioDiarioPromedio.replace(".", "");
-        salarioDiarioPromedio = salarioDiarioPromedio.replace(",", ".");
+        salarioDiarioPromedio = convertNumberPure(salarioDiarioPromedio);
+        //salarioDiarioPromedio = salarioDiarioPromedio.replace(".", ",");
         calculaFormulasExcel(
             semanasCotizadas,
             salarioDiarioPromedio,

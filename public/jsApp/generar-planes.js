@@ -5,7 +5,7 @@ $(document).on("ready", function() {
     var tituloimg = "";
     var descripcionImg = "";
     var DataTables_Pensiones = "";
-
+    var PasosWizart = 1;
     sw = true;
 
     server = pathnameArray.length > 0 ? pathnameArray[0] + "/public/" : "";
@@ -227,14 +227,63 @@ $(document).on("ready", function() {
         e,
         anchorObject,
         stepIndex,
-        stepDirection,
-        stepPosition
-    ) {});
+        stepDirection
+    ) {
+        if (stepDirection == "forward") {
+            PasosWizart++;
+        } else if (stepDirection == "backward") {
+            PasosWizart--;
+        }
+
+        switch (PasosWizart) {
+            case 1:
+                if (PasosWizart == 1) {
+                    showStackTopLeft(
+                        "Paso 1",
+                        "Usted se encuentra en el paso <strong>Expectativas Salariales</strong>"
+                    );
+                }
+                break;
+            case 2:
+                if (PasosWizart == 2) {
+                    showStackTopLeft(
+                        "Paso 2",
+                        "Usted se encuentra en el paso <strong>Promedio Salarial 2</strong>"
+                    );
+                }
+                break;
+            case 3:
+                if (PasosWizart == 3) {
+                    showStackTopLeft(
+                        "Paso 3",
+                        "Usted se encuentra en el paso <strong>Promedio Salarial 3</strong>"
+                    );
+                }
+                break;
+            case 4:
+                if (PasosWizart == 4) {
+                    showStackTopLeft(
+                        "Paso 4",
+                        "Usted se encuentra en el paso <strong>Promedio Salarial 4</strong>"
+                    );
+                }
+                break;
+            case 5:
+                if (PasosWizart == 5) {
+                    showStackTopLeft(
+                        "Paso 5",
+                        "Usted se encuentra en el paso <strong>Promedio Salarial 5</strong>"
+                    );
+                }
+                break;
+        }
+    });
 
     $("#smartwizard").on("leaveStep", function(
         e,
         anchorObject,
-        stepIndex,
+        currentStepIndex,
+        nextStepIndex,
         stepDirection
     ) {
         // Add the custom validation here
@@ -245,6 +294,18 @@ $(document).on("ready", function() {
                 .parsley()
                 .validate();
             if (valida === false) {
+                return false;
+            } else {
+            }
+        }
+
+        if (stepIndexAux == 1) {
+            valida = $("#hoja-2-pension-mensual-con-m40").val();
+            if (valida === "") {
+                alertify.set("notifier", "position", "top-center");
+                alertify.error(
+                    '<i class="fas fa-exclamation-triangle"></i><br>No puede pasar al siguiente plan de pensión sin que el plan actual este culminado'
+                );
                 return false;
             }
         }
@@ -445,10 +506,10 @@ $(document).on("ready", function() {
             totalSalarios =
                 parseFloat(calculaTotalSalarios()) -
                 parseFloat(diasExcedidos * monto);
-            $("#salarios-totales").text($.number(totalSalarios, 2, ",", "."));
+            $("#salarios-totales").text($.number(totalSalarios, 2, ".", ","));
             $("#dias-totales").text(1750);
             $("#promedio-salarios").text(
-                $.number(totalSalarios / 1750, 2, ",", ".")
+                $.number(totalSalarios / 1750, 2, ".", ",")
             );
             $("#btn-hoja-1").show();
         } else {
@@ -660,4 +721,89 @@ $(document).on("ready", function() {
         //     $("#ModalAgregarLogo").modal("hide");
         // });
     }
+
+    $(document).on("change", "#statusRetiro", function(event) {
+        event.preventDefault();
+        if ($("#statusRetiro").prop("checked")) {
+            $("#fechaBaja").val("Vigente");
+        } else {
+            $("#fechaBaja").val("");
+            $("#fechaBaja").focus();
+        }
+    });
+
+    $(document).on("click", "#btn-guardar-pension", function(event) {
+        event.preventDefault();
+        idcliente = $("#idCliente").val();
+        if (idcliente == "" || idcliente === null) {
+            alertify.set("notifier", "position", "top-center");
+            alertify.error(
+                "<i class='fa-2x fas fa-exclamation-triangle'></i><br>Primero debe seleccionar un cliente.."
+            );
+            //alertify.set("notifier", "position", "bottom-right");
+            return false;
+        }
+
+        valida = $("#formPaso1")
+            .parsley()
+            .validate();
+        if (valida === false) {
+            alertify.set("notifier", "position", "top-center");
+            alertify.error(
+                '<i class="fas fa-exclamation-triangle"></i><br>Falta información por agregar en la ficha de Expectavivas salariales.'
+            );
+            return false;
+        }
+
+        alertify
+            .confirm(
+                '<h5 class="text-primary"><i class="cil-save"></i> Planes de gestión.</h5>',
+                '<h5 class="text-secondary">Esta seguro de guardar esta información..<i class="text-secondary fas fa-question"></i></h5>',
+                function() {
+                    var form = $("#formPaso1");
+                    var formData = form.serialize();
+                    var route = form.attr("action");
+                    $.ajax({
+                        url: route,
+                        type: "post",
+                        data: formData,
+                        dataType: "json",
+                        beforeSend: function() {
+                            loadingUI("Actualizando el cliente");
+                        }
+                    })
+                        .done(function(data) {
+                            console.log(data);
+                            if (data.success === true) {
+                                alertify.success(data.mensaje);
+                            } else {
+                                alertify.error(data.mensaje);
+                            }
+                            $.unblockUI();
+                        })
+                        .fail(function(statusCode, errorThrown) {
+                            $.unblockUI();
+                            console.log(errorThrown);
+                            ajaxError(statusCode, errorThrown);
+                        });
+                },
+                function() {
+                    // En caso de Cancelar
+                    alertify.error(
+                        '<i class="fa-2x fas fa-ban"></i><br>Se Cancelo el Proceso para guardar el cliente.'
+                    );
+                }
+            )
+            .set("labels", {
+                ok: '<i class="fas fa-check"></i> Confirmar',
+                cancel: "Cancelar"
+            })
+            .set({
+                transition: "zoom"
+            })
+            .set({
+                modal: true,
+                closableByDimmer: false
+            });
+    });
 });
