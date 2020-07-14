@@ -102,10 +102,10 @@
                     @include('pensiones.promedio-salarial-4')
                 </div>
                 <div id="step-5" class="tab-pane" role="tabpanel" aria-labelledby="step-5">
-                    Step 5 Content
+                    @include('pensiones.promedio-salarial-5')
                 </div>
                 <div id="step-6" class="tab-pane" role="tabpanel" aria-labelledby="step-6">
-                    Step 6 Content
+                    @include('pensiones.promedio-salarial-6')
                 </div>
                 
             </div>
@@ -119,6 +119,8 @@
 @include('pensiones.modal-hoja-2-estrategias')
 @include('pensiones.modal-hoja-3-estrategias')
 @include('pensiones.modal-hoja-4-estrategias')
+@include('pensiones.modal-hoja-5-estrategias')
+@include('pensiones.modal-hoja-6-estrategias')
 @include('pensiones.modal-cambiar-salario')
 @endsection
 @section('javascript')
@@ -129,4 +131,6 @@
 <script src="{{ asset('jsApp/hoja2.js') }}"></script>
 <script src="{{ asset('jsApp/hoja3.js') }}"></script>
 <script src="{{ asset('jsApp/hoja4.js') }}"></script>
+<script src="{{ asset('jsApp/hoja5.js') }}"></script>
+<script src="{{ asset('jsApp/hoja6.js') }}"></script>
 @stop

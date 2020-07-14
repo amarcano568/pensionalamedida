@@ -235,6 +235,8 @@ $(document).on("ready", function() {
             PasosWizart--;
         }
 
+        $("html, body").animate({ scrollTop: 0 }, 800);
+
         switch (PasosWizart) {
             case 1:
                 if (PasosWizart == 1) {
@@ -299,16 +301,16 @@ $(document).on("ready", function() {
             }
         }
 
-        if (stepIndexAux == 1) {
-            valida = $("#hoja-2-pension-mensual-con-m40").val();
-            if (valida === "") {
-                alertify.set("notifier", "position", "top-center");
-                alertify.error(
-                    '<i class="fas fa-exclamation-triangle"></i><br>No puede pasar al siguiente plan de pensión sin que el plan actual este culminado'
-                );
-                return false;
-            }
-        }
+        // if (stepIndexAux == 1) {
+        //     valida = $("#hoja-2-pension-mensual-con-m40").val();
+        //     if (valida === "") {
+        //         alertify.set("notifier", "position", "top-center");
+        //         alertify.error(
+        //             '<i class="fas fa-exclamation-triangle"></i><br>No puede pasar al siguiente plan de pensión sin que el plan actual este culminado'
+        //         );
+        //         return false;
+        //     }
+        // }
 
         return true;
     });

@@ -1,5 +1,5 @@
 $(document).on("ready", function() {
-    $("#btn-carga-estrategias-hoja3").click(function(event) {
+    $("#btn-carga-estrategias-hoja5").click(function(event) {
         event.preventDefault();
 
         semanasCotizadas = $("#totalSemanas").val();
@@ -7,35 +7,29 @@ $(document).on("ready", function() {
         edadJubilacion = $("#edadDe").val();
         salarioDiarioPromedio = convertNumberPure(salarioDiarioPromedio);
 
-        // calculaFormulasExcel(
-        //     semanasCotizadas,
-        //     salarioDiarioPromedio,
-        //     edadJubilacion,
-        //     false
-        // );
         loadingUI("Calculando formulas...", "white");
         setTimeout(function() {
             $.unblockUI();
-            $("#hoja-3-fecha-nacimiento").val(
+            $("#hoja-5-fecha-nacimiento").val(
                 moment($("#fechaNacimiento").val()).format("DD-MM-YYYY")
             );
-            $("#hoja-3-fecha-plan").val(
+            $("#hoja-5-fecha-plan").val(
                 moment($("#fechaPlan").val()).format("DD-MM-YYYY")
             );
             edad = $("#divEdadCliente").text();
-            $("#hoja-3-edad").val(edad);
+            $("#hoja-5-edad").val(edad);
 
-            $("#hoja-3-fecha-baja").val($("#fechaBaja").val());
+            $("#hoja-5-fecha-baja").val($("#fechaBaja").val());
 
-            $("#hoja-3-semanas-cotizadas").val($("#semanasCotizadas").val());
-            $("#hoja-3-semanas-descontadas").val(
+            $("#hoja-5-semanas-cotizadas").val($("#semanasCotizadas").val());
+            $("#hoja-5-semanas-descontadas").val(
                 $("#semanasDescontadas").val()
             );
-            $("#hoja-3-total-semanas").val($("#totalSemanas").val());
+            $("#hoja-5-total-semanas").val($("#totalSemanas").val());
 
-            $("#hoja-3-edad-retiro").val($("#edadDe").val() + " Años");
+            $("#hoja-5-edad-retiro").val($("#edadDe").val() + " Años");
 
-            calcularTiempoIndividualHoja3();
+            calcularTiempoIndividualHoja5();
             /////////////////
             edadA = $("#edadA").val();
             edadDe = $("#edadDe").val();
@@ -44,26 +38,26 @@ $(document).on("ready", function() {
             rangoInversionDe = $("#rangoInversionDe").val();
             rangoInversionA = $("#rangoInversionA").val();
 
-            $("#hoja-3-edad-desde").val(edadDe);
-            $("#hoja-3-edad-hasta").val(edadA);
-            $("#hoja-3-monto-pension-desde").val(
+            $("#hoja-5-edad-desde").val(edadDe);
+            $("#hoja-5-edad-hasta").val(edadA);
+            $("#hoja-5-monto-pension-desde").val(
                 $.number(rangoPensionDe, 2, ".", ",")
             );
-            $("#hoja-3-monto-pension-hasta").val(
+            $("#hoja-5-monto-pension-hasta").val(
                 $.number(rangoPensionA, 3, ".", ",")
             );
-            $("#hoja-3-pagos-desde").val(
+            $("#hoja-5-pagos-desde").val(
                 $.number(rangoInversionDe, 2, ".", ",")
             );
-            $("#hoja-3-pagos-hasta").val(
+            $("#hoja-5-pagos-hasta").val(
                 $.number(rangoInversionA, 2, ".", ",")
             );
 
-            $("#modal-hoja-3-estrategias").modal("show");
+            $("#modal-hoja-5-estrategias").modal("show");
         }, 1500);
     });
 
-    function calcularTiempoIndividualHoja3() {
+    function calcularTiempoIndividualHoja5() {
         fecNac = $("#fechaNacimiento").val();
         edadA = $("#edadA").val();
         fecPlan = $("#fechaPlan").val();
@@ -75,10 +69,10 @@ $(document).on("ready", function() {
         })
             .done(function(response) {
                 ////console.log(response);
-                $("#hoja-3-anos-retiro").val(response.data.ano);
-                $("#hoja-3-meses-retiro").val(response.data.meses);
-                $("#hoja-3-semanas-retiro").val(response.data.semanas);
-                $("#hoja-3-dias-retiro").val(response.data.dias);
+                $("#hoja-5-anos-retiro").val(response.data.ano);
+                $("#hoja-5-meses-retiro").val(response.data.meses);
+                $("#hoja-5-semanas-retiro").val(response.data.semanas);
+                $("#hoja-5-dias-retiro").val(response.data.dias);
             })
             .fail(function(statusCode, errorThrown) {
                 $.unblockUI();
@@ -87,14 +81,14 @@ $(document).on("ready", function() {
             });
     }
 
-    $("#btn-carga-cotizaciones-hoja3").click(function(event) {
+    $("#btn-carga-cotizaciones-hoja5").click(function(event) {
         event.preventDefault();
-        cargaTablaCotizaciones();
+        cargaTablaCotizacionesHoja5();
     });
-    function cargaTablaCotizaciones() {
+    function cargaTablaCotizacionesHoja5() {
         filas = $("#table-cotizaciones >tbody >tr").length + 1;
         i = 0;
-        fila = $("#table-promedio-salarial-3 tr:last").attr("row");
+        fila = $("#table-promedio-salarial-5 tr:last").attr("row");
         concepto = 6;
         $(".diasCotizacion").each(function() {
             row = $(this).attr("row");
@@ -106,7 +100,7 @@ $(document).on("ready", function() {
             i++;
             fila++;
             concepto++;
-            agregarTablePromedio(
+            agregarTablePromedioHoja5(
                 fila,
                 fechaDesde,
                 fechaHasta,
@@ -117,10 +111,10 @@ $(document).on("ready", function() {
                 concepto
             );
         });
-        totaldiasHojas3(0);
+        totaldiasHojas5(0);
     }
 
-    function agregarTablePromedio(
+    function agregarTablePromedioHoja5(
         filas,
         fechaDesde,
         fechaHasta,
@@ -136,7 +130,7 @@ $(document).on("ready", function() {
             '" id="' +
             filas +
             '">' +
-            '<td id="hoja-3-concepto-' +
+            '<td id="hoja-5-concepto-' +
             concepto +
             '" colspan="2" style="vertical-align:middle" class="concepto text-center"> Cotizaciones ' +
             i +
@@ -159,7 +153,7 @@ $(document).on("ready", function() {
             filas +
             '" id="promedio2dias' +
             filas +
-            '" class="input-xs hoja-3-dias form-control" readonly value="' +
+            '" class="input-xs hoja-5-dias form-control" readonly value="' +
             dias +
             '"></td>' +
             '<td class="">' +
@@ -185,15 +179,15 @@ $(document).on("ready", function() {
             filas +
             '" id="promedio2totalMontoCotizacion' +
             filas +
-            '" class="input-xs form-control  total-cotizacion-promedio-salarial-3" readonly value="' +
+            '" class="input-xs form-control  total-cotizacion-promedio-salarial-5" readonly value="' +
             $.number(totalMontoCotizacion, 2, ".", ",") +
             '">' +
             "</div>" +
             "</td>" +
-            '<td class=""><a href="#" class="hoja-3-borrar-cotizacion"><i class="text-danger far fa-trash-alt"></i></a></td>' +
+            '<td class=""><a href="#" class="hoja-5-borrar-cotizacion"><i class="text-danger far fa-trash-alt"></i></a></td>' +
             "</tr>";
 
-        $("#table-promedio-salarial-3 tbody").append(htmlTags);
+        $("#table-promedio-salarial-5 tbody").append(htmlTags);
     }
 
     $(".x_title").click(function(event) {
@@ -205,16 +199,16 @@ $(document).on("ready", function() {
         var fechaHoy = anio + "-" + pad(mes, 2) + "-" + pad(dia, 2);
         //$("#fechaPlan").val(fechaHoy);
         estrategia = $(this).attr("estrategia");
-        $("#hoja-3-fecha-desde-estrategia-" + estrategia).val(fechaHoy);
-        $("#hoja-3-fecha-hasta-estrategia-" + estrategia).val(fechaHoy);
-        $("#hoja-3-fecha-desde-estrategia-" + estrategia).focus();
+        $("#hoja-5-fecha-desde-estrategia-" + estrategia).val(fechaHoy);
+        $("#hoja-5-fecha-hasta-estrategia-" + estrategia).val(fechaHoy);
+        $("#hoja-5-fecha-desde-estrategia-" + estrategia).focus();
 
-        desde = $("#hoja-3-fecha-nacimiento").val();
-        hasta = $("#hoja-3-fecha-desde-estrategia-" + estrategia).val();
+        desde = $("#hoja-5-fecha-nacimiento").val();
+        hasta = $("#hoja-5-fecha-desde-estrategia-" + estrategia).val();
         calculaFechasHoja2(
             desde,
             hasta,
-            "#hoja-3-edad-estrategia-" + estrategia
+            "#hoja-5-edad-estrategia-" + estrategia
         );
     });
 
@@ -236,102 +230,102 @@ $(document).on("ready", function() {
             });
     }
 
-    function changeChosenEdadPensionHoja3(estrategia) {
-        edadJubilacion = $("#hoja-3-edad-estrategia-1").val();
+    function changeChosenEdadPensionHoja5(estrategia) {
+        edadJubilacion = $("#hoja-5-edad-estrategia-1").val();
         mes = parseInt(edadJubilacion.substr(9, 2));
         ano = parseInt(edadJubilacion.substr(0, 2));
         edadPension1 = mes >= 6 ? ano + 1 : ano;
         edadPension1 = edadPension > 65 ? 65 : edadPension1;
 
-        edadJubilacion = $("#hoja-3-edad-estrategia-2").val();
+        edadJubilacion = $("#hoja-5-edad-estrategia-2").val();
         mes = parseInt(edadJubilacion.substr(9, 2));
         ano = parseInt(edadJubilacion.substr(0, 2));
         edadPension2 = mes >= 6 ? ano + 1 : ano;
         edadPension2 = edadPension > 65 ? 65 : edadPension2;
 
-        edadJubilacion = $("#hoja-3-edad-estrategia-3").val();
+        edadJubilacion = $("#hoja-5-edad-estrategia-3").val();
         mes = parseInt(edadJubilacion.substr(9, 2));
         ano = parseInt(edadJubilacion.substr(0, 2));
         edadPension3 = mes >= 6 ? ano + 1 : ano;
         edadPension3 = edadPension > 65 ? 65 : edadPension3;
 
-        edadJubilacion = $("#hoja-3-edad-estrategia-4").val();
+        edadJubilacion = $("#hoja-5-edad-estrategia-4").val();
         mes = parseInt(edadJubilacion.substr(9, 2));
         ano = parseInt(edadJubilacion.substr(0, 2));
         edadPension4 = mes >= 6 ? ano + 1 : ano;
         edadPension4 = edadPension > 65 ? 65 : edadPension4;
 
-        edadJubilacion = $("#hoja-3-edad-estrategia-5").val();
+        edadJubilacion = $("#hoja-5-edad-estrategia-5").val();
         mes = parseInt(edadJubilacion.substr(9, 2));
         ano = parseInt(edadJubilacion.substr(0, 2));
         edadPension5 = mes >= 6 ? ano + 1 : ano;
         edadPension5 = edadPension > 65 ? 65 : edadPension5;
 
-        edadJubilacion = $("#hoja-3-edad-estrategia-6").val();
+        edadJubilacion = $("#hoja-5-edad-estrategia-6").val();
         mes = parseInt(edadJubilacion.substr(9, 2));
         ano = parseInt(edadJubilacion.substr(0, 2));
         edadPension6 = mes >= 6 ? ano + 1 : ano;
         edadPension6 = edadPension > 65 ? 65 : edadPension2;
 
-        $("#hoja-3-edad-calculo-pension").empty();
+        $("#hoja-5-edad-calculo-pension").empty();
 
-        $("#hoja-3-edad-calculo-pension").append(
+        $("#hoja-5-edad-calculo-pension").append(
             '<option value="' +
                 edadPension1 +
                 '">' +
                 edadPension1 +
                 " años - Empresa actual</option>"
         );
-        $("#hoja-3-edad-calculo-pension").append(
+        $("#hoja-5-edad-calculo-pension").append(
             '<option value="' +
                 edadPension2 +
                 '">' +
                 edadPension2 +
                 " años - Cooperativa</option>"
         );
-        $("#hoja-3-edad-calculo-pension").append(
+        $("#hoja-5-edad-calculo-pension").append(
             '<option value="' +
                 edadPension3 +
                 '">' +
                 edadPension3 +
                 " años - M40 Retroactivo</option>"
         );
-        $("#hoja-3-edad-calculo-pension").append(
+        $("#hoja-5-edad-calculo-pension").append(
             '<option value="' +
                 edadPension4 +
                 '">' +
                 edadPension4 +
                 " años - M40 Ya Pagada</option>"
         );
-        $("#hoja-3-edad-calculo-pension").append(
+        $("#hoja-5-edad-calculo-pension").append(
             '<option value="' +
                 edadPension5 +
                 '">' +
                 edadPension5 +
                 " años - M40 Barata</option>"
         );
-        $("#hoja-3-edad-calculo-pension").append(
+        $("#hoja-5-edad-calculo-pension").append(
             '<option value="' +
                 edadPension6 +
                 '">' +
                 edadPension6 +
                 " años - M40 Salario Alto</option>"
         );
-        $("#hoja-3-edad-calculo-pension").trigger("chosen:updated");
+        $("#hoja-5-edad-calculo-pension").trigger("chosen:updated");
     }
 
-    $(".hoja-3-fecha-desde-estrategia").focusout(function(ev) {
+    $(".hoja-5-fecha-desde-estrategia").focusout(function(ev) {
         estrategia = $(this).attr("estrategia");
-        desde = $("#hoja-3-fecha-nacimiento").val();
-        hasta = $("#hoja-3-fecha-desde-estrategia-" + estrategia).val();
+        desde = $("#hoja-5-fecha-nacimiento").val();
+        hasta = $("#hoja-5-fecha-desde-estrategia-" + estrategia).val();
         calculaFechasHoja2(
             desde,
             hasta,
-            "#hoja-3-edad-estrategia-" + estrategia
+            "#hoja-5-edad-estrategia-" + estrategia
         );
 
-        fecDesde = $("#hoja-3-fecha-desde-estrategia-" + estrategia).val();
-        fecHasta = $("#hoja-3-fecha-hasta-estrategia-" + estrategia).val();
+        fecDesde = $("#hoja-5-fecha-desde-estrategia-" + estrategia).val();
+        fecHasta = $("#hoja-5-fecha-hasta-estrategia-" + estrategia).val();
         ////alert(fecDesde + " " + fecHasta);
         calculaDiasEntreFechas(fecDesde, fecHasta, estrategia);
     });
@@ -346,7 +340,7 @@ $(document).on("ready", function() {
             .done(function(response) {
                 //2020-06-29 2020-07-10 2020-06-29 2020-07-09
                 ////console.log(response);
-                $("#hoja-3-dias-estrategia-" + estrategia).val(response.data);
+                $("#hoja-5-dias-estrategia-" + estrategia).val(response.data);
             })
             .fail(function(statusCode, errorThrown) {
                 $.unblockUI();
@@ -362,7 +356,7 @@ $(document).on("ready", function() {
         $(elem).focus();
     });
 
-    $(".OksumarDiasHoja3").click(function(event) {
+    $(".OksumarDiasHoja5").click(function(event) {
         event.preventDefault();
         elem = $(this).attr("elemento");
         fecha = $(this).attr("fecha");
@@ -382,37 +376,37 @@ $(document).on("ready", function() {
             .done(function(response) {
                 ////console.log(response);
                 $(fecha).val(response.data);
-                $("#hoja-3-sumas-dias-estrategia-" + id).hide();
-                fecDesde = $("#hoja-3-fecha-desde-estrategia-" + id).val();
+                $("#hoja-5-sumas-dias-estrategia-" + id).hide();
+                fecDesde = $("#hoja-5-fecha-desde-estrategia-" + id).val();
                 fecHasta = $(fecha).val();
                 calculaDiasEntreFechas(fecDesde, fecHasta, id);
                 ////alert(fecDesde + " " + fecHasta);
                 desde = $("#fechaNacimiento").val();
-                hasta = $("#hoja-3-fecha-hasta-estrategia-" + id).val();
-                //alert(desde + " " + hasta);
+                hasta = $("#hoja-5-fecha-hasta-estrategia-" + id).val();
+                ////alert(desde + " " + hasta);
                 calculaFechasHoja2(
                     desde,
                     hasta,
-                    "#hoja-3-edad-estrategia-" + id
+                    "#hoja-5-edad-estrategia-" + id
                 );
 
                 setTimeout(function() {
-                    dias = $("#hoja-3-dias-estrategia-" + id).val();
+                    dias = $("#hoja-5-dias-estrategia-" + id).val();
                     anos = parseInt(dias) / 365;
-                    $("#hoja-3-anos-estrategia-" + id).val(
+                    $("#hoja-5-anos-estrategia-" + id).val(
                         $.number(anos, 2, ".", ",")
                     );
 
                     meses = anos * 12;
-                    $("#hoja-3-meses-estrategia-" + id).val(
+                    $("#hoja-5-meses-estrategia-" + id).val(
                         $.number(meses, 2, ".", ",")
                     );
 
                     semanas = dias / 7;
-                    $("#hoja-3-semanas-estrategia-" + id).val(
+                    $("#hoja-5-semanas-estrategia-" + id).val(
                         $.number(semanas, 2, ".", ",")
                     );
-                    $("#hoja-3-sbc-estrategia-" + id).focus();
+                    $("#hoja-5-sbc-estrategia-" + id).focus();
                 }, 1000);
             })
             .fail(function(statusCode, errorThrown) {
@@ -422,140 +416,140 @@ $(document).on("ready", function() {
             });
     });
 
-    $(".sbc-monto-estrategia-hoja-3").focusout(function(ev) {
+    $(".sbc-monto-estrategia-hoja-5").focusout(function(ev) {
         estrategia = $(this).attr("estrategia");
         sbc = $(this).val();
-        dias = $("#hoja-3-dias-estrategia-" + estrategia).val();
+        dias = $("#hoja-5-dias-estrategia-" + estrategia).val();
         total = parseFloat(sbc) * parseFloat(dias);
-        $("#hoja-3-total-estrategia-" + estrategia).val(
+        $("#hoja-5-total-estrategia-" + estrategia).val(
             $.number(total, 2, ".", ",")
         );
 
         meses = convertNumberPure(
-            $("#hoja-3-meses-estrategia-" + estrategia).val()
+            $("#hoja-5-meses-estrategia-" + estrategia).val()
         );
-        fecDesde = $("#hoja-3-fecha-desde-estrategia-" + estrategia).val();
-        fecHasta = $("#hoja-3-fecha-hasta-estrategia-" + estrategia).val();
+        fecDesde = $("#hoja-5-fecha-desde-estrategia-" + estrategia).val();
+        fecHasta = $("#hoja-5-fecha-hasta-estrategia-" + estrategia).val();
         switch (estrategia) {
             case 1:
                 break;
             case "2":
                 // Costo coopeartiva
                 calculaCostoCooperativa(estrategia);
-                $("#hoja-3-fecha-desde-cooperativa").val(
+                $("#hoja-5-fecha-desde-cooperativa").val(
                     moment(fecDesde).format("DD-MM-YYYY")
                 );
-                $("#hoja-3-fecha-hasta-cooperativa").val(
+                $("#hoja-5-fecha-hasta-cooperativa").val(
                     moment(fecHasta).format("DD-MM-YYYY")
                 );
-                $("#hoja-3-dias-cooperativa").val(dias);
-                $("#hoja-3-sbc-cooperativa").val($.number(sbc, 2, ".", ","));
-                $("#hoja-3-monto-base-cooperativa").val(
+                $("#hoja-5-dias-cooperativa").val(dias);
+                $("#hoja-5-sbc-cooperativa").val($.number(sbc, 2, ".", ","));
+                $("#hoja-5-monto-base-cooperativa").val(
                     $.number(total, 2, ".", ",")
                 );
                 break;
             case "3":
                 // Costo M40 retroactivo
                 costo = total * 0.10075;
-                $("#hoja-3-costo-estrategia-" + estrategia).val(
+                $("#hoja-5-costo-estrategia-" + estrategia).val(
                     $.number(costo, 2, ".", ",")
                 );
 
                 otroCosto = sbc * 30.4 * 0.10075;
-                $("#hoja-3-otro-valor-estrategia-" + estrategia).val(
+                $("#hoja-5-otro-valor-estrategia-" + estrategia).val(
                     $.number(otroCosto, 2, ".", ",")
                 );
-                $("#hoja-3-fecha-desde-mod40-retroactivo").val(
+                $("#hoja-5-fecha-desde-mod40-retroactivo").val(
                     moment(fecDesde).format("DD-MM-YYYY")
                 );
-                $("#hoja-3-fecha-hasta-mod40-retroactivo").val(
+                $("#hoja-5-fecha-hasta-mod40-retroactivo").val(
                     moment(fecHasta).format("DD-MM-YYYY")
                 );
-                $("#hoja-3-dias-mod40-retroactivo").val(dias);
-                $("#hoja-3-sbc-mod40-retroactivo").val(
+                $("#hoja-5-dias-mod40-retroactivo").val(dias);
+                $("#hoja-5-sbc-mod40-retroactivo").val(
                     $.number(sbc, 2, ".", ",")
                 );
-                $("#hoja-3-monto-base-mod40-retroactivo").val(
+                $("#hoja-5-monto-base-mod40-retroactivo").val(
                     $.number(total, 2, ".", ",")
                 );
                 break;
             case "4":
                 // Costo M40 ya pagada
                 costo = total * 0.10075;
-                $("#hoja-3-costo-estrategia-" + estrategia).val(
+                $("#hoja-5-costo-estrategia-" + estrategia).val(
                     $.number(costo, 2, ".", ",")
                 );
 
                 otroCosto = sbc * 30.4 * 0.10075;
-                $("#hoja-3-otro-valor-estrategia-" + estrategia).val(
+                $("#hoja-5-otro-valor-estrategia-" + estrategia).val(
                     $.number(otroCosto, 2, ".", ",")
                 );
-                $("#hoja-3-fecha-desde-m40-pagada").val(
+                $("#hoja-5-fecha-desde-m40-pagada").val(
                     moment(fecDesde).format("DD-MM-YYYY")
                 );
-                $("#hoja-3-fecha-hasta-m40-pagada").val(
+                $("#hoja-5-fecha-hasta-m40-pagada").val(
                     moment(fecHasta).format("DD-MM-YYYY")
                 );
-                $("#hoja-3-dias-m40-pagada").val(dias);
-                $("#hoja-3-sbc-m40-pagada").val($.number(sbc, 2, ".", ","));
-                $("#hoja-3-monto-base-m40-pagada").val(
+                $("#hoja-5-dias-m40-pagada").val(dias);
+                $("#hoja-5-sbc-m40-pagada").val($.number(sbc, 2, ".", ","));
+                $("#hoja-5-monto-base-m40-pagada").val(
                     $.number(total, 2, ".", ",")
                 );
                 break;
             case "5":
                 // Costo M40 mas barata
                 costo = total * 0.10075;
-                $("#hoja-3-costo-estrategia-" + estrategia).val(
+                $("#hoja-5-costo-estrategia-" + estrategia).val(
                     $.number(costo, 2, ".", ",")
                 );
 
                 otroCosto = sbc * 30.4 * 0.10075;
-                $("#hoja-3-otro-valor-estrategia-" + estrategia).val(
+                $("#hoja-5-otro-valor-estrategia-" + estrategia).val(
                     $.number(otroCosto, 2, ".", ",")
                 );
-                $("#hoja-3-fecha-desde-mod40-barata").val(
+                $("#hoja-5-fecha-desde-mod40-barata").val(
                     moment(fecDesde).format("DD-MM-YYYY")
                 );
-                $("#hoja-3-fecha-hasta-mod40-barata").val(
+                $("#hoja-5-fecha-hasta-mod40-barata").val(
                     moment(fecHasta).format("DD-MM-YYYY")
                 );
-                $("#hoja-3-dias-mod40-barata").val(dias);
-                $("#hoja-3-sbc-mod40-barata").val($.number(sbc, 2, ".", ","));
-                $("#hoja-3-monto-base-mod40-barata").val(
+                $("#hoja-5-dias-mod40-barata").val(dias);
+                $("#hoja-5-sbc-mod40-barata").val($.number(sbc, 2, ".", ","));
+                $("#hoja-5-monto-base-mod40-barata").val(
                     $.number(total, 2, ".", ",")
                 );
                 break;
             case "6":
                 // Costo M40 Salario alto
                 costo = total * 0.10075;
-                $("#hoja-3-costo-estrategia-" + estrategia).val(
+                $("#hoja-5-costo-estrategia-" + estrategia).val(
                     $.number(costo, 2, ".", ",")
                 );
 
                 otroCosto = sbc * 30.4 * 0.10075;
-                $("#hoja-3-otro-valor-estrategia-" + estrategia).val(
+                $("#hoja-5-otro-valor-estrategia-" + estrategia).val(
                     $.number(otroCosto, 2, ".", ",")
                 );
 
-                $("#hoja-3-fecha-desde-mod40-alto").val(
+                $("#hoja-5-fecha-desde-mod40-alto").val(
                     moment(fecDesde).format("DD-MM-YYYY")
                 );
-                $("#hoja-3-fecha-hasta-mod40-alto").val(
+                $("#hoja-5-fecha-hasta-mod40-alto").val(
                     moment(fecHasta).format("DD-MM-YYYY")
                 );
-                $("#hoja-3-dias-mod40-alto").val(dias);
-                $("#hoja-3-sbc-mod40-alto").val($.number(sbc, 2, ".", ","));
-                $("#hoja-3-monto-base-mod40-alto").val(
+                $("#hoja-5-dias-mod40-alto").val(dias);
+                $("#hoja-5-sbc-mod40-alto").val($.number(sbc, 2, ".", ","));
+                $("#hoja-5-monto-base-mod40-alto").val(
                     $.number(total, 2, ".", ",")
                 );
                 break;
         }
 
-        changeChosenEdadPensionHoja3(estrategia);
+        changeChosenEdadPensionHoja5(estrategia);
     });
 
-    function changeChosenEdadPensionHoja3(estrategia) {
-        edadJubilacion = $("#hoja-3-edad-estrategia-" + estrategia).val();
+    function changeChosenEdadPensionHoja5(estrategia) {
+        edadJubilacion = $("#hoja-5-edad-estrategia-" + estrategia).val();
         mes = parseInt(edadJubilacion.substr(9, 2));
         ano = parseInt(edadJubilacion.substr(0, 2));
         edadPension1 = mes >= 6 ? ano + 1 : ano;
@@ -583,10 +577,10 @@ $(document).on("ready", function() {
         }
 
         $(
-            "#hoja-3-edad-calculo-pension option[value='" + estrategia + "']"
+            "#hoja-5-edad-calculo-pension option[value='" + estrategia + "']"
         ).remove();
 
-        $("#hoja-3-edad-calculo-pension").append(
+        $("#hoja-5-edad-calculo-pension").append(
             '<option value="' +
                 estrategia +
                 '" >' +
@@ -595,37 +589,37 @@ $(document).on("ready", function() {
                 "</option>"
         );
 
-        $("#hoja-3-edad-calculo-pension").trigger("chosen:updated");
+        $("#hoja-5-edad-calculo-pension").trigger("chosen:updated");
     }
 
     function calculaCostoCooperativa(estrategia) {
         meses = convertNumberPure(
-            $("#hoja-3-meses-estrategia-" + estrategia).val()
+            $("#hoja-5-meses-estrategia-" + estrategia).val()
         );
         inscCooperativa = convertNumberPure(
-            $("#hoja-3-inscripcion-cooperativa-estrategia-" + estrategia).val()
+            $("#hoja-5-inscripcion-cooperativa-estrategia-" + estrategia).val()
         );
         tot1 = meses * 1750;
         costo = inscCooperativa + tot1;
-        $("#hoja-3-costo-estrategia-" + estrategia).val(
+        $("#hoja-5-costo-estrategia-" + estrategia).val(
             $.number(costo, 2, ".", ",")
         );
         otros = costo / meses;
-        $("#hoja-3-otro-valor-estrategia-" + estrategia).val(
+        $("#hoja-5-otro-valor-estrategia-" + estrategia).val(
             $.number(otros, 2, ".", ",")
         );
     }
 
-    $("#hoja-3-inscripcion-cooperativa-estrategia-2").focusout(function(ev) {
+    $("#hoja-5-inscripcion-cooperativa-estrategia-2").focusout(function(ev) {
         estrategia = $(this).attr("estrategia");
         calculaCostoCooperativa(estrategia);
     });
 
-    $("#modal-hoja-3-estrategias").on("shown.bs.modal", function() {
+    $("#modal-hoja-5-estrategias").on("shown.bs.modal", function() {
         $(".x_content").each(function() {
             estrategia = $(this).attr("estrategia");
             if (estrategia !== undefined) {
-                total = $("#hoja-3-total-estrategia-" + estrategia).val();
+                total = $("#hoja-5-total-estrategia-" + estrategia).val();
                 if (total == "" || total == 0) {
                     $(this).attr("style", "display: none;");
                 } else {
@@ -635,13 +629,13 @@ $(document).on("ready", function() {
         });
     });
 
-    $("#modal-hoja-3-estrategias").on("hide.bs.modal", function() {
-        totaldiasHojas3(0);
+    $("#modal-hoja-5-estrategias").on("hide.bs.modal", function() {
+        totaldiasHojas5(0);
     });
 
-    function totaldiasHojas3(changeMonto) {
+    function totaldiasHojas5(changeMonto) {
         diasTotal = 0;
-        $(".hoja-3-dias").each(function() {
+        $(".hoja-5-dias").each(function() {
             dias = $(this).val();
             ////console.log(dias);
             if (dias != "") {
@@ -650,7 +644,7 @@ $(document).on("ready", function() {
         });
 
         totalCotiza = 0;
-        $(".total-cotizacion-promedio-salarial-3").each(function() {
+        $(".total-cotizacion-promedio-salarial-5").each(function() {
             totalCotizacion = $(this).val();
             ////console.log(totalCotizacion);
             if (totalCotizacion != "") {
@@ -660,44 +654,44 @@ $(document).on("ready", function() {
         });
 
         if (diasTotal < 1750) {
-            $("#hoja-3-total-dias").val($.number(diasTotal, 2, ".", ","));
-            $("#hoja-3-dias-excedidos").val($.number(0, 2, ".", ","));
-            $("#hoja-3-dias-equivalentes-250").val($.number(0, 2, ".", ","));
+            $("#hoja-5-total-dias").val($.number(diasTotal, 2, ".", ","));
+            $("#hoja-5-dias-excedidos").val($.number(0, 2, ".", ","));
+            $("#hoja-5-dias-equivalentes-250").val($.number(0, 2, ".", ","));
             return false;
         }
         diasExcedidos = diasTotal - 1750;
         diasEquivalentes250 = diasTotal - diasExcedidos;
 
-        $("#hoja-3-total-dias").val($.number(diasTotal, 2, ".", ","));
-        $("#hoja-3-dias-excedidos").val($.number(diasExcedidos, 2, ".", ","));
-        $("#hoja-3-dias-equivalentes-250").val(
+        $("#hoja-5-total-dias").val($.number(diasTotal, 2, ".", ","));
+        $("#hoja-5-dias-excedidos").val($.number(diasExcedidos, 2, ".", ","));
+        $("#hoja-5-dias-equivalentes-250").val(
             $.number(diasEquivalentes250, 2, ".", ",")
         );
 
-        cargaTablaCambioSalarioHoja3();
+        cargaTablaCambioSalarioHoja5();
 
         monto = $("#monto-a-descontar-excedido").val();
 
         salarioNeto = parseInt(diasExcedidos) * parseFloat(monto);
 
-        $("#hoja-3-salarios-neto").val($.number(monto, 2, ".", ","));
+        $("#hoja-5-salarios-neto").val($.number(monto, 2, ".", ","));
 
-        //montoExcedente = convertNumberPure($("#hoja-3-salarios-neto").val());
+        //montoExcedente = convertNumberPure($("#hoja-5-salarios-neto").val());
         salarioBasePromedio = totalCotiza - monto;
-        $("#hoja-3-salario-base-promedio").val(
+        $("#hoja-5-salario-base-promedio").val(
             $.number(salarioBasePromedio, 2, ".", ",")
         );
 
         promedioUltimasSemanas = salarioBasePromedio / 1750;
 
-        $("#hoja-3-entre").val($("#hoja-3-dias-equivalentes-250").val());
-        $("#hoja-3-prom-ultimas-250-sem").val(
+        $("#hoja-5-entre").val($("#hoja-5-dias-equivalentes-250").val());
+        $("#hoja-5-prom-ultimas-250-sem").val(
             $.number(promedioUltimasSemanas, 2, ".", ",")
         );
 
         semanasCotizadas = $("#totalSemanas").val();
         semanasCotiza = 0;
-        $(".semanas-cotizadas-estrategia-hoja3").each(function() {
+        $(".semanas-cotizadas-estrategia-hoja5").each(function() {
             semanas = $(this).val();
             //console.log(semanas);
             if (semanas != "") {
@@ -708,8 +702,8 @@ $(document).on("ready", function() {
         semanasCotizadas =
             parseInt(semanasCotizadas) + Math.round(semanasCotiza);
 
-        estrategiaEdad = $("#hoja-3-edad-calculo-pension").val();
-        edadJubilacion = $("#hoja-3-edad-estrategia-" + estrategiaEdad).val();
+        estrategiaEdad = $("#hoja-5-edad-calculo-pension").val();
+        edadJubilacion = $("#hoja-5-edad-estrategia-" + estrategiaEdad).val();
         mes = parseInt(edadJubilacion.substr(9, 2));
         ano = parseInt(edadJubilacion.substr(0, 2));
         edadPension = mes >= 6 ? ano + 1 : ano;
@@ -717,48 +711,48 @@ $(document).on("ready", function() {
         ////alert(edadPension);
         salarioDiarioPromedio = promedioUltimasSemanas;
         ////alert(salarioDiarioPromedio);
-        $("#hoja-3-nro-semanas-cotizadas").val(semanasCotizadas);
-        $("#hoja-3-salario-promedio-mensual-250-semanas").val(
+        $("#hoja-5-nro-semanas-cotizadas").val(semanasCotizadas);
+        $("#hoja-5-salario-promedio-mensual-250-semanas").val(
             $.number(salarioDiarioPromedio, 2, ".", ",")
         );
-        $("#hoja-3-esposa").val($("#esposa").val());
-        $("#hoja-3-hijos").val($("#hijos").val());
-        $("#hoja-3-padres").val($("#padres").val());
-        $("#hoja-3-edad-jubilacion").val(edadPension);
+        $("#hoja-5-esposa").val($("#esposa").val());
+        $("#hoja-5-hijos").val($("#hijos").val());
+        $("#hoja-5-padres").val($("#padres").val());
+        $("#hoja-5-edad-jubilacion").val(edadPension);
 
         calculaFormulasExcelHojas(
             semanasCotizadas,
             salarioDiarioPromedio,
             edadPension,
             false,
-            "hoja-3"
+            "hoja-5"
         );
         /////
     }
 
-    $(".delete-estrategia-hoja3").click(function(event) {
+    $(".delete-estrategia-hoja5").click(function(event) {
         event.preventDefault();
         estrategia = $(this).attr("estrategia");
-        $("#hoja-3-fecha-desde-estrategia-" + estrategia).val("");
-        $("#hoja-3-fecha-hasta-estrategia-" + estrategia).val("");
-        $("#hoja-3-edad-estrategia-" + estrategia).val("");
-        $("#hoja-3-anos-estrategia-" + estrategia).val("");
-        $("#hoja-3-meses-estrategia-" + estrategia).val("");
-        $("#hoja-3-semanas-estrategia-" + estrategia).val("");
-        $("#hoja-3-dias-estrategia-" + estrategia).val("");
-        $("#hoja-3-sbc-estrategia-" + estrategia).val("");
-        $("#hoja-3-total-estrategia-" + estrategia).val("");
-        $("#hoja-3-costo-estrategia-" + estrategia).val("");
-        $("#hoja-3-otro-valor-estrategia-" + estrategia).val("");
-        $(".hoja-3-estrategia-" + estrategia).val("");
+        $("#hoja-5-fecha-desde-estrategia-" + estrategia).val("");
+        $("#hoja-5-fecha-hasta-estrategia-" + estrategia).val("");
+        $("#hoja-5-edad-estrategia-" + estrategia).val("");
+        $("#hoja-5-anos-estrategia-" + estrategia).val("");
+        $("#hoja-5-meses-estrategia-" + estrategia).val("");
+        $("#hoja-5-semanas-estrategia-" + estrategia).val("");
+        $("#hoja-5-dias-estrategia-" + estrategia).val("");
+        $("#hoja-5-sbc-estrategia-" + estrategia).val("");
+        $("#hoja-5-total-estrategia-" + estrategia).val("");
+        $("#hoja-5-costo-estrategia-" + estrategia).val("");
+        $("#hoja-5-otro-valor-estrategia-" + estrategia).val("");
+        $(".hoja-5-estrategia-" + estrategia).val("");
     });
 
-    $(document).on("click", ".hoja-3-borrar-cotizacion", function(event) {
+    $(document).on("click", ".hoja-5-borrar-cotizacion", function(event) {
         event.preventDefault();
         $(this)
             .closest("tr")
             .remove();
-        totaldiasHojas3(0);
+        totaldiasHojas5(0);
     });
 
     // function calculaFormulasExcelHojas(
@@ -1081,16 +1075,16 @@ $(document).on("ready", function() {
     //         });
     // }
 
-    $(document).on("click", "#cambiar-salario-calculo-hoja-3", function(event) {
+    $(document).on("click", "#cambiar-salario-calculo-hoja-5", function(event) {
         event.preventDefault();
-        // if ($("#hoja-3-dias-excedidos").val() == "") {
+        // if ($("#hoja-5-dias-excedidos").val() == "") {
         //     return false;
         // }
-        cargaTablaCambioSalarioHoja3();
+        cargaTablaCambioSalarioHoja5();
         $("#modal-cambiar-salario").modal("show");
     });
 
-    function cargaTablaCambioSalarioHoja3() {
+    function cargaTablaCambioSalarioHoja5() {
         i = 0;
         fila = 1;
 
@@ -1099,7 +1093,7 @@ $(document).on("ready", function() {
         cargaFilasEstrategias();
         i = 1;
 
-        var filas = $("#body-promedio-salarial-3").find("tr");
+        var filas = $("#body-promedio-salarial-5").find("tr");
         totalGeneral = 0.0;
         for (i = 7; i < filas.length; i++) {
             var celdas = $(filas[i]).find("td");
@@ -1146,7 +1140,7 @@ $(document).on("ready", function() {
 
         $("#body-salario-excedido").empty();
 
-        diasExcedidos = $("#hoja-3-dias-excedidos").val();
+        diasExcedidos = $("#hoja-5-dias-excedidos").val();
         $("#dias-excedidos-calculo").html(diasExcedidos);
 
         excedidos = convertNumberPure(diasExcedidos);
@@ -1200,20 +1194,20 @@ $(document).on("ready", function() {
             "</td></tr>";
         $("#table-salario-excedido tbody").append(htmlTags);
 
-        //$("#hoja-3-salarios-neto").val(totalGeneral);
+        //$("#hoja-5-salarios-neto").val(totalGeneral);
         $("#monto-a-descontar-excedido").val(totalGeneral);
 
-        //totaldiasHojas3(0);
+        //totaldiasHojas5(0);
     }
 
     function cargaFilasEstrategias() {
-        dias = $("#hoja-3-dias-mod40-alto").val();
+        dias = $("#hoja-5-dias-mod40-alto").val();
         if (dias != "") {
             concepto = "M40 -ALTO 2";
-            fechaDesde = $("#hoja-3-fecha-desde-mod40-alto").val();
-            fechaHasta = $("#hoja-3-fecha-hasta-mod40-alto").val();
-            dias = $("#hoja-3-dias-mod40-alto").val();
-            monto = $("#hoja-3-sbc-mod40-alto").val();
+            fechaDesde = $("#hoja-5-fecha-desde-mod40-alto").val();
+            fechaHasta = $("#hoja-5-fecha-hasta-mod40-alto").val();
+            dias = $("#hoja-5-dias-mod40-alto").val();
+            monto = $("#hoja-5-sbc-mod40-alto").val();
             agregarTableCambiosalario(
                 concepto,
                 fechaDesde,
@@ -1223,13 +1217,13 @@ $(document).on("ready", function() {
             );
         }
 
-        dias = $("#hoja-3-dias-mod40-retroactivo").val();
+        dias = $("#hoja-5-dias-mod40-retroactivo").val();
         if (dias != "") {
             concepto = "RETROACTIVO";
-            fechaDesde = $("#hoja-3-fecha-desde-mod40-retroactivo").val();
-            fechaHasta = $("#hoja-3-fecha-hasta-mod40-retroactivo").val();
-            dias = $("#hoja-3-dias-mod40-retroactivo").val();
-            monto = $("#hoja-3-sbc-mod40-retroactivo").val();
+            fechaDesde = $("#hoja-5-fecha-desde-mod40-retroactivo").val();
+            fechaHasta = $("#hoja-5-fecha-hasta-mod40-retroactivo").val();
+            dias = $("#hoja-5-dias-mod40-retroactivo").val();
+            monto = $("#hoja-5-sbc-mod40-retroactivo").val();
             agregarTableCambiosalario(
                 concepto,
                 fechaDesde,
@@ -1239,13 +1233,13 @@ $(document).on("ready", function() {
             );
         }
 
-        dias = $("#hoja-3-dias-mod40-barata").val();
+        dias = $("#hoja-5-dias-mod40-barata").val();
         if (dias != "") {
             concepto = "M40 BARATA";
-            fechaDesde = $("#hoja-3-fecha-desde-mod40-barata").val();
-            fechaHasta = $("#hoja-3-fecha-hasta-mod40-barata").val();
-            dias = $("#hoja-3-dias-mod40-barata").val();
-            monto = $("#hoja-3-sbc-mod40-barata").val();
+            fechaDesde = $("#hoja-5-fecha-desde-mod40-barata").val();
+            fechaHasta = $("#hoja-5-fecha-hasta-mod40-barata").val();
+            dias = $("#hoja-5-dias-mod40-barata").val();
+            monto = $("#hoja-5-sbc-mod40-barata").val();
             agregarTableCambiosalario(
                 concepto,
                 fechaDesde,
@@ -1255,13 +1249,13 @@ $(document).on("ready", function() {
             );
         }
 
-        dias = $("#hoja-3-dias-cooperativa").val();
+        dias = $("#hoja-5-dias-cooperativa").val();
         if (dias != "") {
             concepto = "COOPERATIVA";
-            fechaDesde = $("#hoja-3-fecha-desde-cooperativa").val();
-            fechaHasta = $("#hoja-3-fecha-hasta-cooperativa").val();
-            dias = $("#hoja-3-dias-cooperativa").val();
-            monto = $("#hoja-3-sbc-cooperativa").val();
+            fechaDesde = $("#hoja-5-fecha-desde-cooperativa").val();
+            fechaHasta = $("#hoja-5-fecha-hasta-cooperativa").val();
+            dias = $("#hoja-5-dias-cooperativa").val();
+            monto = $("#hoja-5-sbc-cooperativa").val();
             agregarTableCambiosalario(
                 concepto,
                 fechaDesde,
@@ -1271,13 +1265,13 @@ $(document).on("ready", function() {
             );
         }
 
-        dias = $("#hoja-3-dias-m40-pagada").val();
+        dias = $("#hoja-5-dias-m40-pagada").val();
         if (dias != "") {
             concepto = "M40 YA PAGADA";
-            fechaDesde = $("#hoja-3-fecha-desde-m40-pagada").val();
-            fechaHasta = $("#hoja-3-fecha-hasta-m40-pagada").val();
-            dias = $("#hoja-3-dias-m40-pagada").val();
-            monto = $("#hoja-3-sbc-m40-pagada").val();
+            fechaDesde = $("#hoja-5-fecha-desde-m40-pagada").val();
+            fechaHasta = $("#hoja-5-fecha-hasta-m40-pagada").val();
+            dias = $("#hoja-5-dias-m40-pagada").val();
+            monto = $("#hoja-5-sbc-m40-pagada").val();
             agregarTableCambiosalario(
                 concepto,
                 fechaDesde,
@@ -1325,19 +1319,19 @@ $(document).on("ready", function() {
         event.preventDefault();
         // monto_sbc = $(this).attr("monto_sbc");
 
-        // $("#hoja-3-salarios-excedidos").val(monto_sbc);
-        // totaldiasHojas3(monto_sbc);
+        // $("#hoja-5-salarios-excedidos").val(monto_sbc);
+        // totaldiasHojas5(monto_sbc);
         // $("#modal-cambiar-salario").modal("hide");
     });
 
-    $("#btn-formulas-hoja-3").click(function(event) {
+    $("#btn-formulas-hoja-5").click(function(event) {
         event.preventDefault();
 
-        semanasCotizadas = $("#hoja-3-nro-semanas-cotizadas").val();
+        semanasCotizadas = $("#hoja-5-nro-semanas-cotizadas").val();
         salarioDiarioPromedio = $(
-            "#hoja-3-salario-promedio-mensual-250-semanas"
+            "#hoja-5-salario-promedio-mensual-250-semanas"
         ).val();
-        edadJubilacion = $("#hoja-3-edad-jubilacion").val();
+        edadJubilacion = $("#hoja-5-edad-jubilacion").val();
         //alert(salarioDiarioPromedio);
         salarioDiarioPromedio = convertNumberPure(salarioDiarioPromedio);
         calculaFormulasExcelHojas(

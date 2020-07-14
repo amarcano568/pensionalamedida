@@ -206,7 +206,7 @@ data-keyboard="false">
                     <div class="clearfix"></div>
                 </div>
                 <div estrategia="1" class="x_content" style="display: block;">
-                    <table id="hoja-3-table-estrategia-1" style="display: table;width: 100%" class="table">
+                    <table id="hoja-3-table-estrategia-1" style="display: table;width: 100%" class="table table-xs">
                         <tbody id="hoja-3-body-estrategia-1">
                             <tr style="background-color: #EBEDEF">
                                 <td style="width: 10%" class="text-center">Desde</td>
@@ -265,7 +265,7 @@ data-keyboard="false">
                                 </td>
                             </tr>
                             <tr style="background-color: #EBEDEF">
-                                <td><a href=""><i estrategia="1" class="deleteEstrategia text-danger far fa-trash-alt"></i></a></td>
+                                <td><a href=""><i estrategia="1" class="delete-estrategia-hoja3 text-danger far fa-trash-alt"></i></a></td>
                                 <td colspan="8" style="width: 10%" class="text-center"></td>
                                 <td style="width: 10%" class="text-center">
                                     <div class="input-group">
@@ -295,7 +295,7 @@ data-keyboard="false">
                     <div class="clearfix"></div>
                 </div>
                 <div estrategia="2" class="x_content" style="display: block;">
-                    <table id="hoja-3-table-estrategia-2" style="display: table;width: 100%" class="table">
+                    <table id="hoja-3-table-estrategia-2" style="display: table;width: 100%" class="table table-xs">
                         <tbody id="body-estrategia-2">
                             <tr style="background-color: #EBEDEF">
                                 <td style="width: 10%" class="text-center">Desde</td>
@@ -354,7 +354,7 @@ data-keyboard="false">
                                 </td>
                             </tr>
                             <tr style="background-color: #EBEDEF">
-                                <td><a href=""><i estrategia="2" class="deleteEstrategia text-danger far fa-trash-alt"></i></a></td>
+                                <td><a href=""><i estrategia="2" class="delete-estrategia-hoja3 text-danger far fa-trash-alt"></i></a></td>
                                 <td colspan="3" style="width: 10%" class="text-center"></td>
                                 <td colspan="3" class="text-right">Inscripción costo</td>
                                 <td>
@@ -394,7 +394,7 @@ data-keyboard="false">
                     <div class="clearfix"></div>
                 </div>
                 <div estrategia="3" class="x_content" style="display: block;">
-                    <table id="hoja-3-table-estrategia-3" style="display: table;width: 100%" class="table">
+                    <table id="hoja-3-table-estrategia-3" style="display: table;width: 100%" class="table table-xs">
                         <tbody id="hoja-3-body-estrategia-3">
                             <tr style="background-color: #EBEDEF">
                                 <td style="width: 10%" class="text-center">Desde</td>
@@ -453,7 +453,7 @@ data-keyboard="false">
                                 </td>
                             </tr>
                             <tr style="background-color: #EBEDEF">
-                                <td><a href=""><i estrategia="3" class="deleteEstrategia text-danger far fa-trash-alt"></i></a></td>
+                                <td><a href=""><i estrategia="3" class="delete-estrategia-hoja3 text-danger far fa-trash-alt"></i></a></td>
                                 <td colspan="8" style="width: 10%" class="text-center"></td>
                                 <td style="width: 10%" class="text-center">
                                     <div class="input-group">
@@ -483,7 +483,7 @@ data-keyboard="false">
                     <div class="clearfix"></div>
                 </div>
                 <div estrategia="4" class="x_content" style="display: block;">
-                    <table id="hoja-3-table-estrategia-4" style="display: table;width: 100%" class="table">
+                    <table id="hoja-3-table-estrategia-4" style="display: table;width: 100%" class="table table-xs">
                         <tbody id="hoja-3-body-estrategia-4">
                             <tr style="background-color: #EBEDEF">
                                 <td style="width: 10%" class="text-center">Desde</td>
@@ -542,7 +542,7 @@ data-keyboard="false">
                                 </td>
                             </tr>
                             <tr style="background-color: #EBEDEF">
-                                <td><a href=""><i estrategia="4" class="deleteEstrategia text-danger far fa-trash-alt"></i></a></td>
+                                <td><a href=""><i estrategia="4" class="delete-estrategia-hoja3 text-danger far fa-trash-alt"></i></a></td>
                                 <td colspan="8" style="width: 10%" class="text-center"></td>
                                 <td style="width: 10%" class="text-center">
                                     <div class="input-group">
@@ -572,7 +572,7 @@ data-keyboard="false">
                     <div class="clearfix"></div>
                 </div>
                 <div estrategia="5" class="x_content" style="display: block;">
-                    <table id="hoja-3-table-estrategia-5" style="display: table;width: 100%" class="table">
+                    <table id="hoja-3-table-estrategia-5" style="display: table;width: 100%" class="table table-xs">
                         <tbody id="hoja-3-body-estrategia-5">
                             <tr style="background-color: #EBEDEF">
                                 <td style="width: 10%" class="text-center">Desde</td>
@@ -631,7 +631,7 @@ data-keyboard="false">
                                 </td>
                             </tr>
                             <tr style="background-color: #EBEDEF">
-                                <td><a href=""><i estrategia="5" class="deleteEstrategia text-danger far fa-trash-alt"></i></a></td>
+                                <td><a href=""><i estrategia="5" class="delete-estrategia-hoja3 text-danger far fa-trash-alt"></i></a></td>
                                 <td colspan="8" style="width: 10%" class="text-center"></td>
                                 <td style="width: 10%" class="text-center">
                                     <div class="input-group">
@@ -661,7 +661,7 @@ data-keyboard="false">
                     <div class="clearfix"></div>
                 </div>
                 <div estrategia="6" class="x_content" style="display: block;">
-                    <table id="hoja-3-table-estrategia-6" style="display: table;width: 100%" class="table">
+                    <table id="hoja-3-table-estrategia-6" style="display: table;width: 100%" class="table table-xs">
                         <tbody id="hoja-3-body-estrategia-6">
                             <tr style="background-color: #EBEDEF">
                                 <td style="width: 10%" class="text-center">Desde</td>
@@ -720,7 +720,7 @@ data-keyboard="false">
                                 </td>
                             </tr>
                             <tr style="background-color: #EBEDEF">
-                                <td><a href=""><i estrategia="6" class="deleteEstrategia text-danger far fa-trash-alt"></i></a></td>
+                                <td><a href=""><i estrategia="6" class="delete-estrategia-hoja3 text-danger far fa-trash-alt"></i></a></td>
                                 <td colspan="8" style="width: 10%" class="text-center"></td>
                                 <td style="width: 10%" class="text-center">
                                     <div class="input-group">
