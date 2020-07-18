@@ -199,9 +199,17 @@ $(document).on("ready", function() {
         var fechaHoy = anio + "-" + pad(mes, 2) + "-" + pad(dia, 2);
         //$("#fechaPlan").val(fechaHoy);
         estrategia = $(this).attr("estrategia");
-        $("#hoja-4-fecha-desde-estrategia-" + estrategia).val(fechaHoy);
-        $("#hoja-4-fecha-hasta-estrategia-" + estrategia).val(fechaHoy);
-        $("#hoja-4-fecha-desde-estrategia-" + estrategia).focus();
+
+        if (NewOrEdit == "New") {
+            $("#hoja-4-fecha-desde-estrategia-" + estrategia).val(fechaHoy);
+            $("#hoja-4-fecha-hasta-estrategia-" + estrategia).val(fechaHoy);
+            $("#hoja-4-fecha-desde-estrategia-" + estrategia).focus();
+        } else {
+            $("#hoja-4-fecha-desde-estrategia-" + estrategia).focus();
+            // $("#hoja-2-edad-estrategia-" + estrategia).focus();
+            $("#hoja-4-sbc-estrategia-" + estrategia).focus();
+            $("#hoja-4-total-estrategia-" + estrategia).focus();
+        }
 
         desde = $("#hoja-4-fecha-nacimiento").val();
         hasta = $("#hoja-4-fecha-desde-estrategia-" + estrategia).val();
@@ -615,18 +623,15 @@ $(document).on("ready", function() {
         calculaCostoCooperativa(estrategia);
     });
 
-    $("#modal-hoja-4-estrategias").on("shown.bs.modal", function() {
-        $(".x_content").each(function() {
-            estrategia = $(this).attr("estrategia");
-            if (estrategia !== undefined) {
-                total = $("#hoja-4-total-estrategia-" + estrategia).val();
-                if (total == "" || total == 0) {
-                    $(this).attr("style", "display: none;");
-                } else {
-                    $(this).attr("style", "display: block;");
-                }
+    $("#modal-hoja-4-estrategias").on("show.bs.modal", function() {
+        for (i = 1; i <= 6; i++) {
+            dias = $("#hoja-4-dias-estrategia-" + i).val();
+            if (dias != "") {
+                $("#hoja-4-x_content-" + i).attr("style", "display: block;");
+            } else {
+                $("#hoja-4-x_content-" + i).attr("style", "display: none;");
             }
-        });
+        }
     });
 
     $("#modal-hoja-4-estrategias").on("hide.bs.modal", function() {

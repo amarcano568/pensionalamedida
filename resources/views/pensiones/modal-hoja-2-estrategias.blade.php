@@ -192,7 +192,7 @@ data-keyboard="false">
                 
             </div>
 
-            <div class="x_panel">
+            <div class="x_panel" >
                 <div estrategia="1" class="x_title">
                     <h6 style="cursor: pointer" class="collapse-link"><i class="far fa-edit"></i> 1.- EN SU EMPRESA ACTUAL (PARA DAR TIEMPO A GESTIONAR SU BAJA)</h6>
                     <ul class="nav navbar-right panel_toolbox">
@@ -205,7 +205,7 @@ data-keyboard="false">
                     </ul>
                     <div class="clearfix"></div>
                 </div>
-                <div estrategia="1" class="x_content" style="display: block;">
+                <div estrategia="1" class="x_content" style="display: block;" id="hoja-2-x_content-1">
                     <table id="hoja-2-table-estrategia-1" style="display: table;width: 100%" class="table table-xs">
                         <tbody id="hoja-2-body-estrategia-1">
                             <tr style="background-color: #EBEDEF">
@@ -294,7 +294,7 @@ data-keyboard="false">
                     </ul>
                     <div class="clearfix"></div>
                 </div>
-                <div estrategia="2" class="x_content" style="display: block;">
+                <div estrategia="2" class="x_content" style="display: block;" id="hoja-2-x_content-2">
                     <table id="hoja-2-table-estrategia-2" style="display: table;width: 100%" class="table table-xs">
                         <tbody id="body-estrategia-2">
                             <tr style="background-color: #EBEDEF">
@@ -393,7 +393,7 @@ data-keyboard="false">
                     </ul>
                     <div class="clearfix"></div>
                 </div>
-                <div estrategia="3" class="x_content" style="display: block;">
+                <div estrategia="3" class="x_content" style="display: block;" id="hoja-2-x_content-3">
                     <table id="hoja-2-table-estrategia-3" style="display: table;width: 100%" class="table table-xs">
                         <tbody id="hoja-2-body-estrategia-3">
                             <tr style="background-color: #EBEDEF">
@@ -482,7 +482,7 @@ data-keyboard="false">
                     </ul>
                     <div class="clearfix"></div>
                 </div>
-                <div estrategia="4" class="x_content" style="display: block;">
+                <div estrategia="4" class="x_content" style="display: block;" id="hoja-2-x_content-4">
                     <table id="hoja-2-table-estrategia-4" style="display: table;width: 100%" class="table table-xs">
                         <tbody id="hoja-2-body-estrategia-4">
                             <tr style="background-color: #EBEDEF">
@@ -571,7 +571,7 @@ data-keyboard="false">
                     </ul>
                     <div class="clearfix"></div>
                 </div>
-                <div estrategia="5" class="x_content" style="display: block;">
+                <div estrategia="5" class="x_content" style="display: block;" id="hoja-2-x_content-5">
                     <table id="hoja-2-table-estrategia-5" style="display: table;width: 100%" class="table table-xs">
                         <tbody id="hoja-2-body-estrategia-5">
                             <tr style="background-color: #EBEDEF">
@@ -660,7 +660,7 @@ data-keyboard="false">
                     </ul>
                     <div class="clearfix"></div>
                 </div>
-                <div estrategia="6" class="x_content" style="display: block;">
+                <div estrategia="6" class="x_content" style="display: block;" id="hoja-2-x_content-6">
                     <table id="hoja-2-table-estrategia-6" style="display: table;width: 100%" class="table table-xs">
                         <tbody id="hoja-2-body-estrategia-6">
                             <tr style="background-color: #EBEDEF">

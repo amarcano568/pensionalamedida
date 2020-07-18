@@ -82,7 +82,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('buscar-cliente', 'GestionarPensionesController@buscarCliente');
 	Route::get('calcular-edad-completa', 'GestionarPensionesController@calcularEdadCompleta');
 	Route::get('calcular-anos-faltante', 'GestionarPensionesController@calcularAnosFaltante');
-	Route::get('generar-planes/{idPension}', 'GestionarPensionesController@generarPlanes');
+	Route::get('generar-planes/{idPension}/{idCliente}', 'GestionarPensionesController@generarPlanes');
 	Route::get('calcular-dias-entre-fechas', 'GestionarPensionesController@calcularDiasEntreFechas');
 	Route::post('subir-excel-cotizaciones', 'GestionarPensionesController@subirExcelCotizaciones');
 	Route::get('buscar-cuantia-basica', 'GestionarPensionesController@buscarCuantiaBasica');
@@ -90,5 +90,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('sumar-dias-a-fecha-estrategias', 'GestionarPensionesController@sumarDiasaFechaEstrategias');
 	Route::get('edad-cliente', 'GestionarPensionesController@edadCliente');
 	Route::post('guardar-plan-pension', 'GestionarPensionesController@guardarPlanPension');
-	
+	Route::get('/buscar-expectativas', 'GestionarPensionesController@buscarExpectativas');
+	Route::get('/buscar-cotizaciones-hoja-1', 'GestionarPensionesController@buscarCotizacionesHoja1');
+	Route::get('/buscar-cotizaciones-hoja', 'GestionarPensionesController@buscarCotizacionesHoja');
 });

@@ -7,12 +7,6 @@ $(document).on("ready", function() {
         edadJubilacion = $("#edadDe").val();
         salarioDiarioPromedio = convertNumberPure(salarioDiarioPromedio);
 
-        // calculaFormulasExcel(
-        //     semanasCotizadas,
-        //     salarioDiarioPromedio,
-        //     edadJubilacion,
-        //     false
-        // );
         loadingUI("Calculando formulas...", "white");
         setTimeout(function() {
             $.unblockUI();
@@ -205,9 +199,17 @@ $(document).on("ready", function() {
         var fechaHoy = anio + "-" + pad(mes, 2) + "-" + pad(dia, 2);
         //$("#fechaPlan").val(fechaHoy);
         estrategia = $(this).attr("estrategia");
-        $("#hoja-2-fecha-desde-estrategia-" + estrategia).val(fechaHoy);
-        $("#hoja-2-fecha-hasta-estrategia-" + estrategia).val(fechaHoy);
-        $("#hoja-2-fecha-desde-estrategia-" + estrategia).focus();
+
+        if (NewOrEdit == "New") {
+            $("#hoja-2-fecha-desde-estrategia-" + estrategia).val(fechaHoy);
+            $("#hoja-2-fecha-hasta-estrategia-" + estrategia).val(fechaHoy);
+            $("#hoja-2-fecha-desde-estrategia-" + estrategia).focus();
+        } else {
+            $("#hoja-2-fecha-desde-estrategia-" + estrategia).focus();
+            // $("#hoja-2-edad-estrategia-" + estrategia).focus();
+            $("#hoja-2-sbc-estrategia-" + estrategia).focus();
+            $("#hoja-2-total-estrategia-" + estrategia).focus();
+        }
 
         desde = $("#hoja-2-fecha-nacimiento").val();
         hasta = $("#hoja-2-fecha-desde-estrategia-" + estrategia).val();
@@ -369,6 +371,10 @@ $(document).on("ready", function() {
         id = $(this).attr("id");
         desdefecha = $(this).attr("desdefecha");
         diasFormulaEvaluar = $(elem).val();
+
+        if (diasFormulaEvaluar == "") {
+            return;
+        }
         fechaDondesumar = $(desdefecha).val();
         $.ajax({
             url: "/sumar-dias-a-fecha-estrategias",
@@ -621,18 +627,15 @@ $(document).on("ready", function() {
         calculaCostoCooperativa(estrategia);
     });
 
-    $("#modal-hoja-2-estrategias").on("shown.bs.modal", function() {
-        $(".x_content").each(function() {
-            estrategia = $(this).attr("estrategia");
-            if (estrategia !== undefined) {
-                total = $("#hoja-2-total-estrategia-" + estrategia).val();
-                if (total == "" || total == 0) {
-                    $(this).attr("style", "display: none;");
-                } else {
-                    $(this).attr("style", "display: block;");
-                }
+    $("#modal-hoja-2-estrategias").on("show.bs.modal", function() {
+        for (i = 1; i <= 6; i++) {
+            dias = $("#hoja-2-dias-estrategia-" + i).val();
+            if (dias != "") {
+                $("#hoja-2-x_content-" + i).attr("style", "display: block;");
+            } else {
+                $("#hoja-2-x_content-" + i).attr("style", "display: none;");
             }
-        });
+        }
     });
 
     $("#modal-hoja-2-estrategias").on("hide.bs.modal", function() {
@@ -786,25 +789,6 @@ $(document).on("ready", function() {
         $("#table-cambiar-salario tr").remove();
         cargaFilasEstrategias();
         i = 1;
-        // $(".diasCotizacion").each(function() {
-        //     row = $(this).attr("row");
-        //     concepto = "Cotizaciones " + i;
-        //     fechaDesde = $("#fechaDesde" + row).val();
-        //     fechaHasta = $("#fechaHasta" + row).val();
-        //     dias = $("#dias" + row).val();
-        //     monto = $("#monto" + row).val();
-        //     totalMontoCotizacion = $("#totalMontoCotizacion" + row).val();
-        //     if (parseInt(monto) > 0) {
-        //         agregarTableCambiosalario(
-        //             concepto,
-        //             moment(fechaDesde).format("DD-MM-YYYY"),
-        //             moment(fechaHasta).format("DD-MM-YYYY"),
-        //             dias,
-        //             monto
-        //         );
-        //         i++;
-        //     }
-        // });
 
         var filas = $("#body-promedio-salarial-2").find("tr");
         totalGeneral = 0.0;

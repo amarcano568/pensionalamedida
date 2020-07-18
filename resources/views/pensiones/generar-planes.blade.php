@@ -2,14 +2,14 @@
 @section('contenido')
 <br><br>
 <div id="divGestionarPension" style="padding: 1em;margin-top: -2em;">
-    {{-- <form id="FormPensiones" method="post" enctype="multipart/form-data" action="actualizar-pension"
-        data-parsley-validate="">
-@csrf--}}
+        <input type="text" value="{{ $NewPlan }}" id="NewOrEdit" name="NewOrEdit" style="display: none;">
+        <input type="text" value="{{ $uuid }}" id="uuid-pension" name="uuid-pension" style="display: none;">
+<input class="form-control" id="idCliente" name="idCliente" type="text" style="display: none" value="{{ $idCliente }}">
         <div class="row" id="divVentanaDatos">
             <div class="col-sm-12">
                 <div class="card shadow ">
                     <div class="card-body" style="height: 7.5em;">
-                        <input class="form-control" id="idCliente" name="idCliente" type="text" style="display: none">
+                        
                         <div class="tab-pane fade show active" id="historial" role="tabpanel"
                             aria-labelledby="historial-tab">
                             <div class="row">
@@ -110,7 +110,7 @@
                 
             </div>
         </div>
-    {{-- </form> --}}
+
 </div>
 @include('pensiones.modal-cargar-cotizaciones')
 @include('pensiones.modal-subir-excel')

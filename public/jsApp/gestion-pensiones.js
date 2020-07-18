@@ -69,10 +69,10 @@ $(document).on("ready", function() {
                 sProcessing: "Procesando...",
                 sLengthMenu: "Mostrar _MENU_ Pensiones",
                 sZeroRecords:
-                    "No se encontró ningun Pensión con la Condición del Filtro",
-                sEmptyTable: "Ningun Pensión Agregada aún...",
+                    "No se encontró ninguna Pensión con la Condición del Filtro",
+                sEmptyTable: "Ninguna Pensión Agregada aún...",
                 sInfo: "Del _START_ al _END_ de un total de _TOTAL_ Pensiones",
-                sInfoEmpty: "De 0 al 0 de un total de 0 Pensión",
+                sInfoEmpty: "De 0 al 0 de un total de 0 Pensiones",
                 sInfoFiltered: "(filtrado de un total de _MAX_ Pensiones)",
                 sInfoPostFix: "",
                 sSearch: "",
@@ -198,21 +198,24 @@ $(document).on("ready", function() {
 
     $(document).on("click", "#BtnNuevo", function(event) {
         event.preventDefault();
-        event.preventDefault();
-        location.href = "/generar-planes/0";
-        // $("#FormPensiones").each(function() {
-        //     this.reset();
-        // });
+        location.href = "/generar-planes/0/0";
+    });
 
-        // $("#title-modal").html(
-        //     '<i class="fas fa-user-edit"></i> Nuevos planes Pensión.'
-        // );
-        // $("#divGestionarPension").attr(
-        //     "style",
-        //     "padding: 1em;margin-top: -2em;opacity:1"
-        // );
-        // $("#divPantallaPrincipal").hide();
-        // $("#nombre").focus();
-        // $(".errorDescripcion").remove();
+    $("body").on("click", "#body-pensiones a", function(e) {
+        e.preventDefault();
+
+        accion_ok = $(this).attr("data-accion");
+        uuid = $(this).attr("uuid");
+        idCliente = $(this).attr("idCliente");
+
+        switch (accion_ok) {
+            case "editar-pension": //Edita pensión
+                location.href = "/generar-planes/" + uuid + "/" + idCliente;
+                break;
+            case "editar-cliente": // Edita Cliente
+                break;
+            case "eliminarMiembro": // Eliminar Membro
+                break;
+        }
     });
 });

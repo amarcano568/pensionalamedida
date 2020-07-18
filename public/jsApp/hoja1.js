@@ -23,7 +23,6 @@ $(document).on("ready", function() {
         );
 
         setTimeout(function() {
-            // Espero por que se genere el Codigo Medico
             $.unblockUI();
             $("#hoja-1-fecha-nacimiento").val(
                 moment($("#fechaNacimiento").val()).format("DD-MM-YYYY")

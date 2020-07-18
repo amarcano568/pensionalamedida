@@ -25,6 +25,301 @@ $(document).on("ready", function() {
 
     seeker($(".cliente-seeker"), "clientes", "/buscar-cliente");
 
+    NewOrEdit = $("#NewOrEdit").val();
+
+    if (NewOrEdit == "Edit") {
+        ponerReadOnly("nombreCliente");
+        uuid = $("#uuid-pension").val();
+        idCliente = $("#idCliente").val();
+        actualizaDataPension(uuid, idCliente);
+    }
+
+    function actualizaDataPension(uuid, idCliente) {
+        buscarCliente(idCliente);
+        buscarExpectativas(uuid);
+        buscarCotizacionesHoja1(uuid);
+    }
+
+    function buscarCotizacionesHoja1(uuid) {
+        $.ajax({
+            url: "/buscar-cotizaciones-hoja-1",
+            type: "get",
+            data: { uuid: uuid },
+            dataType: "json"
+        })
+            .done(function(response) {
+                console.log(response);
+                $("#table-cotizaciones tbody").empty();
+                $("#body-cotizaciones").html(response.data);
+                sumaDiasCotizados();
+                buscarCotizacionesHoja("hoja-2", uuid, 2);
+
+                setTimeout(function() {
+                    buscarCotizacionesHoja("hoja-3", uuid, 3);
+                }, 3000);
+
+                setTimeout(function() {
+                    buscarCotizacionesHoja("hoja-4", uuid, 4);
+                }, 3000);
+
+                setTimeout(function() {
+                    buscarCotizacionesHoja("hoja-5", uuid, 5);
+                }, 3000);
+
+                setTimeout(function() {
+                    buscarCotizacionesHoja("hoja-6", uuid, 6);
+                }, 3000);
+            })
+            .fail(function(statusCode, errorThrown) {
+                $.unblockUI();
+                console.log(errorThrown);
+                ajaxError(statusCode, errorThrown);
+            });
+    }
+
+    function buscarCotizacionesHoja(hoja, uuid, id) {
+        $.ajax({
+            url: "/buscar-cotizaciones-hoja",
+            type: "get",
+            data: { uuid: uuid, hoja: hoja },
+            dataType: "json"
+        })
+            .done(function(response) {
+                console.log(response);
+                cargaCotizacionConEstrategiasEdit(response, id);
+                i = 0;
+                fila = $("#table-promedio-salarial-" + id + " tr:last").attr(
+                    "row"
+                );
+                concepto = 6;
+                //setTimeout(function() {}, 5000);
+                $(".diasCotizacion").each(function() {
+                    row = $(this).attr("row");
+                    fechaDesde = $("#fechaDesde" + row).val();
+                    fechaHasta = $("#fechaHasta" + row).val();
+                    dias = $("#dias" + row).val();
+                    monto = $("#monto" + row).val();
+                    totalMontoCotizacion = $(
+                        "#totalMontoCotizacion" + row
+                    ).val();
+                    i++;
+                    fila++;
+                    concepto++;
+                    agregarTablePromedioHojaEdit(
+                        fila,
+                        fechaDesde,
+                        fechaHasta,
+                        dias,
+                        monto,
+                        totalMontoCotizacion,
+                        i,
+                        concepto,
+                        id
+                    );
+                });
+                totaldiasHojaEdit(id);
+            })
+            .fail(function(statusCode, errorThrown) {
+                $.unblockUI();
+                console.log(errorThrown);
+                ajaxError(statusCode, errorThrown);
+            });
+    }
+
+    function cargaCotizacionConEstrategiasEdit(response, id) {
+        //console.log(response);
+        response.data.forEach(element => {
+            switch (parseInt(element.estrategias)) {
+                case 6: // M40 -ALTO 2
+                    $("#hoja-" + id + "-fecha-desde-mod40-alto").val(
+                        moment(element.del).format("DD-MM-YYYY")
+                    );
+                    $("#hoja-" + id + "-fecha-hasta-mod40-alto").val(
+                        moment(element.al).format("DD-MM-YYYY")
+                    );
+                    $("#hoja-" + id + "-dias-mod40-alto").val(element.dias);
+                    $("#hoja-" + id + "-sbc-mod40-alto").val(
+                        $.number(element.monto, 2, ".", ",")
+                    );
+                    $("#hoja-" + id + "-monto-base-mod40-alto").val(
+                        $.number(element.total, 2, ".", ",")
+                    );
+                    break;
+                case 3: // RETROACTIVO
+                    $("#hoja-" + id + "-fecha-desde-mod40-retroactivo").val(
+                        moment(element.del).format("DD-MM-YYYY")
+                    );
+                    $("#hoja-" + id + "-fecha-hasta-mod40-retroactivo").val(
+                        moment(element.al).format("DD-MM-YYYY")
+                    );
+                    $("#hoja-" + id + "-dias-mod40-retroactivo").val(
+                        element.dias
+                    );
+                    $("#hoja-" + id + "-sbc-mod40-retroactivo").val(
+                        $.number(element.monto, 2, ".", ",")
+                    );
+                    $("#hoja-" + id + "-monto-base-mod40-retroactivo").val(
+                        $.number(element.total, 2, ".", ",")
+                    );
+                    break;
+                case 5: // M40 BARATA
+                    $("#hoja-" + id + "-fecha-desde-mod40-barata").val(
+                        moment(element.del).format("DD-MM-YYYY")
+                    );
+                    $("#hoja-" + id + "-fecha-hasta-mod40-barata").val(
+                        moment(element.al).format("DD-MM-YYYY")
+                    );
+                    $("#hoja-" + id + "-dias-mod40-barata").val(element.dias);
+                    $("#hoja-" + id + "-sbc-mod40-barata").val(
+                        $.number(element.monto, 2, ".", ",")
+                    );
+                    $("#hoja-" + id + "-monto-base-mod40-barata").val(
+                        $.number(element.total, 2, ".", ",")
+                    );
+                    break;
+                case 2: // COOPERATIVA
+                    $("#hoja-" + id + "-fecha-desde-cooperativa").val(
+                        moment(element.del).format("DD-MM-YYYY")
+                    );
+                    $("#hoja-" + id + "-fecha-hasta-cooperativa").val(
+                        moment(element.al).format("DD-MM-YYYY")
+                    );
+                    $("#hoja-" + id + "-dias-cooperativa").val(element.dias);
+                    $("#hoja-" + id + "-sbc-cooperativa").val(
+                        $.number(element.monto, 2, ".", ",")
+                    );
+                    $("#hoja-" + id + "-monto-base-cooperativa").val(
+                        $.number(element.total, 2, ".", ",")
+                    );
+                    break;
+                case 4: // M40 YA PAGADA
+                    $("#hoja-" + id + "-fecha-desde-m40-pagada").val(
+                        moment(element.del).format("DD-MM-YYYY")
+                    );
+                    $("#hoja-" + id + "-fecha-hasta-m40-pagada").val(
+                        moment(element.al).format("DD-MM-YYYY")
+                    );
+                    $("#hoja-" + id + "-dias-m40-pagada").val(element.dias);
+                    $("#hoja-" + id + "-sbc-m40-pagada").val(
+                        $.number(element.monto, 2, ".", ",")
+                    );
+                    $("#hoja-" + id + "-monto-base-m40-pagada").val(
+                        $.number(element.total, 2, ".", ",")
+                    );
+                    break;
+            }
+
+            $(
+                "#hoja-" + id + "-fecha-desde-estrategia-" + element.estrategias
+            ).val(element.del.substr(0, 10));
+
+            $(
+                "#hoja-" +
+                    id +
+                    "-entrada-dias-estrategia-" +
+                    element.estrategias
+            ).val(element.dias);
+
+            if (element.estrategias == 2) {
+                $(
+                    "#hoja-" +
+                        id +
+                        "-inscripcion-cooperativa-estrategia-" +
+                        element.estrategias
+                ).val(element.inscripcion);
+            }
+
+            OkSumarDiasHoja(id, element.estrategias);
+            $("#hoja-" + id + "-sbc-estrategia-" + element.estrategias).val(
+                element.monto
+            );
+
+            setTimeout(function() {
+                changeChosenEdadPensionHojaEdit(id, element.estrategias);
+            }, 1500);
+
+            setTimeout(function() {
+                calculaTotalEstrategiasHojasEdit(id, element.estrategias);
+            }, 1500);
+        });
+    }
+
+    function buscarExpectativas(uuid) {
+        $.ajax({
+            url: "/buscar-expectativas",
+            type: "get",
+            data: { uuid: uuid },
+            dataType: "json"
+        })
+            .done(function(response) {
+                console.log(response);
+                $("#fechaNacimiento").val(response.data.fechaNacimiento);
+                $("#fechaPlan").val(response.data.fechaPlan);
+                $("#edadDe").val(response.data.edadDe);
+                $("#edadA").val(response.data.edadA);
+                $("#semanasCotizadas").val(response.data.semanasCotizadas);
+                $("#semanasDescontadas").val(response.data.semanasDescontadas);
+                $("#totalSemanas").val(
+                    response.data.semanasCotizadas -
+                        response.data.semanasDescontadas
+                );
+                $("#esposa")
+                    .val(response.data.esposa)
+                    .trigger("chosen:updated");
+                $("#hijos")
+                    .val(response.data.hijos)
+                    .trigger("chosen:updated");
+                $("#padres")
+                    .val(response.data.padres)
+                    .trigger("chosen:updated");
+                $("#rangoPensionDe").val(response.data.rangoPensionDe);
+                $("#rangoPensionA").val(response.data.rangoPensionA);
+                $("#rangoInversionDe").val(response.data.rangoInversionDe);
+                $("#rangoInversionA").val(response.data.rangoInversionA);
+                $("#statusRetiro").prop(
+                    "checked",
+                    response.data.vigente == "S" ? true : false
+                );
+                $("#fechaBaja").val(response.data.fechaRetiro);
+                $("#comentarios").val(response.data.comentarios);
+                $("#otrosComentarios").val(response.data.otrosComentarios);
+            })
+            .fail(function(statusCode, errorThrown) {
+                $.unblockUI();
+                console.log(errorThrown);
+                ajaxError(statusCode, errorThrown);
+            });
+    }
+
+    function buscarCliente(idCliente) {
+        $.ajax({
+            url: "/editar-cliente",
+            type: "get",
+            data: { idCliente: idCliente },
+            dataType: "json"
+        })
+            .done(function(response) {
+                console.log(response);
+                muestraCliente(
+                    response.data.id,
+                    response.data.nombre,
+                    response.data.apellidos,
+                    response.data.email,
+                    response.data.nroDocumento,
+                    response.data.fechaNacimiento,
+                    response.data.edad,
+                    response.data.direccion,
+                    response.data.telefonoFijo,
+                    response.data.telefonoMovil
+                );
+            })
+            .fail(function(statusCode, errorThrown) {
+                $.unblockUI();
+                console.log(errorThrown);
+                ajaxError(statusCode, errorThrown);
+            });
+    }
+
     function seeker(element, name, url) {
         if (element.length !== 0) {
             element
@@ -112,6 +407,10 @@ $(document).on("ready", function() {
         telefonoFijo,
         telefonoMovil
     ) {
+        direccion = direccion === null ? "No registrado" : direccion;
+        telefonoFijo = telefonoFijo === null ? "No registrado" : telefonoFijo;
+        telefonoMovil =
+            telefonoMovil === null ? "No registrado" : telefonoMovil;
         $("#datosComplementarios").html(
             nombre +
                 " " +
@@ -759,11 +1058,42 @@ $(document).on("ready", function() {
 
         alertify
             .confirm(
-                '<h5 class="text-primary"><i class="cil-save"></i> Planes de gestión.</h5>',
+                '<h5 class="text-primary"><i class="cil-save"></i> PLANES DE GESTION.</h5>',
                 '<h5 class="text-secondary">Esta seguro de guardar esta información..<i class="text-secondary fas fa-question"></i></h5>',
                 function() {
+                    var NewOrEdit = $("#NewOrEdit").val();
+                    var idCliente = $("#idCliente").val();
+                    var uuid = $("#uuid-pension").val();
+
+                    var cotizacionesHoja1 = cotizacionesToJson();
+                    var cotizacionesHoja2 = cotizacionesHojaToJson(2);
+                    var cotizacionesHoja3 = cotizacionesHojaToJson(3);
+                    var cotizacionesHoja4 = cotizacionesHojaToJson(4);
+                    var cotizacionesHoja5 = cotizacionesHojaToJson(5);
+                    var cotizacionesHoja6 = cotizacionesHojaToJson(6);
+                    console.log(cotizacionesHoja2);
                     var form = $("#formPaso1");
-                    var formData = form.serialize();
+                    var formData =
+                        form.serialize() +
+                        "&tipoPlan=1" +
+                        "&NewOrEdit=" +
+                        NewOrEdit +
+                        "&uuid=" +
+                        uuid +
+                        "&idCliente=" +
+                        idCliente +
+                        "&cotizacionesHoja1=" +
+                        cotizacionesHoja1 +
+                        "&cotizacionesHoja2=" +
+                        cotizacionesHoja2 +
+                        "&cotizacionesHoja3=" +
+                        cotizacionesHoja3 +
+                        "&cotizacionesHoja4=" +
+                        cotizacionesHoja4 +
+                        "&cotizacionesHoja5=" +
+                        cotizacionesHoja5 +
+                        "&cotizacionesHoja6=" +
+                        cotizacionesHoja6;
                     var route = form.attr("action");
                     $.ajax({
                         url: route,
@@ -782,6 +1112,9 @@ $(document).on("ready", function() {
                                 alertify.error(data.mensaje);
                             }
                             $.unblockUI();
+                            setTimeout(function() {
+                                location.href = "/gestionar-pension";
+                            }, 1500);
                         })
                         .fail(function(statusCode, errorThrown) {
                             $.unblockUI();
@@ -808,4 +1141,247 @@ $(document).on("ready", function() {
                 closableByDimmer: false
             });
     });
+
+    function cotizacionesHojaToJson(hoja) {
+        var arreglo = [];
+        var i = 1;
+        var filas = $("#body-promedio-salarial-" + hoja).find("tr");
+        arreglo = cargaFilasEstrategiasArrayHojas(hoja, arreglo);
+        for (i = 7; i < filas.length; i++) {
+            var celdas = $(filas[i]).find("td");
+
+            concepto = celdas[0].innerText;
+            // console.log(concepto);
+
+            if ((i >= 1) & (i <= 4)) {
+                indice = 2;
+            } else {
+                indice = 1;
+            }
+            cadFecDesde = celdas[indice].innerHTML;
+            fechaDesde = cadFecDesde.substr(
+                cadFecDesde.indexOf('value="') + 7,
+                10
+            );
+
+            cadFecHasta = celdas[++indice].innerHTML;
+            fechaHasta = cadFecHasta.substr(
+                cadFecHasta.indexOf('value="') + 7,
+                10
+            );
+
+            cadDias = celdas[++indice].innerHTML;
+            dias = cadDias.substr(cadDias.indexOf('value="') + 7);
+            dias = dias.substr(0, dias.length - 2);
+
+            cadMonto = celdas[++indice].innerHTML;
+            monto = cadMonto.substr(cadMonto.indexOf('value="') + 7);
+            monto = monto.substr(0, monto.length - 8);
+            console.log(monto);
+
+            arreglo.push({
+                hoja: "hoja-" + hoja,
+                estrategia: "",
+                fechaDesde: fechaDesde,
+                fechaHasta: fechaHasta,
+                dias: dias,
+                monto: monto,
+                totalMonto: dias * monto,
+                inscripcion: 0
+            });
+        }
+
+        return JSON.stringify(arreglo);
+    }
+
+    function cargaFilasEstrategiasArrayHojas(hoja, arreglo) {
+        dias = $("#hoja-" + hoja + "-dias-mod40-alto").val();
+        if (dias != "") {
+            concepto = "M40 -ALTO 2";
+            estrategia = 6;
+            fechaDesde = dateIso(
+                $("#hoja-" + hoja + "-fecha-desde-mod40-alto").val()
+            );
+            fechaHasta = dateIso(
+                $("#hoja-" + hoja + "-fecha-hasta-mod40-alto").val()
+            );
+
+            dias = $("#hoja-" + hoja + "-dias-mod40-alto").val();
+            monto = convertNumberPure(
+                $("#hoja-" + hoja + "-sbc-mod40-alto").val()
+            );
+            arreglo.push({
+                hoja: "hoja-" + hoja,
+                estrategia: estrategia,
+                fechaDesde: moment(fechaDesde).format("YYYY/MM/DD"),
+                fechaHasta: moment(fechaHasta).format("YYYY/MM/DD"),
+                dias: dias,
+                monto: monto,
+                totalMonto: dias * monto,
+                inscripcion: 0
+            });
+        }
+
+        dias = $("#hoja-" + hoja + "-dias-mod40-retroactivo").val();
+        if (dias != "") {
+            concepto = "RETROACTIVO";
+            estrategia = 3;
+            fechaDesde = dateIso(
+                $("#hoja-" + hoja + "-fecha-desde-mod40-retroactivo").val()
+            );
+            fechaHasta = dateIso(
+                $("#hoja-" + hoja + "-fecha-hasta-mod40-retroactivo").val()
+            );
+            dias = $("#hoja-" + hoja + "-dias-mod40-retroactivo").val();
+            monto = convertNumberPure(
+                $("#hoja-" + hoja + "-sbc-mod40-retroactivo").val()
+            );
+            arreglo.push({
+                hoja: "hoja-" + hoja,
+                estrategia: estrategia,
+                fechaDesde: moment(fechaDesde).format("YYYY-MM-DD"),
+                fechaHasta: moment(fechaHasta).format("YYYY-MM-DD"),
+                dias: dias,
+                monto: monto,
+                totalMonto: dias * monto,
+                inscripcion: 0
+            });
+        }
+
+        dias = $("#hoja-" + hoja + "-dias-mod40-barata").val();
+        if (dias != "") {
+            concepto = "M40 BARATA";
+            estrategia = 5;
+            fechaDesde = dateIso(
+                $("#hoja-" + hoja + "-fecha-desde-mod40-barata").val()
+            );
+            fechaHasta = dateIso(
+                $("#hoja-" + hoja + "-fecha-hasta-mod40-barata").val()
+            );
+            dias = $("#hoja-" + hoja + "-dias-mod40-barata").val();
+            monto = convertNumberPure(
+                $("#hoja-" + hoja + "-sbc-mod40-barata").val()
+            );
+            arreglo.push({
+                hoja: "hoja-" + hoja,
+                estrategia: estrategia,
+                fechaDesde: moment(fechaDesde).format("YYYY-MM-DD"),
+                fechaHasta: moment(fechaHasta).format("YYYY-MM-DD"),
+                dias: dias,
+                monto: monto,
+                totalMonto: dias * monto,
+                inscripcion: 0
+            });
+        }
+
+        dias = $("#hoja-" + hoja + "-dias-cooperativa").val();
+        if (dias != "") {
+            concepto = "COOPERATIVA";
+            estrategia = 2;
+            fechaDesde = dateIso(
+                $("#hoja-" + hoja + "-fecha-desde-cooperativa").val()
+            );
+            fechaHasta = dateIso(
+                $("#hoja-" + hoja + "-fecha-hasta-cooperativa").val()
+            );
+            dias = $("#hoja-" + hoja + "-dias-cooperativa").val();
+            monto = convertNumberPure(
+                $("#hoja-" + hoja + "-sbc-cooperativa").val()
+            );
+            insc = $(
+                "#hoja-" + hoja + "-inscripcion-cooperativa-estrategia-2"
+            ).val();
+            arreglo.push({
+                hoja: "hoja-" + hoja,
+                estrategia: estrategia,
+                fechaDesde: moment(fechaDesde).format("YYYY-MM-DD"),
+                fechaHasta: moment(fechaHasta).format("YYYY-MM-DD"),
+                dias: dias,
+                monto: monto,
+                totalMonto: dias * monto,
+                inscripcion: insc
+            });
+        }
+
+        dias = $("#hoja-" + hoja + "-dias-m40-pagada").val();
+        if (dias != "") {
+            concepto = "M40 YA PAGADA";
+            estrategia = 4;
+            fechaDesde = dateIso(
+                $("#hoja-" + hoja + "-fecha-desde-m40-pagada").val()
+            );
+            fechaHasta = dateIso(
+                $("#hoja-" + hoja + "-fecha-hasta-m40-pagada").val()
+            );
+            dias = $("#hoja-" + hoja + "-dias-m40-pagada").val();
+            monto = convertNumberPure(
+                $("#hoja-" + hoja + "-sbc-m40-pagada").val()
+            );
+            arreglo.push({
+                hoja: "hoja-" + hoja,
+                estrategia: estrategia,
+                fechaDesde: moment(fechaDesde).format("YYYY-MM-DD"),
+                fechaHasta: moment(fechaHasta).format("YYYY-MM-DD"),
+                dias: dias,
+                monto: monto,
+                totalMonto: dias * monto,
+                inscripcion: 0
+            });
+        }
+
+        dias = $("#hoja-" + hoja + "-total-estrategia-1").val();
+        if (dias != "") {
+            concepto = "EN SU EMPRESA";
+            estrategia = 1;
+            fechaDesde = $("#hoja-" + hoja + "-fecha-desde-estrategia-1").val();
+
+            fechaHasta = $("#hoja-" + hoja + "-fecha-hasta-estrategia-1").val();
+
+            dias = $("#hoja-" + hoja + "-dias-estrategia-1").val();
+            monto = convertNumberPure(
+                $("#hoja-" + hoja + "-sbc-estrategia-1").val()
+            );
+            arreglo.push({
+                hoja: "hoja-" + hoja,
+                estrategia: estrategia,
+                fechaDesde: moment(fechaDesde).format("YYYY-MM-DD"),
+                fechaHasta: moment(fechaHasta).format("YYYY-MM-DD"),
+                dias: dias,
+                monto: monto,
+                totalMonto: dias * monto,
+                inscripcion: 0
+            });
+        }
+
+        return arreglo;
+    }
+
+    function cotizacionesToJson() {
+        var arreglo = [];
+        var i = 1;
+        $(".diasCotizacion").each(function() {
+            row = $(this).attr("row");
+            concepto = "Cotizaciones " + i;
+            fechaDesde = $("#fechaDesde" + row).val();
+            fechaHasta = $("#fechaHasta" + row).val();
+            dias = $("#dias" + row).val();
+            monto = $("#monto" + row).val();
+            totalMonto = $("#totalMontoCotizacion" + row).val();
+            if (parseInt(monto) > 0) {
+                arreglo.push({
+                    hoja: "hoja-1",
+                    estrategia: "",
+                    fechaDesde: fechaDesde,
+                    fechaHasta: fechaHasta,
+                    dias: dias,
+                    monto: monto,
+                    totalMonto: totalMonto,
+                    inscripcion: 0
+                });
+                i++;
+            }
+        });
+
+        return JSON.stringify(arreglo);
+    }
 });
