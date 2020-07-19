@@ -65,7 +65,7 @@ class PdfsController extends Controller
             $ruta = '/pdf/' . $nameFilePdf;
         } else {
             $rutaFile = public_path() . '/pdf/' . $nameFilePdf;
-            $ruta = './pdf/' . $nameFilePdf;
+            $ruta = '/pdf/' . $nameFilePdf;
         }
         $nro = rand(1, 1000);
 
