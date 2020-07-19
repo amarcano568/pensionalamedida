@@ -62,8 +62,8 @@ class PdfsController extends Controller
         //\Storage::disk('public')->put($nameFilePdf, $pdf);
         $nro = rand(1, 1000);
         $nameFilePdf = strtoupper(trim($cliente->nombre)) . '-RESUMEN PLAN.pdf';
-        \PDF::loadView('pdf.resumenpdf', $data)->setPaper('letter', 'landscape')->save(base_path() . "\public\pdf\\" . $nameFilePdf);
-        return response()->json(array('success' => true, 'mensaje' => 'Pdf resumen generado exitosamente', 'data' => '/pdf/' . $nameFilePdf, 'email' => $cliente->email));
+        \PDF::loadView('pdf.resumenpdf', $data)->setPaper('letter', 'landscape')->save($nameFilePdf);
+        return response()->json(array('success' => true, 'mensaje' => 'Pdf resumen generado exitosamente', 'data' => '/' . $nameFilePdf, 'email' => $cliente->email));
     }
 
     public function sendMailResumen(Request $request)

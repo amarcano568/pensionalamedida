@@ -69,16 +69,6 @@ class GestionarPensionesController extends Controller
                                             <i style="font-size: 1em;" class="text-secondary far fa-file-pdf"></i> Ver pdf detalle
                                         </a>
                                     </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            <i style="font-size: 1em;" class="text-warning far fa-envelope"></i> Enviar correo con resumen 
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            <i style="font-size: 1em;" class="text-danger far fa-envelope"></i> Enviar correo con detalle 
-                                        </a>
-                                    </li>
                                 </ul>
                                 </li>
                             </ul>';
