@@ -86,6 +86,7 @@ class PdfsController extends Controller
             $rutaFile = base_path() . '\public\\' . $request->archivoPdf;
         } else {
             $rutaFile =  realpath('/public/pdf/' . $request->archivoPdf);
+            echo  $rutaFile;
         }
 
         $data = [
