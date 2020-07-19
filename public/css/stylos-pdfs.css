@@ -1,0 +1,8 @@
+.table-xs td {
+    border-bottom: 1px solid #ddd;
+    padding: 0.25em !important;
+}
+
+@page {
+    margin: 100px 25px;
+}

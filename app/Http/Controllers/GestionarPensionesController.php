@@ -60,7 +60,7 @@ class GestionarPensionesController extends Controller
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#" >
+                                        <a class="dropdown-item" href="#" data-accion="ver-pdf-resumen" idCliente="' . $row->idCliente . '"  uuid="' . $row->uuid . '" >
                                             <i style="font-size: 1em;" class="text-primary far fa-file-pdf"></i> Ver pdf resumen
                                         </a>
                                     </li>

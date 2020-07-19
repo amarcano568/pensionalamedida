@@ -919,7 +919,7 @@ function cuantiaBasicaHojas(
                 $.number(pensionAnualVejez * ($porc / 100), 2, ".", ",")
             );
             $("#pension-mensual-fin").text(
-                $.number((pensionAnualVejez * ($porc / 100)) / 12, 2, ",", ".")
+                $.number((pensionAnualVejez * ($porc / 100)) / 12, 2, ".", ",")
             );
 
             $("#" + hoja + "-pension-mensual-con-m40").val(

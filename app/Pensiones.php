@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use \App\Expectativas_Salariales;
 use \App\Cotizaciones_Clientes;
+use \App\Pension_Final;
 
 class Pensiones extends Model
 {
@@ -151,6 +152,20 @@ class Pensiones extends Model
                 $cotiza_cliente->total      = $cotiza->totalMonto;
                 $cotiza_cliente->inscripcion      = $cotiza->inscripcion;
                 $cotiza_cliente->save();
+            }
+
+            Pension_Final::where('uuid', $uuid)->get()->each->delete();
+            $resumenPensiones = json_decode($request->resumenPensiones);
+            foreach ($resumenPensiones as $resumen) {
+                $pension_final                  = new Pension_Final;
+                $pension_final->uuid            = $uuid;
+                $pension_final->hoja            = $resumen->hoja;
+                $pension_final->pension_mensual = $resumen->mensual;
+                $pension_final->pension_anual   = $resumen->anual;
+                $pension_final->aguinaldo       = $resumen->aguinaldo;
+                $pension_final->total_anual     = $resumen->total_anual;
+                $pension_final->dif85           = $resumen->dif85;
+                $pension_final->save();
             }
 
             DB::commit();

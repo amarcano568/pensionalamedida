@@ -600,17 +600,6 @@ $(document).on("ready", function() {
             }
         }
 
-        // if (stepIndexAux == 1) {
-        //     valida = $("#hoja-2-pension-mensual-con-m40").val();
-        //     if (valida === "") {
-        //         alertify.set("notifier", "position", "top-center");
-        //         alertify.error(
-        //             '<i class="fas fa-exclamation-triangle"></i><br>No puede pasar al siguiente plan de pensión sin que el plan actual este culminado'
-        //         );
-        //         return false;
-        //     }
-        // }
-
         return true;
     });
 
@@ -1071,7 +1060,9 @@ $(document).on("ready", function() {
                     var cotizacionesHoja4 = cotizacionesHojaToJson(4);
                     var cotizacionesHoja5 = cotizacionesHojaToJson(5);
                     var cotizacionesHoja6 = cotizacionesHojaToJson(6);
-                    console.log(cotizacionesHoja2);
+                    var resumenPensiones = PensionResumida();
+                    console.log(resumenPensiones);
+
                     var form = $("#formPaso1");
                     var formData =
                         form.serialize() +
@@ -1093,7 +1084,9 @@ $(document).on("ready", function() {
                         "&cotizacionesHoja5=" +
                         cotizacionesHoja5 +
                         "&cotizacionesHoja6=" +
-                        cotizacionesHoja6;
+                        cotizacionesHoja6 +
+                        "&resumenPensiones=" +
+                        resumenPensiones;
                     var route = form.attr("action");
                     $.ajax({
                         url: route,
@@ -1381,6 +1374,47 @@ $(document).on("ready", function() {
                 i++;
             }
         });
+
+        return JSON.stringify(arreglo);
+    }
+
+    function PensionResumida() {
+        var arreglo = [];
+        var i = 1;
+
+        arreglo.push({
+            hoja: "hoja-" + i,
+            mensual: convertNumberPure(
+                $("#hoja-1-pension-mesual-sin-m40").val()
+            ),
+            anual: convertNumberPure($("#hoja-1-pension-anual-sin-m40").val()),
+            aguinaldo: convertNumberPure($("#hoja-1-aguinaldo").val()),
+            total_anual: convertNumberPure($("#hoja-1-total-anual").val()),
+            dif85: convertNumberPure($("#hoja-1-dif-85").val())
+        });
+
+        for (i = 2; i <= 6; i++) {
+            arreglo.push({
+                hoja: "hoja-" + i,
+                mensual: convertNumberPure(
+                    $(
+                        "#hoja-" + i.toString() + "-pension-mensual-con-m40"
+                    ).val()
+                ),
+                anual: convertNumberPure(
+                    $("#hoja-" + i.toString() + "-pension-anual-con-m40").val()
+                ),
+                aguinaldo: convertNumberPure(
+                    $("#hoja-" + i.toString() + "-aguinaldo").val()
+                ),
+                total_anual: convertNumberPure(
+                    $("#hoja-" + i.toString() + "-total-anual").val()
+                ),
+                dif85: convertNumberPure(
+                    $("#hoja-" + i.toString() + "-dif-85").val()
+                )
+            });
+        }
 
         return JSON.stringify(arreglo);
     }

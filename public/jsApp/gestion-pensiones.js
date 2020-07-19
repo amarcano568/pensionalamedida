@@ -207,12 +207,13 @@ $(document).on("ready", function() {
         accion_ok = $(this).attr("data-accion");
         uuid = $(this).attr("uuid");
         idCliente = $(this).attr("idCliente");
-
         switch (accion_ok) {
             case "editar-pension": //Edita pensión
                 location.href = "/generar-planes/" + uuid + "/" + idCliente;
                 break;
-            case "editar-cliente": // Edita Cliente
+            case "ver-pdf-resumen": // Edita Cliente
+                location.href =
+                    "/generar-pdf-resumen/" + uuid + "/" + idCliente;
                 break;
             case "eliminarMiembro": // Eliminar Membro
                 break;
