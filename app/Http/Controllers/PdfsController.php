@@ -85,7 +85,7 @@ class PdfsController extends Controller
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
             $rutaFile = base_path() . '\public\\' . $request->archivoPdf;
         } else {
-            $rutaFile =  realpath('/public/pdf/' . $request->archivoPdf);
+            $rutaFile =  realpath(base_path() . '/public/pdf/' . $request->archivoPdf);
             echo  'prueba ' . $rutaFile;
             die();
         }
