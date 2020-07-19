@@ -82,12 +82,16 @@ class PdfsController extends Controller
             'cliente' => $cliente,
         );
 
-        //  \Mail::to($cliente->email)->send(new \App\Mail\MyEMail($details));
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            $rutaFile = base_path() . '\public\\' . $request->archivoPdf;
+        } else {
+            $rutaFile =  './pdf/' . $request->archivoPdf;
+        }
 
         $data = [
             'email'   => $cliente->email,
             'subject' => 'Resumen del plan - Pensión a la medida',
-            'adjunto'    => base_path() . '\public\\' . $request->archivoPdf
+            'adjunto'    =>  $rutaFile
         ];
 
 
