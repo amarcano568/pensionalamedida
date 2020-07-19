@@ -58,12 +58,19 @@ class PdfsController extends Controller
             'empresa' => $empresa
         );
 
-        //$pdf = PDF::loadView('pdf.resumenpdf', $data)->output();
-        //\Storage::disk('public')->put($nameFilePdf, $pdf);
-        $nro = rand(1, 1000);
         $nameFilePdf = strtoupper(trim($cliente->nombre)) . '-RESUMEN PLAN.pdf';
-        \PDF::loadView('pdf.resumenpdf', $data)->setPaper('letter', 'landscape')->save(public_path() . '/pdf/' . $nameFilePdf);
-        return response()->json(array('success' => true, 'mensaje' => 'Pdf resumen generado exitosamente', 'data' => '/pdf/' . $nameFilePdf, 'email' => $cliente->email));
+
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            $rutaFile = public_path() . '/pdf/' . $nameFilePdf;
+            $ruta = '/pdf/' . $nameFilePdf;
+        } else {
+            $rutaFile = public_path() . '/pdf/' . $nameFilePdf;
+            $ruta = './pdf/' . $nameFilePdf;
+        }
+        $nro = rand(1, 1000);
+
+        \PDF::loadView('pdf.resumenpdf', $data)->setPaper('letter', 'landscape')->save($rutaFile);
+        return response()->json(array('success' => true, 'mensaje' => 'Pdf resumen generado exitosamente', 'data' => $ruta, 'email' => $cliente->email));
     }
 
     public function sendMailResumen(Request $request)
