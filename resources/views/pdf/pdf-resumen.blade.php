@@ -163,7 +163,6 @@
 @include('pdf.modal-ver-pdf')
 @endsection
 @section('javascript')
-<script src="{{ asset('js/html2canvas.js') }}"></script>
 <script src="{{ asset('jsApp/pdf-resumen.js') }}"></script>
 
 @stop

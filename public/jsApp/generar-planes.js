@@ -36,8 +36,64 @@ $(document).on("ready", function() {
 
     function actualizaDataPension(uuid, idCliente) {
         buscarCliente(idCliente);
+        buscarDataAdicional(uuid);
         buscarExpectativas(uuid);
         buscarCotizacionesHoja1(uuid);
+    }
+
+    function buscarDataAdicional(uuid) {
+        $.ajax({
+            url: "/buscar-data-adicional",
+            type: "get",
+            data: { uuid: uuid },
+            dataType: "json"
+        })
+            .done(function(response) {
+                console.log(response);
+                response.data.forEach(element => {
+                    hoja = element.hoja.split("-");
+                    $("#hoja-" + hoja[1] + "-pension-mensual-con-m40").val(
+                        $.number(element.pension_mensual, 2, ".", ",")
+                    );
+                    $("#hoja-" + hoja[1] + "-pension-anual-con-m40").val(
+                        $.number(element.pension_anual, 2, ".", ",")
+                    );
+                    $("#hoja-" + hoja[1] + "-aguinaldo").val(
+                        $.number(element.aguinaldo, 2, ".", ",")
+                    );
+                    $("#hoja-" + hoja[1] + "-total-anual").val(
+                        $.number(element.total_anual, 2, ".", ",")
+                    );
+                    $("#hoja-" + hoja[1] + "-dif-85").val(
+                        $.number(element.dif85, 2, ".", ",")
+                    );
+                    $("#hoja-" + hoja[1] + "-dif-edad-85-text").text(
+                        element.dif85_text
+                    );
+
+                    $("#hoja-" + hoja[1] + "-nro-semanas-cotizadas").val(
+                        element.semanas_cotizadas
+                    );
+                    $(
+                        "#hoja-" +
+                            hoja[1] +
+                            "-salario-promedio-mensual-250-semanas"
+                    ).val(
+                        $.number(element.salario_diario_promedio, 2, ".", ",")
+                    );
+                    $("#hoja-" + hoja[1] + "-esposa").val(element.esposa);
+                    $("#hoja-" + hoja[1] + "-hijos").val(element.hijos);
+                    $("#hoja-" + hoja[1] + "-padres").val(element.padres);
+                    $("#hoja-" + hoja[1] + "-edad-jubilacion").val(
+                        element.edad_jubilacion
+                    );
+                });
+            })
+            .fail(function(statusCode, errorThrown) {
+                $.unblockUI();
+                console.log(errorThrown);
+                ajaxError(statusCode, errorThrown);
+            });
     }
 
     function buscarCotizacionesHoja1(uuid) {
@@ -52,6 +108,7 @@ $(document).on("ready", function() {
                 $("#table-cotizaciones tbody").empty();
                 $("#body-cotizaciones").html(response.data);
                 sumaDiasCotizados();
+
                 buscarCotizacionesHoja("hoja-2", uuid, 2);
 
                 setTimeout(function() {
@@ -69,6 +126,10 @@ $(document).on("ready", function() {
                 setTimeout(function() {
                     buscarCotizacionesHoja("hoja-6", uuid, 6);
                 }, 3000);
+
+                setTimeout(function() {
+                    calculaBtnHoja1(false);
+                }, 5000);
             })
             .fail(function(statusCode, errorThrown) {
                 $.unblockUI();
@@ -1381,7 +1442,7 @@ $(document).on("ready", function() {
     function PensionResumida() {
         var arreglo = [];
         var i = 1;
-
+        // alert($("#hoja-1-pension-mesual-sin-m40").val());
         arreglo.push({
             hoja: "hoja-" + i,
             mensual: convertNumberPure(
@@ -1390,7 +1451,18 @@ $(document).on("ready", function() {
             anual: convertNumberPure($("#hoja-1-pension-anual-sin-m40").val()),
             aguinaldo: convertNumberPure($("#hoja-1-aguinaldo").val()),
             total_anual: convertNumberPure($("#hoja-1-total-anual").val()),
-            dif85: convertNumberPure($("#hoja-1-dif-85").val())
+            dif85: convertNumberPure($("#hoja-1-dif-85").val()),
+            dif85Txt: 0,
+            pagandoMensual: 0,
+            costo_total: 0,
+            semanas_cotizadas: $("#totalSemanas").val(),
+            salario_diario_promedio: convertNumberPure(
+                $("#promedio-salarios").text()
+            ),
+            esposa: $("#esposa").val(),
+            hijos: $("#hijos").val(),
+            padres: $("#padres").val(),
+            edad_jubilacion: $("#edadDe").val()
         });
 
         for (i = 2; i <= 6; i++) {
@@ -1412,10 +1484,50 @@ $(document).on("ready", function() {
                 ),
                 dif85: convertNumberPure(
                     $("#hoja-" + i.toString() + "-dif-85").val()
-                )
+                ),
+                dif85Txt: $(
+                    "#hoja-" + i.toString() + "-dif-edad-85-text"
+                ).text(),
+                pagandoMensual: convertNumberPure(
+                    $(
+                        "#hoja-" + i.toString() + "-otro-valor-estrategia-6"
+                    ).val()
+                ),
+                costo_total: costo_x_estrategias(i.toString()),
+                semanas_cotizadas: $(
+                    "#hoja-" + i.toString() + "-nro-semanas-cotizadas"
+                ).val(),
+
+                salario_diario_promedio: convertNumberPure(
+                    $(
+                        "#hoja-" +
+                            i.toString() +
+                            "-salario-promedio-mensual-250-semanas"
+                    ).val()
+                ),
+                esposa: $("#hoja-" + i.toString() + "-esposa").val(),
+                hijos: $("#hoja-" + i.toString() + "-hijos").val(),
+                padres: $("#hoja-" + i.toString() + "-padres").val(),
+                edad_jubilacion: $(
+                    "#hoja-" + i.toString() + "-edad-jubilacion"
+                ).val()
             });
         }
 
         return JSON.stringify(arreglo);
+    }
+
+    function costo_x_estrategias(hoja) {
+        total_costo = 0;
+        for (estrategia = 2; estrategia <= 6; estrategia++) {
+            costo = $(
+                "#hoja-" + hoja + "-costo-estrategia-" + estrategia
+            ).val();
+            if (costo != "") {
+                total_costo += parseFloat(convertNumberPure(costo));
+            }
+        }
+
+        return total_costo;
     }
 });

@@ -215,7 +215,9 @@ $(document).on("ready", function() {
                 location.href =
                     "/generar-pdf-resumen/" + uuid + "/" + idCliente;
                 break;
-            case "eliminarMiembro": // Eliminar Membro
+            case "ver-pdf-detalle": // Edita Cliente
+                location.href =
+                    "/generar-pdf-detalle/" + uuid + "/" + idCliente;
                 break;
         }
     });

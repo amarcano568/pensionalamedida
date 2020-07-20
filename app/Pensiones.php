@@ -157,14 +157,23 @@ class Pensiones extends Model
             Pension_Final::where('uuid', $uuid)->get()->each->delete();
             $resumenPensiones = json_decode($request->resumenPensiones);
             foreach ($resumenPensiones as $resumen) {
-                $pension_final                  = new Pension_Final;
-                $pension_final->uuid            = $uuid;
-                $pension_final->hoja            = $resumen->hoja;
-                $pension_final->pension_mensual = $resumen->mensual;
-                $pension_final->pension_anual   = $resumen->anual;
-                $pension_final->aguinaldo       = $resumen->aguinaldo;
-                $pension_final->total_anual     = $resumen->total_anual;
-                $pension_final->dif85           = $resumen->dif85;
+                $pension_final                          = new Pension_Final;
+                $pension_final->uuid                    = $uuid;
+                $pension_final->hoja                    = $resumen->hoja;
+                $pension_final->pension_mensual         = $resumen->mensual;
+                $pension_final->pension_anual           = $resumen->anual;
+                $pension_final->aguinaldo               = $resumen->aguinaldo;
+                $pension_final->total_anual             = $resumen->total_anual;
+                $pension_final->dif85                   = $resumen->dif85;
+                $pension_final->dif85_text              = $resumen->dif85Txt;
+                $pension_final->pagando_mensual         = $resumen->pagandoMensual;
+                $pension_final->costo_total             = $resumen->costo_total;
+                $pension_final->semanas_cotizadas       = $resumen->semanas_cotizadas;
+                $pension_final->salario_diario_promedio = $resumen->salario_diario_promedio;
+                $pension_final->esposa                  = $resumen->esposa;
+                $pension_final->hijos                   = $resumen->hijos;
+                $pension_final->padres                  = $resumen->padres;
+                $pension_final->edad_jubilacion         = $resumen->edad_jubilacion;
                 $pension_final->save();
             }
 

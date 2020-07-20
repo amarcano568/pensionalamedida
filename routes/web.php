@@ -93,9 +93,14 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/buscar-expectativas', 'GestionarPensionesController@buscarExpectativas');
 	Route::get('/buscar-cotizaciones-hoja-1', 'GestionarPensionesController@buscarCotizacionesHoja1');
 	Route::get('/buscar-cotizaciones-hoja', 'GestionarPensionesController@buscarCotizacionesHoja');
+	Route::get('/buscar-data-adicional', 'GestionarPensionesController@buscarDataAdicional');
+
+
 
 	/**Generar Pdfs */
 	Route::get('generar-pdf-resumen/{uuid}/{idCliente}', 'PdfsController@generarPdfResumen');
 	Route::get('/ver-pdf-resumen', 'PdfsController@verPdfResumen');
 	Route::get('/send-mail-resumen', 'PdfsController@sendMailResumen');
+	Route::get('generar-pdf-detalle/{uuid}/{idCliente}', 'PdfsController@generarPdfDetalle');
+	Route::get('/data-toma-decisiones', 'PdfsController@dataTomaDecisiones');
 });

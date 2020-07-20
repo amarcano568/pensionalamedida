@@ -107,4 +107,34 @@ class PdfsController extends Controller
             return response()->json(array('success' => true, 'mensaje' => 'El correo se ha enviado con exito'));
         }
     }
+
+    public function generarPdfDetalle(Request $request)
+    {
+        $cliente = Clientes::find($request->idCliente);
+        $cliente->edad = Carbon::parse($cliente->fechaNacimiento)->age;
+        $expectativas = Expectativas_Salariales::join('pensiones', 'expectativas_salariales.uuid', 'pensiones.uuid')
+            ->find($request->uuid);
+        $pensiones = Pension_Final::where('uuid', $request->uuid)->get();
+        //dd($expectativas);
+        $data = array(
+            'uuid' => $request->uuid,
+            'idCliente' => $request->idCliente,
+            'cliente' => $cliente,
+            'expectativas' => $expectativas,
+            'pensiones' => $pensiones
+        );
+        return view('pdf.pdf-detalle', $data);
+    }
+
+    public function dataTomaDecisiones(Request $request)
+    {
+        $pensiones = Pension_Final::where('uuid', $request->uuid)->get();
+        $cotiza_clientes_fechas = Cotizaciones_Clientes::where('uuid', $request->uuid)->where('estrategias', '6')->get();
+        return response()->json(array(
+            'success' => true,
+            'mensaje' => 'Pensión final obtenida exitosamente',
+            'data' => $pensiones,
+            'cotiza_fechas' => $cotiza_clientes_fechas
+        ));
+    }
 }

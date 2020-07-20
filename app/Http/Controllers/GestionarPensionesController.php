@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use App\Imports\CotizacionesImport;
+use App\Pension_Final;
 use MathParser\StdMathParser;
 use MathParser\Interpreting\Evaluator;
 
@@ -65,7 +66,7 @@ class GestionarPensionesController extends Controller
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#"> 
+                                        <a class="dropdown-item" href="#" data-accion="ver-pdf-detalle" idCliente="' . $row->idCliente . '"  uuid="' . $row->uuid . '"> 
                                             <i style="font-size: 1em;" class="text-secondary far fa-file-pdf"></i> Ver pdf detalle
                                         </a>
                                     </li>
@@ -354,5 +355,11 @@ class GestionarPensionesController extends Controller
             ->get();
 
         return response()->json(array('success' => true, 'mensaje' => 'Cotizaciones obtenidas exitosamente para la ' . $request->hoja, 'data' => $cotizaciones));
+    }
+
+    public function buscarDataAdicional(Request $request)
+    {
+        $datos = Pension_Final::where('uuid', $request->uuid)->get();
+        return response()->json(array('success' => true, 'mensaje' => 'Obtenidos otros datos de los planes de pensión', 'data' => $datos));
     }
 }
