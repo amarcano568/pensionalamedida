@@ -178,6 +178,7 @@ $(document).on("ready", function() {
                         id
                     );
                 });
+                cargaEstrategiasSegunBD(uuid);
                 totaldiasHojaEdit(id);
             })
             .fail(function(statusCode, errorThrown) {
@@ -185,6 +186,135 @@ $(document).on("ready", function() {
                 console.log(errorThrown);
                 ajaxError(statusCode, errorThrown);
             });
+    }
+
+    function cargaEstrategiasSegunBD(uuid) {
+        $.ajax({
+            url: "/buscar-estrategias-save-on-bd",
+            type: "get",
+            data: { uuid: uuid },
+            dataType: "json"
+        })
+            .done(function(response) {
+                console.log(response);
+                $("#hoja-2-edad-calculo-pension").empty();
+                $("#hoja-3-edad-calculo-pension").empty();
+                $("#hoja-4-edad-calculo-pension").empty();
+                $("#hoja-5-edad-calculo-pension").empty();
+                $("#hoja-6-edad-calculo-pension").empty();
+                response.data.forEach(element => {
+                    hoja = element.hoja.split("-");
+                    estrategia = element.estrategia;
+                    $(
+                        "#hoja-" +
+                            hoja[1] +
+                            "-fecha-desde-estrategia-" +
+                            estrategia
+                    ).val(moment(element.desde).format("YYYY-MM-DD"));
+                    $(
+                        "#hoja-" +
+                            hoja[1] +
+                            "-fecha-hasta-estrategia-" +
+                            estrategia
+                    ).val(moment(element.hasta).format("YYYY-MM-DD"));
+                    $(
+                        "#hoja-" +
+                            hoja[1] +
+                            "-entrada-dias-estrategia-" +
+                            estrategia
+                    ).val(element.dias);
+                    $(
+                        "#hoja-" + hoja[1] + "-edad-estrategia-" + estrategia
+                    ).val(element.edad);
+                    $(
+                        "#hoja-" + hoja[1] + "-anos-estrategia-" + estrategia
+                    ).val(element.anos);
+                    $(
+                        "#hoja-" + hoja[1] + "-meses-estrategia-" + estrategia
+                    ).val(element.meses);
+                    $(
+                        "#hoja-" + hoja[1] + "-semanas-estrategia-" + estrategia
+                    ).val(element.semanas);
+                    $(
+                        "#hoja-" + hoja[1] + "-dias-estrategia-" + estrategia
+                    ).val(element.dias);
+                    $("#hoja-" + hoja[1] + "-sbc-estrategia-" + estrategia).val(
+                        element.sbc
+                    );
+                    $(
+                        "#hoja-" + hoja[1] + "-total-estrategia-" + estrategia
+                    ).val(element.total);
+                    $(
+                        "#hoja-" + hoja[1] + "-costo-estrategia-" + estrategia
+                    ).val(element.costo);
+                    $(
+                        "#hoja-" +
+                            hoja[1] +
+                            "-otro-valor-estrategia-" +
+                            estrategia
+                    ).val(element.pago_mensual);
+                    if (estrategia == 2) {
+                        $(
+                            "#hoja-" +
+                                hoja[1] +
+                                "-inscripcion-cooperativa-estrategia-2"
+                        ).val(element.incripcion);
+                    }
+
+                    cargaChosenEdadPension(hoja[1], estrategia);
+                });
+
+                $("#hoja-2-edad-calculo-pension").trigger("chosen:updated");
+                $("#hoja-3-edad-calculo-pension").trigger("chosen:updated");
+                $("#hoja-4-edad-calculo-pension").trigger("chosen:updated");
+                $("#hoja-5-edad-calculo-pension").trigger("chosen:updated");
+                $("#hoja-6-edad-calculo-pension").trigger("chosen:updated");
+            })
+            .fail(function(statusCode, errorThrown) {
+                $.unblockUI();
+                console.log(errorThrown);
+                ajaxError(statusCode, errorThrown);
+            });
+    }
+
+    function cargaChosenEdadPension(hoja, estrategia) {
+        edadJubilacion = $(
+            "#hoja-" + hoja + "-edad-estrategia-" + estrategia
+        ).val();
+
+        //  alert("#hoja-" + hoja + "-edad-estrategia-" + estrategia);
+        mes = parseInt(edadJubilacion.substr(9, 2));
+        ano = parseInt(edadJubilacion.substr(0, 2));
+        // alert(edadPension1);
+        edadPension1 = mes >= 6 ? ano + 1 : ano;
+        edadPension1 = edadPension1 > 65 ? 65 : edadPension1;
+
+        switch (estrategia) {
+            case 1:
+                concepto = edadPension1 + " años - Empresa actual";
+                break;
+            case 2:
+                concepto = edadPension1 + " años - Cooperativa";
+                break;
+            case 3:
+                concepto = edadPension1 + " años - M40 Retroactivo";
+                break;
+            case 4:
+                concepto = edadPension1 + " años - M40 Ya Pagada";
+                break;
+            case 5:
+                concepto = edadPension1 + " años - M40 Barata";
+                break;
+            case 6:
+                concepto = edadPension1 + " años - M40 Salario Alto";
+                break;
+        }
+
+        // alert(concepto);
+
+        $("#hoja-" + hoja + "-edad-calculo-pension").append(
+            '<option value="' + edadPension1 + '">' + concepto + " </option>"
+        );
     }
 
     function cargaCotizacionConEstrategiasEdit(response, id) {
@@ -270,38 +400,38 @@ $(document).on("ready", function() {
                     break;
             }
 
-            $(
-                "#hoja-" + id + "-fecha-desde-estrategia-" + element.estrategias
-            ).val(element.del.substr(0, 10));
+            // $(
+            //     "#hoja-" + id + "-fecha-desde-estrategia-" + element.estrategias
+            // ).val(element.del.substr(0, 10));
 
-            $(
-                "#hoja-" +
-                    id +
-                    "-entrada-dias-estrategia-" +
-                    element.estrategias
-            ).val(element.dias);
+            // $(
+            //     "#hoja-" +
+            //         id +
+            //         "-entrada-dias-estrategia-" +
+            //         element.estrategias
+            // ).val(element.dias);
 
-            if (element.estrategias == 2) {
-                $(
-                    "#hoja-" +
-                        id +
-                        "-inscripcion-cooperativa-estrategia-" +
-                        element.estrategias
-                ).val(element.inscripcion);
-            }
+            // if (element.estrategias == 2) {
+            //     $(
+            //         "#hoja-" +
+            //             id +
+            //             "-inscripcion-cooperativa-estrategia-" +
+            //             element.estrategias
+            //     ).val(element.inscripcion);
+            // }
 
-            OkSumarDiasHoja(id, element.estrategias);
-            $("#hoja-" + id + "-sbc-estrategia-" + element.estrategias).val(
-                element.monto
-            );
+            // OkSumarDiasHoja(id, element.estrategias);
+            // $("#hoja-" + id + "-sbc-estrategia-" + element.estrategias).val(
+            //     element.monto
+            // );
 
-            setTimeout(function() {
-                changeChosenEdadPensionHojaEdit(id, element.estrategias);
-            }, 1500);
+            // setTimeout(function() {
+            //     changeChosenEdadPensionHojaEdit(id, element.estrategias);
+            // }, 1500);
 
-            setTimeout(function() {
-                calculaTotalEstrategiasHojasEdit(id, element.estrategias);
-            }, 1500);
+            // setTimeout(function() {
+            //     calculaTotalEstrategiasHojasEdit(id, element.estrategias);
+            // }, 1500);
         });
     }
 
@@ -1122,6 +1252,7 @@ $(document).on("ready", function() {
                     var cotizacionesHoja5 = cotizacionesHojaToJson(5);
                     var cotizacionesHoja6 = cotizacionesHojaToJson(6);
                     var resumenPensiones = PensionResumida();
+                    var estrategias = estrategiasSave();
                     console.log(resumenPensiones);
 
                     var form = $("#formPaso1");
@@ -1147,7 +1278,9 @@ $(document).on("ready", function() {
                         "&cotizacionesHoja6=" +
                         cotizacionesHoja6 +
                         "&resumenPensiones=" +
-                        resumenPensiones;
+                        resumenPensiones +
+                        "&estrategias=" +
+                        estrategias;
                     var route = form.attr("action");
                     $.ajax({
                         url: route,
@@ -1455,6 +1588,7 @@ $(document).on("ready", function() {
             dif85Txt: 0,
             pagandoMensual: 0,
             costo_total: 0,
+            invertido_coop_m40: 0,
             semanas_cotizadas: $("#totalSemanas").val(),
             salario_diario_promedio: convertNumberPure(
                 $("#promedio-salarios").text()
@@ -1494,6 +1628,7 @@ $(document).on("ready", function() {
                     ).val()
                 ),
                 costo_total: costo_x_estrategias(i.toString()),
+                invertido_coop_m40: inv_coop_m40(i.toString()),
                 semanas_cotizadas: $(
                     "#hoja-" + i.toString() + "-nro-semanas-cotizadas"
                 ).val(),
@@ -1529,5 +1664,111 @@ $(document).on("ready", function() {
         }
 
         return total_costo;
+    }
+
+    function inv_coop_m40(hoja) {
+        total_costo = 0;
+
+        monto1 = $("#hoja-" + hoja + "-costo-estrategia-2").val();
+        monto2 = $("#hoja-" + hoja + "-costo-estrategia-6").val();
+
+        if (monto1 == "") {
+            monto1 = 0;
+        } else {
+            monto1 = convertNumberPure(monto1);
+        }
+
+        if (monto2 == "") {
+            monto2 = 0;
+        } else {
+            monto2 = convertNumberPure(monto2);
+        }
+
+        total_costo = monto1 + monto2;
+
+        return total_costo;
+    }
+
+    function estrategiasSave() {
+        var arreglo = [];
+        var i = 1;
+        // alert($("#hoja-1-pension-mesual-sin-m40").val());
+        for (hoja = 2; hoja <= 6; hoja++) {
+            for (estrategia = 1; estrategia <= 6; estrategia++) {
+                if (
+                    $(
+                        "#hoja-" +
+                            hoja +
+                            "-inscripcion-cooperativa-estrategia-" +
+                            estrategia
+                    ).length > 0
+                ) {
+                    incr = $(
+                        "#hoja-" +
+                            hoja +
+                            "-inscripcion-cooperativa-estrategia-" +
+                            estrategia
+                    ).val();
+                } else {
+                    incr = 0;
+                }
+
+                costo1 = convertNumberPure(
+                    $("#hoja-" + hoja + "-costo-estrategia-" + estrategia).val()
+                );
+                pago1 = convertNumberPure(
+                    $(
+                        "#hoja-" + hoja + "-otro-valor-estrategia-" + estrategia
+                    ).val()
+                );
+                desde1 = $(
+                    "#hoja-" + hoja + "-fecha-desde-estrategia-" + estrategia
+                ).val();
+                hasta1 = $(
+                    "#hoja-" + hoja + "-fecha-hasta-estrategia-" + estrategia
+                ).val();
+                total1 = convertNumberPure(
+                    $("#hoja-" + hoja + "-total-estrategia-" + estrategia).val()
+                );
+                sbc1 = $(
+                    "#hoja-" + hoja + "-sbc-estrategia-" + estrategia
+                ).val();
+                if (sbc1 != "") {
+                    arreglo.push({
+                        hoja: "hoja-" + hoja,
+                        estrategia: estrategia,
+                        desde: desde1,
+                        hasta: hasta1,
+                        edad: $(
+                            "#hoja-" + hoja + "-edad-estrategia-" + estrategia
+                        ).val(),
+                        anos: $(
+                            "#hoja-" + hoja + "-anos-estrategia-" + estrategia
+                        ).val(),
+                        meses: $(
+                            "#hoja-" + hoja + "-meses-estrategia-" + estrategia
+                        ).val(),
+                        semanas: $(
+                            "#hoja-" +
+                                hoja +
+                                "-semanas-estrategia-" +
+                                estrategia
+                        ).val(),
+                        dias: $(
+                            "#hoja-" + hoja + "-dias-estrategia-" + estrategia
+                        ).val(),
+                        sbc: $(
+                            "#hoja-" + hoja + "-sbc-estrategia-" + estrategia
+                        ).val(),
+                        total: total1,
+                        costo: costo1,
+                        pago: pago1,
+                        inscripcion: incr
+                    });
+                }
+            }
+        }
+
+        return JSON.stringify(arreglo);
     }
 });

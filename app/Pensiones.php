@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use \App\Expectativas_Salariales;
 use \App\Cotizaciones_Clientes;
 use \App\Pension_Final;
+use \App\Estrategias;
 
 class Pensiones extends Model
 {
@@ -168,6 +169,7 @@ class Pensiones extends Model
                 $pension_final->dif85_text              = $resumen->dif85Txt;
                 $pension_final->pagando_mensual         = $resumen->pagandoMensual;
                 $pension_final->costo_total             = $resumen->costo_total;
+                $pension_final->invertido_coop_m40      = $resumen->invertido_coop_m40;
                 $pension_final->semanas_cotizadas       = $resumen->semanas_cotizadas;
                 $pension_final->salario_diario_promedio = $resumen->salario_diario_promedio;
                 $pension_final->esposa                  = $resumen->esposa;
@@ -176,6 +178,33 @@ class Pensiones extends Model
                 $pension_final->edad_jubilacion         = $resumen->edad_jubilacion;
                 $pension_final->save();
             }
+
+            Estrategias::where('uuid', $uuid)->get()->each->delete();
+            $estrategias = json_decode($request->estrategias);
+            // dd($estrategias);
+            foreach ($estrategias as $estrategia) {
+                $row               = new Estrategias;
+                $row->uuid         = $uuid;
+                $row->hoja         = $estrategia->hoja;
+                $row->estrategia   = $estrategia->estrategia;
+                $row->desde        = $estrategia->desde;
+                $row->hasta        = $estrategia->hasta;
+                $row->edad         = $estrategia->edad;
+                $row->anos         = $estrategia->anos;
+                $row->meses        = $estrategia->meses;
+                $row->semanas      = $estrategia->semanas;
+                $row->dias         = $estrategia->dias;
+                $row->sbc          = $estrategia->sbc;
+                $row->total        = $estrategia->total == null ? 0 : $estrategia->total;
+                $row->costo        = $estrategia->costo == null ? 0 : $estrategia->costo;
+                $row->pago_mensual = $estrategia->pago;
+                if ($estrategia->estrategia == 2) {
+                    $row->incripcion   = $estrategia->inscripcion;
+                }
+                $row->save();
+            }
+
+
 
             DB::commit();
             return true;

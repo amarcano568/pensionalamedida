@@ -10,6 +10,7 @@ use \App\Expectativas_Salariales;
 use \App\Formulas_tabla;
 use \App\Cotizaciones;
 use \App\Cotizaciones_Clientes;
+use \App\Estrategias;
 use Carbon\Carbon;
 use \DataTables;
 use Illuminate\Support\Facades\DB;
@@ -361,5 +362,11 @@ class GestionarPensionesController extends Controller
     {
         $datos = Pension_Final::where('uuid', $request->uuid)->get();
         return response()->json(array('success' => true, 'mensaje' => 'Obtenidos otros datos de los planes de pensión', 'data' => $datos));
+    }
+
+    public function buscarEstrategiasSaveOnBd(Request $request)
+    {
+        $estrategias = Estrategias::where('uuid', $request->uuid)->get();
+        return response()->json(array('success' => true, 'mensaje' => 'Estrategias obtenidas', 'data' => $estrategias));
     }
 }

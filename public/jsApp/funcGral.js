@@ -155,6 +155,12 @@ function convertNumberPure(data) {
     return parseFloat(data);
 }
 
+function convertNumberPure$(data) {
+    data = data.replace(/\,/g, "");
+    data = data.replace("$", "");
+    return parseFloat(data);
+}
+
 function deleteFile(fileDelete) {
     setTimeout(function() {
         $.ajax({
@@ -943,6 +949,13 @@ function cuantiaBasicaHojas(
                 $.number(totalAnual, 2, ".", ",")
             );
 
+            edadPension = parseFloat(
+                $("#" + hoja + "-edad-real-pension").val()
+            );
+            edadPension =
+                edadPension == ""
+                    ? $("#hoja-" + hoja + "-dif-edad-85-text").text()
+                    : edadPension;
             difEdad = 85 - edadPension;
             $("#" + hoja + "-dif-edad-85-text").text(difEdad);
             $("#" + hoja + "-dif-85").val(

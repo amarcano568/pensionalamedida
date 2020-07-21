@@ -1,4 +1,6 @@
 $(document).on("ready", function() {
+    var edadJubilacionReal = 0;
+
     $("#btn-carga-estrategias-hoja2").click(function(event) {
         event.preventDefault();
 
@@ -230,6 +232,10 @@ $(document).on("ready", function() {
             .done(function(response) {
                 ////console.log(response);
                 $(elementoDom).val(response.data);
+                pos = response.data.indexOf(",") + 1;
+                mes = response.data.substr(pos, 3);
+                edadReal = response.data.substr(0, 2).trim() + "." + mes.trim();
+                $("#hoja-2-edad-real-pension").val(edadReal);
             })
             .fail(function(statusCode, errorThrown) {
                 $.unblockUI();
@@ -1035,7 +1041,8 @@ $(document).on("ready", function() {
             semanasCotizadas,
             salarioDiarioPromedio,
             edadJubilacion,
-            true
+            true,
+            edadJubilacionReal
         );
     });
 });

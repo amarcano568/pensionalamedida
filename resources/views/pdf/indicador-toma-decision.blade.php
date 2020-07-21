@@ -30,7 +30,7 @@
                     <td class="text-center" colspan="2" rowspan="3" style="vertical-align : middle;">
                         <h5>TU INVERSIÓN SE MULTIPLICA</h5>
                     </td>
-                    <td id="hoja-2-inversion-multiplica" bgcolor="#EBEDEF"  rowspan="2">
+                    <td class="text-center" style="vertical-align : middle;" id="hoja-2-inversion-multiplica" bgcolor="#EBEDEF"  rowspan="2">
 
                     </td>
                 </tr>
@@ -75,15 +75,15 @@
                     <td style="width: 50%">
                         Años +
                     </td>
-                    <td style="width: 50%" id="hoja-2-cotizas-anos">
+                    <td class="text-center" style="width: 50%" id="hoja-2-cotizas-anos">
 
                     </td>
                 </tr>
                 <tr>
-                    <td style="width: 50%" id="hoja-2-cotizas-meses">
+                    <td style="width: 50%">
                         Meses
                     </td>
-                    <td style="width: 50%">
+                    <td class="text-center" style="width: 50%" id="hoja-2-cotizas-meses">
 
                     </td>
                 </tr>
@@ -127,7 +127,7 @@
                     <td class="text-center" colspan="2" rowspan="3" style="vertical-align : middle;">
                         <h5>TU INVERSIÓN SE MULTIPLICA</h5>
                     </td>
-                    <td id="hoja-3-inversion-multiplica" bgcolor="#EBEDEF"  rowspan="2">
+                    <td class="text-center" style="vertical-align : middle;" id="hoja-3-inversion-multiplica" bgcolor="#EBEDEF"  rowspan="2">
 
                     </td>
                 </tr>
@@ -172,15 +172,15 @@
                     <td style="width: 50%">
                         Años +
                     </td>
-                    <td style="width: 50%" id="hoja-3-cotizas-anos">
+                    <td class="text-center" style="width: 50%" id="hoja-3-cotizas-anos">
 
                     </td>
                 </tr>
                 <tr>
-                    <td style="width: 50%" id="hoja-3-cotizas-meses">
+                    <td style="width: 50%">
                         Meses
                     </td>
-                    <td style="width: 50%">
+                    <td class="text-center" style="width: 50%" id="hoja-3-cotizas-meses">
 
                     </td>
                 </tr>
@@ -224,7 +224,7 @@
                     <td class="text-center" colspan="2" rowspan="3" style="vertical-align : middle;">
                         <h5>TU INVERSIÓN SE MULTIPLICA</h5>
                     </td>
-                    <td id="hoja-4-inversion-multiplica" bgcolor="#EBEDEF"  rowspan="2">
+                    <td class="text-center" style="vertical-align : middle;" class="text-center" style="vertical-align : middle;" id="hoja-4-inversion-multiplica" bgcolor="#EBEDEF"  rowspan="2">
 
                     </td>
                 </tr>
@@ -269,15 +269,15 @@
                     <td style="width: 50%">
                         Años +
                     </td>
-                    <td style="width: 50%" id="hoja-4-cotizas-anos">
+                    <td class="text-center" style="width: 50%" id="hoja-4-cotizas-anos">
 
                     </td>
                 </tr>
                 <tr>
-                    <td style="width: 50%" id="hoja-4-cotizas-meses">
+                    <td style="width: 50%">
                         Meses
                     </td>
-                    <td style="width: 50%">
+                    <td class="text-center" style="width: 50%" id="hoja-4-cotizas-meses">
 
                     </td>
                 </tr>
@@ -321,7 +321,7 @@
                     <td class="text-center" colspan="2" rowspan="3" style="vertical-align : middle;">
                         <h5>TU INVERSIÓN SE MULTIPLICA</h5>
                     </td>
-                    <td id="hoja-5-inversion-multiplica" bgcolor="#EBEDEF"  rowspan="2">
+                    <td class="text-center" style="vertical-align : middle;" id="hoja-5-inversion-multiplica" bgcolor="#EBEDEF"  rowspan="2">
 
                     </td>
                 </tr>
@@ -366,15 +366,15 @@
                     <td style="width: 50%">
                         Años +
                     </td>
-                    <td style="width: 50%" id="hoja-5-cotizas-anos">
+                    <td class="text-center" style="width: 50%" id="hoja-5-cotizas-anos">
 
                     </td>
                 </tr>
                 <tr>
-                    <td style="width: 50%" id="hoja-5-cotizas-meses">
+                    <td style="width: 50%">
                         Meses
                     </td>
-                    <td style="width: 50%">
+                    <td class="text-center" style="width: 50%" id="hoja-5-cotizas-meses">
 
                     </td>
                 </tr>
@@ -418,7 +418,7 @@
                     <td class="text-center" colspan="2" rowspan="3" style="vertical-align : middle;">
                         <h5>TU INVERSIÓN SE MULTIPLICA</h5>
                     </td>
-                    <td id="hoja-6-inversion-multiplica" bgcolor="#EBEDEF"  rowspan="2">
+                    <td class="text-center" style="vertical-align : middle;" id="hoja-6-inversion-multiplica" bgcolor="#EBEDEF"  rowspan="2">
 
                     </td>
                 </tr>
@@ -463,15 +463,15 @@
                     <td style="width: 50%">
                         Años +
                     </td>
-                    <td style="width: 50%" id="hoja-6-cotizas-anos">
+                    <td class="text-center" style="width: 50%" id="hoja-6-cotizas-anos">
 
                     </td>
                 </tr>
                 <tr>
-                    <td style="width: 50%" id="hoja-6-cotizas-meses">
+                    <td style="width: 50%">
                         Meses
                     </td>
-                    <td style="width: 50%">
+                    <td class="text-center" style="width: 50%" id="hoja-6-cotizas-meses">
 
                     </td>
                 </tr>

@@ -26,17 +26,17 @@
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#incicadores-tomar-decision" role="tab"
                                 aria-controls="home">A.- INDICADORES TOMAR DECISIONES</a></li>
-                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#porc-variacion" role="tab"
-                                aria-controls="profile">B.- PORCENTAJES VARIACION</a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#perdida-ganancia" role="tab"
+                                aria-controls="profile">Perdida y Ganancia</a></li>
                         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#impacto-nivel-vida" role="tab"
                                 aria-controls="messages">C.- IMPACTO EN NIVEL DE VIDA</a></li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="incicadores-tomar-decision" role="tabpanel">
-                             @include('pdf.indicador-toma-decision')
+                            @include('pdf.indicador-toma-decision')
                         </div>
-                        <div class="tab-pane" id="porc-variacion" role="tabpanel">
-
+                        <div class="tab-pane" id="perdida-ganancia" role="tabpanel">
+                            @include('pdf.perdida-ganancia')
                         </div>
                         <div class="tab-pane" id="impacto-nivel-vida" role="tabpanel">
 

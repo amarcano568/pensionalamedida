@@ -130,11 +130,50 @@ class PdfsController extends Controller
     {
         $pensiones = Pension_Final::where('uuid', $request->uuid)->get();
         $cotiza_clientes_fechas = Cotizaciones_Clientes::where('uuid', $request->uuid)->where('estrategias', '6')->get();
+        $cotiza_clientes_fechas->map(function ($pension) {
+            $del = Carbon::parse($pension->del);
+            $al = Carbon::parse($pension->al);
+            $pension->edad_detalle = $del->diff($al)->format('%y | %m');
+        });
+
+        $cliente = Cotizaciones_Clientes::join('pensiones', 'cotizaciones_clientes.uuid', 'pensiones.uuid')
+            ->join('clientes', 'pensiones.idCliente', 'clientes.id')
+            ->where('cotizaciones_clientes.uuid', $request->uuid)
+            ->whereIn('cotizaciones_clientes.estrategias', [2, 3, 4, 5, 6])
+            ->select('cotizaciones_clientes.uuid', 'fechaNacimiento', 'cotizaciones_clientes.al', 'cotizaciones_clientes.hoja')
+            ->get();
+        $cliente->map(function ($clien) {
+            $del = Carbon::parse($clien->fechaNacimiento);
+            $al = Carbon::parse($clien->al);
+            $clien->edad_anos_meses = $al->diff($del)->format('%y año(s) más %m mes(es)');
+        });
+
+        foreach ($pensiones as $pension) {
+            if ($pension->hoja == 'hoja-1') {
+                $pension_hoja1 = $pension->pension_mensual;
+            }
+            if ($pension->hoja == 'hoja-4') {
+                $pension_hoja4 = $pension->pension_mensual;
+            }
+        }
+
         return response()->json(array(
             'success' => true,
             'mensaje' => 'Pensión final obtenida exitosamente',
             'data' => $pensiones,
-            'cotiza_fechas' => $cotiza_clientes_fechas
+            'cotiza_fechas' => $cotiza_clientes_fechas,
+            'cliente_ano_mes' => $cliente,
+            'pension_1_4' => [$pension_hoja1, $pension_hoja4]
         ));
+    }
+
+    public function restarFechas()
+    {
+        $fec1 =  Carbon::parse('1957/01/17');
+        $fec2 = Carbon::parse('2023/01/31');
+
+        $fecha = $fec2->diff($fec1);
+
+        dd($fecha);
     }
 }

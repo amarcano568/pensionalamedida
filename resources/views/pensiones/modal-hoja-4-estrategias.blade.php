@@ -272,7 +272,7 @@ data-keyboard="false">
                                         <div class="input-group-prepend">
                                           <span class="input-group-text input-group-text-xs">$</span>
                                         </div>
-                                        <input type="text" class="form-control input-xs" readonly>
+                                        <input type="text" class="form-control input-xs" readonly id="hoja-4-otro-valor-estrategia-1" value="0">
                                     </div>                                    
                                 </td>
                             </tr>

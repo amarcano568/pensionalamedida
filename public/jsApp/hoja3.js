@@ -219,14 +219,14 @@ $(document).on("ready", function() {
 
         desde = $("#hoja-3-fecha-nacimiento").val();
         hasta = $("#hoja-3-fecha-desde-estrategia-" + estrategia).val();
-        calculaFechasHoja2(
+        calculaFechasHoja3(
             desde,
             hasta,
             "#hoja-3-edad-estrategia-" + estrategia
         );
     });
 
-    function calculaFechasHoja2(desde, hasta, elementoDom) {
+    function calculaFechasHoja3(desde, hasta, elementoDom) {
         $.ajax({
             url: "/edad-cliente",
             type: "get",
@@ -236,6 +236,10 @@ $(document).on("ready", function() {
             .done(function(response) {
                 ////console.log(response);
                 $(elementoDom).val(response.data);
+                pos = response.data.indexOf(",") + 1;
+                mes = response.data.substr(pos, 3);
+                edadReal = response.data.substr(0, 2).trim() + "." + mes.trim();
+                $("#hoja-3-edad-real-pension").val(edadReal);
             })
             .fail(function(statusCode, errorThrown) {
                 $.unblockUI();
@@ -332,7 +336,7 @@ $(document).on("ready", function() {
         estrategia = $(this).attr("estrategia");
         desde = $("#hoja-3-fecha-nacimiento").val();
         hasta = $("#hoja-3-fecha-desde-estrategia-" + estrategia).val();
-        calculaFechasHoja2(
+        calculaFechasHoja3(
             desde,
             hasta,
             "#hoja-3-edad-estrategia-" + estrategia
@@ -398,7 +402,7 @@ $(document).on("ready", function() {
                 desde = $("#fechaNacimiento").val();
                 hasta = $("#hoja-3-fecha-hasta-estrategia-" + id).val();
                 //alert(desde + " " + hasta);
-                calculaFechasHoja2(
+                calculaFechasHoja3(
                     desde,
                     hasta,
                     "#hoja-3-edad-estrategia-" + id

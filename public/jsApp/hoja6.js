@@ -213,7 +213,7 @@ $(document).on("ready", function() {
 
         desde = $("#hoja-6-fecha-nacimiento").val();
         hasta = $("#hoja-6-fecha-desde-estrategia-" + estrategia).val();
-        calculaFechasHoja2(
+        calculaFechasHoja6(
             desde,
             hasta,
             "#hoja-6-edad-estrategia-" + estrategia
@@ -230,6 +230,10 @@ $(document).on("ready", function() {
             .done(function(response) {
                 ////console.log(response);
                 $(elementoDom).val(response.data);
+                pos = response.data.indexOf(",") + 1;
+                mes = response.data.substr(pos, 3);
+                edadReal = response.data.substr(0, 2).trim() + "." + mes.trim();
+                $("#hoja-6-edad-real-pension").val(edadReal);
             })
             .fail(function(statusCode, errorThrown) {
                 $.unblockUI();

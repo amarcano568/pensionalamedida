@@ -31,6 +31,7 @@
 </style>
 <form id="formPaso6" method="post" enctype="multipart/form-data" data-parsley-validate="">
     @csrf
+    <input type="text" id="hoja-6-edad-real-pension">
     <div class="card">
         <div class="card-header"><i class="cil-functions-alt"></i> <strong>Promedio</strong>
             <small>Promedio Salario 6</small>
