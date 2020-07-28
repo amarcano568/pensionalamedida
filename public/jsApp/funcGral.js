@@ -954,12 +954,20 @@ function cuantiaBasicaHojas(
             );
             edadPension =
                 edadPension == ""
-                    ? $("#hoja-" + hoja + "-dif-edad-85-text").text()
+                    ? parseFloat($("#" + hoja + "-dif-edad-85-text").text())
                     : edadPension;
-            difEdad = 85 - edadPension;
+            if (isNaN(edadPension)) {
+                edadPension = parseFloat(
+                    $("#" + hoja + "-dif-edad-85-text").text()
+                );
+                difEdad = edadPension;
+            } else {
+                difEdad = 85 - edadPension;
+            }
+
             $("#" + hoja + "-dif-edad-85-text").text(difEdad);
             $("#" + hoja + "-dif-85").val(
-                $.number(totalAnual * difEdad, 2, ".", ",")
+                $.number((totalAnual * difEdad).toFixed(2), 2, ".", ",")
             );
 
             $("#title-pension-con-m40").attr("class", "text-success blink_me");

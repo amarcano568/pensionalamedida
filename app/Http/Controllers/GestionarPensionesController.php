@@ -141,13 +141,21 @@ class GestionarPensionesController extends Controller
 
     public function generarPlanes(Request $request)
     {
+        // dd($request->idPension);
         $tablas = Formulas_tabla::get();
+        if ($request->idPension == '0') {
+            $newEdit = 'New';
+        } else {
+            $newEdit = 'Edit';
+        }
+        // dd($newEdit);
         $data = array(
             'tablas' => $tablas,
-            'NewPlan' => $request->idPension == 0 ? 'New' : 'Edit',
-            'uuid' => $request->idPension == 0 ? '' : $request->idPension,
-            'idCliente' => $request->idPension == 0 ? '' : $request->idCliente
+            'NewPlan' => $newEdit,
+            'uuid' => $request->idPension == '0' ? '' : $request->idPension,
+            'idCliente' => $request->idPension == '0' ? '' : $request->idCliente
         );
+
         return view('pensiones.generar-planes', $data);
     }
 
@@ -292,7 +300,8 @@ class GestionarPensionesController extends Controller
     {
         $expectativas = Expectativas_Salariales::join('pensiones', 'expectativas_salariales.uuid', 'pensiones.uuid')
             ->join('clientes', 'pensiones.idCliente', 'clientes.id')
-            ->find($request->uuid);
+            ->where('expectativas_salariales.uuid', $request->uuid)
+            ->first();
         return response()->json(array('success' => true, 'mensaje' => 'Expectativa salarial obtenida para el cliente', 'data' => $expectativas));
     }
 

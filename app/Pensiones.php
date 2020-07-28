@@ -32,7 +32,7 @@ class Pensiones extends Model
             } else {
                 $uuid = $request->uuid;
                 $pension  = \App\Pensiones::find($request->idCliente);
-                $espectativas  = \App\Expectativas_Salariales::find($request->uuid);
+                $espectativas  = \App\Expectativas_Salariales::where('uuid', $request->uuid)->first();
             }
 
 

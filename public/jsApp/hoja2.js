@@ -683,23 +683,13 @@ $(document).on("ready", function() {
             $.number(diasEquivalentes250, 2, ".", ",")
         );
 
-        // if (changeMonto == 0) {
-        //     id = $("#body-promedio-salarial-2 tr:last").attr("id");
-        //     monto = parseFloat($("#promedio2monto" + id).val());
-        // } else {
-        //     monto = changeMonto;
-        // }
-
         cargaTablaCambioSalalario();
 
         monto = $("#monto-a-descontar-excedido").val();
 
         salarioNeto = parseInt(diasExcedidos) * parseFloat(monto);
-        ////alert(salarioNeto);
-        //$("#hoja-2-salarios-excedidos").val($.number(monto, 2, ".", ","));
         $("#hoja-2-salarios-neto").val($.number(monto, 2, ".", ","));
 
-        //montoExcedente = convertNumberPure($("#hoja-2-salarios-neto").val());
         salarioBasePromedio = totalCotiza - monto;
         $("#hoja-2-salario-base-promedio").val(
             $.number(salarioBasePromedio, 2, ".", ",")
@@ -716,7 +706,6 @@ $(document).on("ready", function() {
         semanasCotiza = 0;
         $(".semanas-cotizadas-estrategia").each(function() {
             semanas = $(this).val();
-            //console.log(semanas);
             if (semanas != "") {
                 semanasCotiza += parseFloat(semanas);
             }
@@ -726,14 +715,13 @@ $(document).on("ready", function() {
             parseInt(semanasCotizadas) + Math.round(semanasCotiza);
 
         estrategiaEdad = $("#hoja-2-edad-calculo-pension").val();
+
         edadJubilacion = $("#hoja-2-edad-estrategia-" + estrategiaEdad).val();
         mes = parseInt(edadJubilacion.substr(9, 2));
         ano = parseInt(edadJubilacion.substr(0, 2));
         edadPension = mes >= 6 ? ano + 1 : ano;
         edadPension = edadPension > 65 ? 65 : edadPension;
-        ////alert(edadPension);
         salarioDiarioPromedio = promedioUltimasSemanas;
-        ////alert(salarioDiarioPromedio);
         $("#hoja-2-nro-semanas-cotizadas").val(semanasCotizadas);
         $("#hoja-2-salario-promedio-mensual-250-semanas").val(
             $.number(salarioDiarioPromedio, 2, ".", ",")
@@ -741,8 +729,10 @@ $(document).on("ready", function() {
         $("#hoja-2-esposa").val($("#esposa").val());
         $("#hoja-2-hijos").val($("#hijos").val());
         $("#hoja-2-padres").val($("#padres").val());
-        $("#hoja-2-edad-jubilacion").val(edadPension);
 
+        //hoja-2-edad-calculo-pension
+        $("#hoja-2-edad-jubilacion").val(edadPension);
+        //alert(edadPension);
         calculaFormulasExcelHojas(
             semanasCotizadas,
             salarioDiarioPromedio,

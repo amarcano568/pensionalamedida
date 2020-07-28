@@ -70,10 +70,9 @@ $(document).on("ready", function() {
                     $("#hoja-" + hoja[1] + "-dif-edad-85-text").text(
                         element.dif85_text
                     );
-
-                    $("#hoja-" + hoja[1] + "-nro-semanas-cotizadas").val(
-                        element.semanas_cotizadas
-                    );
+                    $(
+                        "#hoja-" + hoja[1].toString() + "-nro-semanas-cotizadas"
+                    ).val(element.semanas_cotizadas);
                     $(
                         "#hoja-" +
                             hoja[1] +
@@ -154,6 +153,7 @@ $(document).on("ready", function() {
                 );
                 concepto = 6;
                 //setTimeout(function() {}, 5000);
+                //alert("okkkkk");
                 $(".diasCotizacion").each(function() {
                     row = $(this).attr("row");
                     fechaDesde = $("#fechaDesde" + row).val();
@@ -179,13 +179,76 @@ $(document).on("ready", function() {
                     );
                 });
                 cargaEstrategiasSegunBD(uuid);
-                totaldiasHojaEdit(id);
+                totaldiasHojaVer(id);
             })
             .fail(function(statusCode, errorThrown) {
                 $.unblockUI();
                 console.log(errorThrown);
                 ajaxError(statusCode, errorThrown);
             });
+    }
+
+    function totaldiasHojaVer(id) {
+        diasTotal = 0;
+        $(".hoja-" + id + "-dias").each(function() {
+            dias = $(this).val();
+            if (dias != "") {
+                diasTotal += parseInt(dias);
+            }
+        });
+
+        totalCotiza = 0;
+        $(".total-cotizacion-promedio-salarial-" + id + "").each(function() {
+            totalCotizacion = $(this).val();
+            if (totalCotizacion != "") {
+                totalCotiza += convertNumberPure(totalCotizacion);
+            }
+        });
+
+        if (diasTotal < 1750) {
+            $("#hoja-" + id + "-total-dias").val(
+                $.number(diasTotal, 2, ".", ",")
+            );
+            $("#hoja-" + id + "-dias-excedidos").val($.number(0, 2, ".", ","));
+            $("#hoja-" + id + "-dias-equivalentes-250").val(
+                $.number(0, 2, ".", ",")
+            );
+            return false;
+        }
+        diasExcedidos = diasTotal - 1750;
+        diasEquivalentes250 = diasTotal - diasExcedidos;
+
+        $("#hoja-" + id + "-total-dias").val($.number(diasTotal, 2, ".", ","));
+        $("#hoja-" + id + "-dias-excedidos").val(
+            $.number(diasExcedidos, 2, ".", ",")
+        );
+        $("#hoja-" + id + "-dias-equivalentes-250").val(
+            $.number(diasEquivalentes250, 2, ".", ",")
+        );
+
+        cargaTablaCambioSalalarioHojaEdit(id);
+
+        monto = $("#monto-a-descontar-excedido").val();
+
+        salarioNeto = parseInt(diasExcedidos) * parseFloat(monto);
+
+        $("#hoja-" + id + "-salarios-neto").val($.number(monto, 2, ".", ","));
+
+        salarioBasePromedio = totalCotiza - monto;
+        $("#hoja-" + id + "-salario-base-promedio").val(
+            $.number(salarioBasePromedio, 2, ".", ",")
+        );
+
+        promedioUltimasSemanas = salarioBasePromedio / 1750;
+
+        $("#hoja-" + id + "-entre").val(
+            $("#hoja-" + id + "-dias-equivalentes-250").val()
+        );
+        $("#hoja-" + id + "-prom-ultimas-250-sem").val(
+            $.number(promedioUltimasSemanas, 2, ".", ",")
+        );
+
+        /////
     }
 
     function cargaEstrategiasSegunBD(uuid) {
@@ -313,7 +376,7 @@ $(document).on("ready", function() {
         // alert(concepto);
 
         $("#hoja-" + hoja + "-edad-calculo-pension").append(
-            '<option value="' + edadPension1 + '">' + concepto + " </option>"
+            '<option value="' + estrategia + '">' + concepto + " </option>"
         );
     }
 

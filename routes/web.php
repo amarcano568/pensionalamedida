@@ -102,7 +102,11 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('generar-pdf-resumen/{uuid}/{idCliente}', 'PdfsController@generarPdfResumen');
 	Route::get('/ver-pdf-resumen', 'PdfsController@verPdfResumen');
 	Route::get('/send-mail-resumen', 'PdfsController@sendMailResumen');
-	Route::get('generar-pdf-detalle/{uuid}/{idCliente}', 'PdfsController@generarPdfDetalle');
 	Route::get('/data-toma-decisiones', 'PdfsController@dataTomaDecisiones');
 	Route::get('/restar-fechas', 'PdfsController@restarFechas');
+	Route::get('/ver-pdf-detalle', 'PdfsController@verPdfDetalle');
+	Route::get('generar-pdf-detalle/{uuid}/{idCliente}', 'PdfsController@generarPdfDetalle');
+
+	/** Inicio tablero */
+	Route::get('/buscar-data-tablero', 'PerfilController@buscarDataTablero');
 });

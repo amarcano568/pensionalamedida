@@ -36,25 +36,16 @@
                     <td style="vertical-align : middle" class="text-center">
                         Pensión Total Acumulada (PTA) CON M40
                     </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-pension-acumulada-1">
-                       
-                    </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-pension-acumulada-2">
-                       
-                    </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-pension-acumulada-3">
-                       
-                    </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-pension-acumulada-4">
-                       
-                    </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-pension-acumulada-5">
-                       
-                    </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-pension-acumulada-6">
-                       
-                    </td>
-                  
+                    @foreach ($pensiones as $item)
+                        <?php
+                            if ($item->hoja == 'hoja-1'){
+                                $pension_Acum_Sin_M40 = $item->dif85;
+                            }
+                         ?>
+                        <td style="vertical-align : middle" class="text-center">
+                            <strong>{{number_format($item->dif85, 2, '.', ',')}}</strong>
+                        </td>
+                    @endforeach                  
                 </tr>
                 <tr>
                     <td bgcolor="#F2DEDE" colspan="7">
@@ -65,23 +56,23 @@
                     <td style="vertical-align : middle" class="text-center">
                         Pensión Total Acumulada (PTA) SIN M40
                     </td>
-                    <td style="vertical-align : middle" class="text-center g-p-pension-pension-sin-m40">
-                       
+                    <td style="vertical-align : middle" class="text-center">
+                       <strong>{{number_format($pension_Acum_Sin_M40, 2, '.', ',')}}</strong>
                     </td>
-                    <td style="vertical-align : middle" class="text-center g-p-pension-pension-sin-m40">
-                       
+                    <td style="vertical-align : middle" class="text-center">
+                       <strong>{{number_format($pension_Acum_Sin_M40, 2, '.', ',')}}</strong>
                     </td>
-                    <td style="vertical-align : middle" class="text-center g-p-pension-pension-sin-m40">
-                       
+                    <td style="vertical-align : middle" class="text-center">
+                       <strong>{{number_format($pension_Acum_Sin_M40, 2, '.', ',')}}</strong>
                     </td>
-                    <td style="vertical-align : middle" class="text-center g-p-pension-pension-sin-m40">
-                       
+                    <td style="vertical-align : middle" class="text-center">
+                       <strong>{{number_format($pension_Acum_Sin_M40, 2, '.', ',')}}</strong>
                     </td>
-                    <td style="vertical-align : middle" class="text-center g-p-pension-pension-sin-m40">
-                       
+                    <td style="vertical-align : middle" class="text-center">
+                       <strong>{{number_format($pension_Acum_Sin_M40, 2, '.', ',')}}</strong>
                     </td>
-                    <td style="vertical-align : middle" class="text-center g-p-pension-pension-sin-m40">
-                       
+                    <td style="vertical-align : middle" class="text-center">
+                       <strong>{{number_format($pension_Acum_Sin_M40, 2, '.', ',')}}</strong>
                     </td>
                 </tr>
                 <tr>
@@ -96,21 +87,14 @@
                     <td class="text-center" style="vertical-align : middle" >
                        <h6>EL 100%</h6>
                     </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-ingreso-adicional-acumulado-2">
-                       
-                    </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-ingreso-adicional-acumulado-3">
-                       
-                    </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-ingreso-adicional-acumulado-4">
-                       
-                    </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-ingreso-adicional-acumulado-5">
-                       
-                    </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-ingreso-adicional-acumulado-6">
-                       
-                    </td>
+                    @foreach ($pensiones as $item)
+                        @if ($item->hoja != 'hoja-1')
+                            <td style="vertical-align : middle" class="text-center">
+                                <strong>{{number_format($item->dif85 - $pension_Acum_Sin_M40, 2, '.', ',')}}</strong>
+                            </td>
+                        @endif
+                    @endforeach 
+                  
                 </tr>
                 <tr>
                     <td bgcolor="#F2DEDE" colspan="7">
@@ -121,79 +105,51 @@
                     <td style="vertical-align : middle" class="text-center" colspan="2">
                         Dinero invertido en Coop + Mod 40
                     </td>
+                    @foreach ($pensiones as $item)
+                        @if ($item->hoja != 'hoja-1')
+                            <td style="vertical-align : middle" class="text-center">
+                                <strong>{{number_format($item->invertido_coop_m40, 2, '.', ',')}}</strong>
+                            </td>
+                        @endif
+                    @endforeach 
                    
-                    <td style="vertical-align : middle" class="text-center" id="g-p-dinero-invertido-coop-m40-2">
-                       
-                    </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-dinero-invertido-coop-m40-3">
-                       
-                    </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-dinero-invertido-coop-m40-4">
-                       
-                    </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-dinero-invertido-coop-m40-5">
-                       
-                    </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-dinero-invertido-coop-m40-6">
-                       
-                    </td>
                 </tr>
                 <tr style="height: 4em;">
                     <td style="vertical-align : middle" class="text-center" colspan="2">
                         <span>= Ganancia Neta Acumulada de la GPA
                        <strong class="text-danger float-right">A - B</strong></span>
                     </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-ganancia-neta-acumulada-2">
-                       
-                    </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-ganancia-neta-acumulada-3">
-                       
-                    </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-ganancia-neta-acumulada-4">
-                       
-                    </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-ganancia-neta-acumulada-5">
-                       
-                    </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-ganancia-neta-acumulada-6">
-                       
-                    </td>
+                    @foreach ($pensiones as $item)
+                        @if ($item->hoja != 'hoja-1')
+                            <td style="vertical-align : middle" class="text-center">
+                                <strong>{{number_format(($item->dif85 - $pension_Acum_Sin_M40)-$item->invertido_coop_m40, 2, '.', ',')}}</strong>
+                            </td>
+                        @endif
+                    @endforeach 
                 </tr>
                 <tr style="height: 4em;">
                     <td style="vertical-align : middle" class="text-center" colspan="2">
                         Porcentaje del Ingreso Adicional Acumulado
                     </td>
-                   
-                    <td style="vertical-align : middle" class="text-center" id="g-p-porc-ingreso-adicional-2">
-                       
-                    </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-porc-ingreso-adicional-3">
-                       
-                    </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-porc-ingreso-adicional-4">
-                       
-                    </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-porc-ingreso-adicional-5">
-                       
-                    </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-porc-ingreso-adicional-6">
-                       
-                    </td>
+                    @foreach ($pensiones as $item)
+                        @if ($item->hoja != 'hoja-1')
+                            <td style="vertical-align : middle" class="text-center">
+                                <strong>{{number_format(((($item->dif85 - $pension_Acum_Sin_M40)-$item->invertido_coop_m40)/($item->dif85 - $pension_Acum_Sin_M40))*100, 2, '.', ',')}}</strong>
+                            </td>
+                        @endif
+                    @endforeach 
                 </tr>
                 <tr class="text-danger">
                     <td colspan="2" class="text-center">
                         <h4>Cuantas veces se recupera lo invertido en Mod 40</h4>
                     </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-recupera-ivertido-2">
-                    </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-recupera-ivertido-3">
-                    </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-recupera-ivertido-4">
-                    </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-recupera-ivertido-5">
-                    </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-recupera-ivertido-6">
-                    </td>
+                    @foreach ($pensiones as $item)
+                        @if ($item->hoja != 'hoja-1')
+                            <td style="vertical-align : middle" class="text-center">
+                                <h4>{{number_format((($item->dif85 - $pension_Acum_Sin_M40)-$item->invertido_coop_m40)/$item->invertido_coop_m40, 2, '.', ',')}}</h4>
+                            </td>
+                        @endif
+                    @endforeach 
                 </tr>
                 <tr>
                     <td bgcolor="#F2DEDE" colspan="7">
@@ -205,44 +161,54 @@
                         Pensión no cobrada por el tiempo que se invierte en la Modalidad 40
                     </td>
                    
-                    <td style="vertical-align : middle" class="text-center" id="g-p-pension-no-cobrada-2">
+                    <td style="vertical-align : middle" class="text-center">
+                       <h4>{{ number_format($pension_1_4[0] * 12 + $pension_1_4[0] * 1 * 0.85, 2, '.', ',') }}</h4>
+                    </td>
+                    <td style="vertical-align : middle" class="text-center">
+                        <h4>{{ number_format($pension_1_4[0] * 12 + $pension_1_4[0] * 1 * 0.85, 2, '.', ',') }}</h4>
+                    </td>
+                    <td style="vertical-align : middle" class="text-center">
                        
                     </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-pension-no-cobrada-3">
-                       
+                    <td style="vertical-align : middle" class="text-center">
+                        <h4>{{ number_format($pension_1_4[1] * 24 + $pension_1_4[1] * 2 * 0.85, 2, '.', ',') }}</h4>
                     </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-pension-no-cobrada-4">
-                       
-                    </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-pension-no-cobrada-5">
-                       
-                    </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-pension-no-cobrada-6">
-                       
+                    <td style="vertical-align : middle" class="text-center">
+                        <h4>{{ number_format($pension_1_4[1] * 24 + $pension_1_4[1] * 2 * 0.85, 2, '.', ',') }}</h4>
                     </td>
                 </tr>
                 <tr style="height: 4em;" bgcolor="#DFF0D8">
                     <td style="vertical-align : middle" class="text-center" colspan="2">
                         <h5>= Ganancia menos ingresos no cobrados</h5>
                     </td>
-                   
-                    <td style="vertical-align : middle" class="text-center" id="g-p-ganancia-menos-ingresos-2">
-                       
-                    </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-ganancia-menos-ingresos-3">
-                       
-                    </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-ganancia-menos-ingresos-4">
-                       
-                    </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-ganancia-menos-ingresos-5">
-                       
-                    </td>
-                    <td style="vertical-align : middle" class="text-center" id="g-p-ganancia-menos-ingresos-6">
-                       
-                    </td>
+                    @foreach ($pensiones as $item)
+                    @if ($item->hoja == 'hoja-2' or $item->hoja == 'hoja-3')
+                        <td style="vertical-align : middle" class="text-center">
+                            <h4>{{number_format(((($item->dif85 - $pension_Acum_Sin_M40)-$item->invertido_coop_m40))-($pension_1_4[0] * 12 + $pension_1_4[0] * 1 * 0.85), 2, '.', ',')}}</h4>
+                        </td>
+                    @endif
+                    @if ($item->hoja == 'hoja-4')
+                        <td style="vertical-align : middle" class="text-center">
+                            <h4>{{number_format(((($item->dif85 - $pension_Acum_Sin_M40)-$item->invertido_coop_m40)), 2, '.', ',')}}</h4>
+                        </td>
+                    @endif
+                    @if ($item->hoja == 'hoja-5' or $item->hoja == 'hoja-6')
+                        <td style="vertical-align : middle" class="text-center">
+                            <h4>{{number_format(((($item->dif85 - $pension_Acum_Sin_M40)-$item->invertido_coop_m40))-($pension_1_4[1] * 24 + $pension_1_4[1] * 2 * 0.85), 2, '.', ',')}}</h4>
+                        </td>
+                    @endif
+                @endforeach 
                 </tr>
             </tbody>
+        </table>
+        <table>
+            <tr>
+                <td>
+                    <h5 class="text-danger">Dos datos importantes en este reporte:</h5>
+                    <p>1.- La Ganancia Neta acumulada es generada por lo invertido en M40.</p>
+                    <p>2.- Aunque inviertes mucho en M40, en tu caso recuperas lo invertido de 8.6 a 13.9  veces, dependiendo la Opción que elijas.</p>
+                </td>
+            </tr>
         </table>
     </div>
 </div>
