@@ -155,22 +155,26 @@
                 </tr>
                 @php
                     $hoja = 2;
-                    
                 @endphp
                 @foreach ($pensiones as $item)
                     @php
                         if ($item->hoja == 'hoja-1'){
                             $pension_Acum_Sin_M40 = $item->dif85;
                         }
-                    
+                 
                         if ($item->hoja=='hoja-2'){
                             $pension_mensual_hoja2 = $item->pension_mensual; 
+                            $pen_men_hoja2 = $item->pension_mensual; 
                             $ganancia_hoja2 = ($item->dif85 - $pension_Acum_Sin_M40)-$item->invertido_coop_m40;
+                            $gan_hoja2 = ($item->dif85 - $pension_Acum_Sin_M40)-$item->invertido_coop_m40;
                             $dif_acumulada = 0;
                             $dif_acumulada_ganancia = 0;
                         }
                     @endphp
                     @if ($item->hoja <> 'hoja-1')
+                        @php
+                            $porc_var_pension =  $pen_men_hoja2;
+                        @endphp
                         <tr style="height: 2.5em;">
                             <td style="border-right: 5px solid#28A745;vertical-align : middle" class="text-center fila-variaciones">
                                 <h5>{{$hoja++}}</h5>
@@ -213,12 +217,26 @@
                                 <td style="border-right: 5px solid#28A745;vertical-align : middle" class="text-center fila-variaciones"></td>
                             @else
                                 <td style="border-right: 5px solid#28A745;vertical-align : middle" class="text-center fila-variaciones">
-                                    ${{number_format($dif_acumulada_ganancia, 2, '.', ',')}}
+                                  ${{number_format($dif_acumulada_ganancia, 2, '.', ',')}}
+                                </td>
+                            @endif
+
+                            @if ($item->hoja=='hoja-2')
+                                <td style="vertical-align : middle" class="text-center fila-variaciones"></td>
+                            @else
+                                <td style="vertical-align : middle;" class="text-right">
+                                    {{ number_format(((($item->pension_mensual - $pension_mensual_hoja2)+$dif_acumulada)/ $porc_var_pension)*100, 2, '.', ',') }}%
                                 </td>
                             @endif
                             
-                            <td></td>
-                            <td style="border-right: 5px solid#28A745;"></td>
+                            @if ($item->hoja=='hoja-2')
+                                <td style="vertical-align : middle;border-right: 5px solid#28A745;" class="text-center fila-variaciones"></td>
+                            @else
+                                <td style="vertical-align : middle;border-right: 5px solid#28A745;" class="text-right">
+                                    {{ number_format(($dif_acumulada_ganancia/$gan_hoja2)*100, 2, '.', ',') }}%
+                                </td>
+                            @endif
+
                         </tr>
                         @php    
                             $dif_acumulada += $item->pension_mensual - $pension_mensual_hoja2;

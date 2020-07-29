@@ -71,7 +71,7 @@
                         <div class="tab-pane active" id="indice" role="tabpanel">
                             @include('pdf.indice')
                         </div>
-                        <div class="tab-pane active" id="definicion_ganancia_neta" role="tabpanel">
+                        <div class="tab-pane" id="definicion_ganancia_neta" role="tabpanel">
                             @include('pdf.definicion-ganancia-neta')
                         </div>
                     </div>

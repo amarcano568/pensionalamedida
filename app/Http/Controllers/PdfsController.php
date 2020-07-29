@@ -126,14 +126,13 @@ class PdfsController extends Controller
 
         $pensiones->map(function ($pension)  use ($cliente, $pension_dif85_hoja1) {
             $hoja = $pension->hoja;
-            $cotiza_clientes_fechas = Cotizaciones_Clientes::where('uuid', $pension->uuid)
-                ->where('estrategias', '6')
-                ->where('hoja', $hoja)
-                ->first();
-            $del = Carbon::parse($cotiza_clientes_fechas['del']);
-            $al = Carbon::parse($cotiza_clientes_fechas['al']);
-            $pension->del = $cotiza_clientes_fechas['del'];
-            $pension->al = $cotiza_clientes_fechas['al'];
+
+            $rango_fecha = $this->rangos_fechas($pension->uuid, $hoja);
+            //dd($rango_fecha['fecha_menor']->format('Y-m-d'));
+            $del = $rango_fecha['fecha_menor'];
+            $al = $rango_fecha['fecha_mayor'];
+            $pension->del = $rango_fecha['fecha_menor'];
+            $pension->al = $rango_fecha['fecha_mayor'];
             $pension->edad_detalle = $del->diff($al)->format('%y | %m');
             $pension->edad_anos_meses = $al->diff($del)->format('%y año(s) más %m mes(es)');
 
@@ -142,8 +141,13 @@ class PdfsController extends Controller
                 $pension->edad_real_pension = $expectativas->edadDe . ' Años, 0 meses';
                 $pension->porc_pension = $this->porcentaje_pension($pension->edad_real_pension);
             } else {
+                $cotiza_clientes_fechas = Cotizaciones_Clientes::where('uuid', $pension->uuid)
+                    ->where('estrategias', '6')
+                    ->where('hoja', $hoja)
+                    ->first();
+
                 $fecNac = Carbon::parse($cliente->fechaNacimiento);
-                $fechaRetiro = Carbon::parse($al);
+                $fechaRetiro = $al;
                 $pension->edad_real_pension =  $fecNac->diff($fechaRetiro)->format('%y Años, %m meses');
                 $pension->porc_pension = $this->porcentaje_pension($pension->edad_real_pension);
             }
@@ -184,6 +188,31 @@ class PdfsController extends Controller
         );
 
         return view('pdf.pdf-detalle', $data);
+    }
+
+    public function rangos_fechas($uuid, $hoja)
+    {
+        $estrategias = Estrategias::where('uuid', $uuid)->where('hoja', $hoja)->get();
+
+        /* Define la fecha menor de las esrategias */
+        $fecha_menor = Carbon::parse('2050-01-01');
+        foreach ($estrategias as $item) {
+            $fecha_estrategia =  Carbon::parse($item->desde);
+            if ($fecha_estrategia->lessThanOrEqualTo($fecha_menor)) {
+                $fecha_menor = $fecha_estrategia;
+            }
+        }
+
+        /* Define la fecha menor de las esrategias */
+        $fecha_mayor = Carbon::parse('1900-01-01');
+        foreach ($estrategias as $item) {
+            $fecha_estrategia =  Carbon::parse($item->hasta);
+            if ($fecha_estrategia->greaterThanOrEqualTo($fecha_mayor)) {
+                $fecha_mayor = $fecha_estrategia;
+            }
+        }
+
+        return array('fecha_menor' => $fecha_menor, 'fecha_mayor' => $fecha_mayor);
     }
 
     public function porcentaje_pension($edad_real)
@@ -404,5 +433,40 @@ class PdfsController extends Controller
 
         \PDF::loadView('pdf.detallepdf', $data)->setPaper('letter', 'landscape')->save($rutaFile);
         return response()->json(array('success' => true, 'mensaje' => 'Pdf detalle generado exitosamente', 'data' => $ruta, 'email' => $cliente->email));
+    }
+
+    public function sendMailDetalle(Request $request)
+    {
+        $cliente = Clientes::find($request->idCliente);
+        $empresa = Empresa::first();
+        $details = array(
+            'empresa' => $empresa,
+            'cliente' => $cliente,
+        );
+
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            $rutaFile = base_path() . '\public\\' . $request->archivoPdf;
+        } else {
+            $rutaFile =  public_path($request->archivoPdf);
+        }
+
+        $data = [
+            'email'   => $cliente->email,
+            'subject' => 'Detalle del plan - Pensión a la medida',
+            'adjunto'    =>  $rutaFile
+        ];
+
+
+        Mail::send('emails.plantilla-detalle', $details, function ($message) use ($data) {
+            $message->to($data['email'], 'Pensión a la medida.');
+            $message->attach($data['adjunto']);
+            $message->subject($data['subject']);
+        });
+
+        if (Mail::failures()) {
+            return response()->json(array('success' => true, 'mensaje' => 'Envío de correo a fallado'));
+        } else {
+            return response()->json(array('success' => true, 'mensaje' => 'El correo se ha enviado con exito'));
+        }
     }
 }

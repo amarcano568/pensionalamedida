@@ -148,7 +148,7 @@ class PerfilController extends Controller
         $valueGraph = [];
 
         foreach ($dataGraph as $item) {
-            $fechaGraph[] = substr($item->date, 8, 2) . '-' . substr($item->date, 5, 2) . '-' . substr($item->date, 0, 4);
+            $fechaGraph[] = substr($item->date, 8, 2) . '-' . substr($item->date, 5, 2);
             $valueGraph[] = $item->views;
         }
 

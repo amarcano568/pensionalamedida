@@ -1732,22 +1732,19 @@ $(document).on("ready", function() {
     function inv_coop_m40(hoja) {
         total_costo = 0;
 
-        monto1 = $("#hoja-" + hoja + "-costo-estrategia-2").val();
-        monto2 = $("#hoja-" + hoja + "-costo-estrategia-6").val();
+        monto2 = $("#hoja-" + hoja + "-costo-estrategia-2").val();
+        monto3 = $("#hoja-" + hoja + "-costo-estrategia-3").val();
+        monto4 = $("#hoja-" + hoja + "-costo-estrategia-4").val();
+        monto5 = $("#hoja-" + hoja + "-costo-estrategia-5").val();
+        monto6 = $("#hoja-" + hoja + "-costo-estrategia-6").val();
 
-        if (monto1 == "") {
-            monto1 = 0;
-        } else {
-            monto1 = convertNumberPure(monto1);
-        }
+        monto2 = monto2 == "" ? 0 : convertNumberPure(monto2);
+        monto3 = monto3 == "" ? 0 : convertNumberPure(monto3);
+        monto4 = monto4 == "" ? 0 : convertNumberPure(monto4);
+        monto5 = monto5 == "" ? 0 : convertNumberPure(monto5);
+        monto6 = monto6 == "" ? 0 : convertNumberPure(monto6);
 
-        if (monto2 == "") {
-            monto2 = 0;
-        } else {
-            monto2 = convertNumberPure(monto2);
-        }
-
-        total_costo = monto1 + monto2;
+        total_costo = monto2 + monto3 + monto4 + monto5 + monto6;
 
         return total_costo;
     }

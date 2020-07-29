@@ -157,6 +157,7 @@ class Pensiones extends Model
 
             Pension_Final::where('uuid', $uuid)->get()->each->delete();
             $resumenPensiones = json_decode($request->resumenPensiones);
+
             foreach ($resumenPensiones as $resumen) {
                 $pension_final                          = new Pension_Final;
                 $pension_final->uuid                    = $uuid;

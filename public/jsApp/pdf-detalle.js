@@ -44,7 +44,7 @@ $(document).on("ready", function() {
         uuid = $("#uuid-pension").val();
         idCliente = $("#idCliente").val();
         $.ajax({
-            url: "/send-mail-resumen",
+            url: "/send-mail-detalle",
             type: "get",
             data: { uuid: uuid, idCliente: idCliente, archivoPdf: archivoPdf },
             dataType: "json",
