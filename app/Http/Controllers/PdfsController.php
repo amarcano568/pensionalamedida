@@ -588,7 +588,7 @@ class PdfsController extends Controller
 
     public function verPdfDetalle(Request $request)
     {
-
+        ini_set('memory_limit', '-1');
         $cliente = Clientes::find($request->idCliente);
         $cliente->edad = Carbon::parse($cliente->fechaNacimiento)->age;
         $expectativas = Expectativas_Salariales::where('uuid', $request->uuid)->first();
