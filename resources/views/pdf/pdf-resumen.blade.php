@@ -119,17 +119,25 @@
                                                 $id = explode('-',$pension->hoja);
                                                 $id = $id[1];
                                             @endphp
-                                            <tr>
-                                                <td class="text-center" style="width: 10%">
-                                                    {{ $id }}
-                                                </td>
-                                                <td class="text-right" style="width: 45%">
-                                                    {{ number_format($pension->pension_mensual , 2, '.', ',') }} 
-                                                </td>
-                                                <td class="text-right" style="width: 45%">
-                                                    {{ number_format($pension->dif85 , 2, '.', ',') }}
-                                                </td>
-                                            </tr>
+                                            @if ($id == 1)
+                                                <tr bgcolor="#F2DEDE" class="text-danger">
+                                            @else
+                                                <tr>
+                                            @endif
+                                               
+                                                    <td class="text-center" style="width: 10%">
+                                                        @if ($id == 1)
+                                                            *
+                                                        @endif
+                                                        {{ $id }}
+                                                    </td>
+                                                    <td class="text-right" style="width: 45%">
+                                                        {{ number_format($pension->pension_mensual , 2, '.', ',') }} 
+                                                    </td>
+                                                    <td class="text-right" style="width: 45%">
+                                                        {{ number_format($pension->dif85 , 2, '.', ',') }}
+                                                    </td>
+                                                </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -138,7 +146,7 @@
                         </div>
                         <div class="col-sm-3"></div>
                         <div class="col-sm-9">
-                            <h4>* Solo como referencia...</h4>
+                            <h4 class="text-danger">* Solo como referencia...</h4>
                         </div>
                     </div>
                 </div>

@@ -21,6 +21,11 @@ $(document).on("ready", function() {
             "</ol>"
     );
 
+    window.onbeforeunload = function(e) {
+        alert(e);
+        return "Texto de aviso";
+    };
+
     $("html, body").animate({ scrollTop: 0 }, 1250);
 
     seeker($(".cliente-seeker"), "clientes", "/buscar-cliente");

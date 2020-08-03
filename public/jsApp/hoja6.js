@@ -242,89 +242,89 @@ $(document).on("ready", function() {
             });
     }
 
-    function changeChosenEdadPensionHoja6(estrategia) {
-        edadJubilacion = $("#hoja-6-edad-estrategia-1").val();
-        mes = parseInt(edadJubilacion.substr(9, 2));
-        ano = parseInt(edadJubilacion.substr(0, 2));
-        edadPension1 = mes >= 6 ? ano + 1 : ano;
-        edadPension1 = edadPension > 65 ? 65 : edadPension1;
+    // function changeChosenEdadPensionHoja6(estrategia) {
+    //     edadJubilacion = $("#hoja-6-edad-estrategia-1").val();
+    //     mes = parseInt(edadJubilacion.substr(9, 2));
+    //     ano = parseInt(edadJubilacion.substr(0, 2));
+    //     edadPension1 = mes >= 6 ? ano + 1 : ano;
+    //     edadPension1 = edadPension > 65 ? 65 : edadPension1;
 
-        edadJubilacion = $("#hoja-6-edad-estrategia-2").val();
-        mes = parseInt(edadJubilacion.substr(9, 2));
-        ano = parseInt(edadJubilacion.substr(0, 2));
-        edadPension2 = mes >= 6 ? ano + 1 : ano;
-        edadPension2 = edadPension > 65 ? 65 : edadPension2;
+    //     edadJubilacion = $("#hoja-6-edad-estrategia-2").val();
+    //     mes = parseInt(edadJubilacion.substr(9, 2));
+    //     ano = parseInt(edadJubilacion.substr(0, 2));
+    //     edadPension2 = mes >= 6 ? ano + 1 : ano;
+    //     edadPension2 = edadPension > 65 ? 65 : edadPension2;
 
-        edadJubilacion = $("#hoja-6-edad-estrategia-3").val();
-        mes = parseInt(edadJubilacion.substr(9, 2));
-        ano = parseInt(edadJubilacion.substr(0, 2));
-        edadPension3 = mes >= 6 ? ano + 1 : ano;
-        edadPension3 = edadPension > 65 ? 65 : edadPension3;
+    //     edadJubilacion = $("#hoja-6-edad-estrategia-3").val();
+    //     mes = parseInt(edadJubilacion.substr(9, 2));
+    //     ano = parseInt(edadJubilacion.substr(0, 2));
+    //     edadPension3 = mes >= 6 ? ano + 1 : ano;
+    //     edadPension3 = edadPension > 65 ? 65 : edadPension3;
 
-        edadJubilacion = $("#hoja-6-edad-estrategia-4").val();
-        mes = parseInt(edadJubilacion.substr(9, 2));
-        ano = parseInt(edadJubilacion.substr(0, 2));
-        edadPension4 = mes >= 6 ? ano + 1 : ano;
-        edadPension4 = edadPension > 65 ? 65 : edadPension4;
+    //     edadJubilacion = $("#hoja-6-edad-estrategia-4").val();
+    //     mes = parseInt(edadJubilacion.substr(9, 2));
+    //     ano = parseInt(edadJubilacion.substr(0, 2));
+    //     edadPension4 = mes >= 6 ? ano + 1 : ano;
+    //     edadPension4 = edadPension > 65 ? 65 : edadPension4;
 
-        edadJubilacion = $("#hoja-6-edad-estrategia-5").val();
-        mes = parseInt(edadJubilacion.substr(9, 2));
-        ano = parseInt(edadJubilacion.substr(0, 2));
-        edadPension5 = mes >= 6 ? ano + 1 : ano;
-        edadPension5 = edadPension > 65 ? 65 : edadPension5;
+    //     edadJubilacion = $("#hoja-6-edad-estrategia-5").val();
+    //     mes = parseInt(edadJubilacion.substr(9, 2));
+    //     ano = parseInt(edadJubilacion.substr(0, 2));
+    //     edadPension5 = mes >= 6 ? ano + 1 : ano;
+    //     edadPension5 = edadPension > 65 ? 65 : edadPension5;
 
-        edadJubilacion = $("#hoja-6-edad-estrategia-6").val();
-        mes = parseInt(edadJubilacion.substr(9, 2));
-        ano = parseInt(edadJubilacion.substr(0, 2));
-        edadPension6 = mes >= 6 ? ano + 1 : ano;
-        edadPension6 = edadPension > 65 ? 65 : edadPension2;
+    //     edadJubilacion = $("#hoja-6-edad-estrategia-6").val();
+    //     mes = parseInt(edadJubilacion.substr(9, 2));
+    //     ano = parseInt(edadJubilacion.substr(0, 2));
+    //     edadPension6 = mes >= 6 ? ano + 1 : ano;
+    //     edadPension6 = edadPension > 65 ? 65 : edadPension2;
 
-        $("#hoja-6-edad-calculo-pension").empty();
+    //     $("#hoja-6-edad-calculo-pension").empty();
 
-        $("#hoja-6-edad-calculo-pension").append(
-            '<option value="' +
-                edadPension1 +
-                '">' +
-                edadPension1 +
-                " años - Empresa actual</option>"
-        );
-        $("#hoja-6-edad-calculo-pension").append(
-            '<option value="' +
-                edadPension2 +
-                '">' +
-                edadPension2 +
-                " años - Cooperativa</option>"
-        );
-        $("#hoja-6-edad-calculo-pension").append(
-            '<option value="' +
-                edadPension3 +
-                '">' +
-                edadPension3 +
-                " años - M40 Retroactivo</option>"
-        );
-        $("#hoja-6-edad-calculo-pension").append(
-            '<option value="' +
-                edadPension4 +
-                '">' +
-                edadPension4 +
-                " años - M40 Ya Pagada</option>"
-        );
-        $("#hoja-6-edad-calculo-pension").append(
-            '<option value="' +
-                edadPension5 +
-                '">' +
-                edadPension5 +
-                " años - M40 Barata</option>"
-        );
-        $("#hoja-6-edad-calculo-pension").append(
-            '<option value="' +
-                edadPension6 +
-                '">' +
-                edadPension6 +
-                " años - M40 Salario Alto</option>"
-        );
-        $("#hoja-6-edad-calculo-pension").trigger("chosen:updated");
-    }
+    //     $("#hoja-6-edad-calculo-pension").append(
+    //         '<option value="' +
+    //             edadPension1 +
+    //             '">' +
+    //             edadPension1 +
+    //             " años - Empresa actual</option>"
+    //     );
+    //     $("#hoja-6-edad-calculo-pension").append(
+    //         '<option value="' +
+    //             edadPension2 +
+    //             '">' +
+    //             edadPension2 +
+    //             " años - Cooperativa</option>"
+    //     );
+    //     $("#hoja-6-edad-calculo-pension").append(
+    //         '<option value="' +
+    //             edadPension3 +
+    //             '">' +
+    //             edadPension3 +
+    //             " años - M40 Retroactivo</option>"
+    //     );
+    //     $("#hoja-6-edad-calculo-pension").append(
+    //         '<option value="' +
+    //             edadPension4 +
+    //             '">' +
+    //             edadPension4 +
+    //             " años - M40 Ya Pagada</option>"
+    //     );
+    //     $("#hoja-6-edad-calculo-pension").append(
+    //         '<option value="' +
+    //             edadPension5 +
+    //             '">' +
+    //             edadPension5 +
+    //             " años - M40 Barata</option>"
+    //     );
+    //     $("#hoja-6-edad-calculo-pension").append(
+    //         '<option value="' +
+    //             edadPension6 +
+    //             '">' +
+    //             edadPension6 +
+    //             " años - M40 Salario Alto</option>"
+    //     );
+    //     $("#hoja-6-edad-calculo-pension").trigger("chosen:updated");
+    // }
 
     $(".hoja-6-fecha-desde-estrategia").focusout(function(ev) {
         estrategia = $(this).attr("estrategia");
@@ -754,6 +754,10 @@ $(document).on("ready", function() {
         $("#hoja-6-costo-estrategia-" + estrategia).val("");
         $("#hoja-6-otro-valor-estrategia-" + estrategia).val("");
         $(".hoja-6-estrategia-" + estrategia).val("");
+        $(
+            "#hoja-6-edad-calculo-pension option[value='" + estrategia + "']"
+        ).remove();
+        $("#hoja-6-edad-calculo-pension").trigger("chosen:updated");
     });
 
     $(document).on("click", ".hoja-6-borrar-cotizacion", function(event) {

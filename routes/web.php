@@ -107,6 +107,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/ver-pdf-detalle', 'PdfsController@verPdfDetalle');
 	Route::get('generar-pdf-detalle/{uuid}/{idCliente}', 'PdfsController@generarPdfDetalle');
 	Route::get('/send-mail-detalle', 'PdfsController@sendMailDetalle');
+	Route::get('/change-view-nivel-vida', 'PdfsController@changeViewNivelVida');
 
 	/** Inicio tablero */
 	Route::get('/buscar-data-tablero', 'PerfilController@buscarDataTablero');

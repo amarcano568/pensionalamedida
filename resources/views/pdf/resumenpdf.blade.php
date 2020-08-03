@@ -195,23 +195,31 @@
                             <th class="text-center">Acumulada a los 85 años</th>
                         </tr>
                     </thead>
-                    <tbody id="body-pdf-resumen" style="font-size: 15px;">
-                        @foreach($pensiones as $pension)
+                    <tbody id="body-pdf-resumen" style="font-size: 25px;">
+                        @foreach ($pensiones as $pension)
                             @php
                                 $id = explode('-',$pension->hoja);
                                 $id = $id[1];
                             @endphp
-                            <tr>
-                                <td class="text-center" style="width: 10%">
-                                    {{ $id }}
-                                </td>
-                                <td class="text-right" style="width: 45%">
-                                    {{ number_format($pension->pension_mensual , 2, '.', ',') }}
-                                </td>
-                                <td class="text-right" style="width: 45%">
-                                    {{ number_format($pension->dif85 , 2, '.', ',') }}
-                                </td>
-                            </tr>
+                            @if ($id == 1)
+                                <tr bgcolor="#F2DEDE" class="text-danger">
+                            @else
+                                <tr>
+                            @endif
+                               
+                                    <td class="text-center" style="width: 10%">
+                                        @if ($id == 1)
+                                            *
+                                        @endif
+                                        {{ $id }}
+                                    </td>
+                                    <td class="text-right" style="width: 45%">
+                                        {{ number_format($pension->pension_mensual , 2, '.', ',') }} 
+                                    </td>
+                                    <td class="text-right" style="width: 45%">
+                                        {{ number_format($pension->dif85 , 2, '.', ',') }}
+                                    </td>
+                                </tr>
                         @endforeach
                     </tbody>
                     <tfoot>

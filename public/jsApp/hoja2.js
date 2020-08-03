@@ -244,7 +244,7 @@ $(document).on("ready", function() {
             });
     }
 
-    function changeChosenEdadPensionHoja2(estrategia) {
+    /*    function changeChosenEdadPensionHoja2(estrategia) {
         edadJubilacion = $("#hoja-2-edad-estrategia-1").val();
         mes = parseInt(edadJubilacion.substr(9, 2));
         ano = parseInt(edadJubilacion.substr(0, 2));
@@ -326,7 +326,7 @@ $(document).on("ready", function() {
                 " años - M40 Salario Alto</option>"
         );
         $("#hoja-2-edad-calculo-pension").trigger("chosen:updated");
-    }
+    } */
 
     $(".hoja-2-fecha-desde-estrategia").focusout(function(ev) {
         estrategia = $(this).attr("estrategia");
@@ -758,6 +758,10 @@ $(document).on("ready", function() {
         $("#hoja-2-costo-estrategia-" + estrategia).val("");
         $("#hoja-2-otro-valor-estrategia-" + estrategia).val("");
         $(".hoja-2-estrategia-" + estrategia).val("");
+        $(
+            "#hoja-2-edad-calculo-pension option[value='" + estrategia + "']"
+        ).remove();
+        $("#hoja-2-edad-calculo-pension").trigger("chosen:updated");
     });
 
     $(document).on("click", ".hoja-2-borrar-cotizacion", function(event) {

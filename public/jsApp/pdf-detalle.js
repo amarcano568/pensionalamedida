@@ -3,12 +3,22 @@ $(document).on("ready", function() {
     var pathname = document.location.pathname;
     var pathnameArray = pathname.split("/public/");
     var archivoPdf = "";
-    var descripcionImg = "";
-    var objetoDataTables_Facturas = "";
+    var inpcChange = false;
 
     server = pathnameArray.length > 0 ? pathnameArray[0] + "/public/" : "";
 
-    $("#btn-ver-pdf").click(function() {
+    $(document).on("click", "#btn-ver-pdf", function(event) {
+        mejorSalario = $("#mejor-salario-mensual-nivel-vida").val();
+        if (mejorSalario == "") {
+            alertify.alert(
+                "Nivel de vida...",
+                '<h5 class="text-danger"><i class="text-danger fas fa-exclamation-triangle"></i> Por favor agregue información de Nivel de Vida incluyendo los indices de INPC</h5><br>',
+                function() {
+                    activaTab("nivel-de-vida", "#empresa-nivel-vida");
+                }
+            );
+            return false;
+        }
         uuid = $("#uuid-pension").val();
         idCliente = $("#idCliente").val();
         $.ajax({
@@ -40,7 +50,7 @@ $(document).on("ready", function() {
             });
     });
 
-    $(".btn-enviar-correo").click(function() {
+    $(document).on("click", ".btn-enviar-correo", function(event) {
         uuid = $("#uuid-pension").val();
         idCliente = $("#idCliente").val();
         $.ajax({
@@ -66,5 +76,84 @@ $(document).on("ready", function() {
                 console.log(errorThrown);
                 ajaxError(statusCode, errorThrown);
             });
+    });
+
+    $(document).on("click", "#btn-ipnc", function(event) {
+        event.preventDefault();
+        $("#modal-inpc").modal("show");
+    });
+
+    $(document).on("change", "#salario-diario-nivel-vida", function(event) {
+        event.preventDefault();
+        calculaNivelVida();
+    });
+
+    function calculaNivelVida() {
+        uuid = $("#uuid-pension").val();
+        idCliente = $("#idCliente").val();
+        inpcMesOriginal = $("#inpc-mes-original").val();
+        inpcMesActual = $("#inpc-mes-actual").val();
+        salarioDiarioNivelVida = $("#salario-diario-nivel-vida").val();
+        empresaNivelVida = $("#empresa-nivel-vida").val();
+        fechaNivelvida = $("#fecha-nivel-vida").val();
+        $.ajax({
+            url: "/change-view-nivel-vida",
+            type: "get",
+            data: {
+                uuid: uuid,
+                idCliente: idCliente,
+                inpcMesOriginal: inpcMesOriginal,
+                inpcMesActual: inpcMesActual,
+                salarioDiarioNivelVida: salarioDiarioNivelVida,
+                empresaNivelVida: empresaNivelVida,
+                fechaNivelvida: fechaNivelvida
+            },
+            dataType: "json",
+            beforeSend: function() {
+                loadingUI("Enviando correo");
+            }
+        })
+            .done(function(response) {
+                console.log(response);
+                $.unblockUI();
+                $("#principalPanel")
+                    .empty()
+                    .append($(response));
+                inpcChange = false;
+            })
+            .fail(function(statusCode, errorThrown) {
+                $.unblockUI();
+                console.log(errorThrown);
+                ajaxError(statusCode, errorThrown, "INPC");
+            });
+    }
+
+    $(document).on("click", "#btn-cerrar-modal-inpc", function(event) {
+        event.preventDefault();
+        inpcOriginal = $("#inpc-mes-original").val();
+        inpcActual = $("#inpc-mes-actual").val();
+        valida = $("#form-modal-inpc")
+            .parsley()
+            .validate();
+        if (valida === false) {
+            alertify.set("notifier", "position", "top-center");
+            alertify.error(
+                '<i class="fas fa-exclamation-triangle"></i><br>Por favor agregar el los valores <strong>INPC</strong>.'
+            );
+            return false;
+        } else {
+            if (inpcChange) {
+                calculaNivelVida();
+            }
+            $("#modal-inpc").modal("hide");
+            cierraModal();
+        }
+    });
+
+    $(document).on("change", "#inpc-mes-original,#inpc-mes-actual", function(
+        event
+    ) {
+        event.preventDefault();
+        inpcChange = true;
     });
 });

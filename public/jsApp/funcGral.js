@@ -36,11 +36,15 @@ $(document).ready(function() {
 // /Panel toolbox
 
 $(".btn-cerrar-modal").click(function(ev) {
+    cierraModal();
+});
+
+function cierraModal() {
     if ($(".modal-backdrop").is(":visible")) {
         $("body").removeClass("modal-open");
         $(".modal-backdrop").remove();
     }
-});
+}
 
 function ponerReadOnly(id) {
     // Ponemos el atributo de solo lectura
@@ -275,7 +279,7 @@ function destroy_existing_data_table(tableDestry) {
     }
 }
 
-function ajaxError(statusCode, errorThrown) {
+function ajaxError(statusCode, errorThrown, tipo = "") {
     if (statusCode.status == 0) {
         alertify.alert(
             "Alerta...",
@@ -299,17 +303,36 @@ function ajaxError(statusCode, errorThrown) {
             );
         });
     } else {
-        console.log(statusCode);
-        console.log(errorThrown);
-        alertify.alert(
-            "Alerta...",
-            '<h4 class="text-danger"><i class="text-danger fas fa-exclamation-triangle"></i> Error del Sistema</h4><br>' +
-                statusCode.responseJSON.message,
-            function() {
-                alertify.success("Ok");
-            }
-        );
+        switch (tipo) {
+            case "INPC":
+                alertify.alert(
+                    "Nivel de Vida...",
+                    '<h4 class="text-danger"><i class="text-danger fas fa-exclamation-triangle"></i> INPC</h4><br>' +
+                        "Por favor debe ingresar los valores INPC",
+                    function() {
+                        $("#modal-inpc").modal("show");
+                    }
+                );
+
+                break;
+            default:
+                console.log(statusCode);
+                console.log(errorThrown);
+                alertify.alert(
+                    "Alerta...",
+                    '<h4 class="text-danger"><i class="text-danger fas fa-exclamation-triangle"></i> Error del Sistema</h4><br>' +
+                        statusCode.responseJSON.message,
+                    function() {
+                        //alertify.success("Ok");
+                    }
+                );
+        }
     }
+}
+
+function activaTab(tab, id) {
+    $('.nav-tabs a[href="#' + tab + '"]').tab("show");
+    $(id).focus();
 }
 
 //Función para validar una CURP

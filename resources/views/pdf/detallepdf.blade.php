@@ -213,6 +213,8 @@
         <div class="otraPagina">
             <h5 style="margin-top: -1em;">B.- IMPACTO DE LA PENSIÓN EN TU NIVEL DE VIDA (Tasa de Reemplazo)
             </h5>
+            <br><br>
+            @include('pdf.nivel-de-vida')
         </div>
         <div class="otraPagina">
             <h5 class="text-uppercase" style="margin-top: -1em;">2.- Expectativas de Pensión del trabajador</h5>
@@ -236,6 +238,7 @@
         </div>
         <div class="otraPagina">
             <h5 class="text-uppercase" style="margin-top: -1em;">5.- Fechas y Salarios a cotizar</h5>
+            @include('pdf.fechas-y-salarios')
         </div>
         <div class="otraPagina">
             <h5 class="text-uppercase" style="margin-top: -1em;">6.- Impuesto Sobre la Renta a pagar</h5>
@@ -250,8 +253,8 @@
             </div>
         </div>
         <div class="otraPagina">
-            <h5 class="text-uppercase" style="margin-top: -1em;">7.- Otros datos de apoyo para tomar decisiones
-            </h5>
+            <h5 class="text-uppercase" style="margin-top: -1em;">7.- Otros datos de apoyo para tomar decisiones</h5>
+            @include('pdf.otros-datos-apoyo')
         </div>
         <div class="otraPagina">
             <h5 class="text-uppercase" style="margin-top: -1em;">8.- La Ruta para una PENSIÓN MILLONARIA</h5>
