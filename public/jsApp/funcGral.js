@@ -436,7 +436,8 @@ function calculaFormulasExcel(
         return false;
     }
     promedioSalario = $("#promedio-salarios").text();
-    edadDe = $("#edadDe").val();
+    edadDe = $("#hoja-1-chosen-edad-pension").val();
+    //alert(edadDe);
     totalSemanas = $("#totalSemanas").val();
 
     if (muestraModal) {
@@ -461,11 +462,9 @@ function calculaFormulasExcel(
         salarioDiarioPromedio
     );
 
-    $("#anos-ant-semanas-cotizadas").val($("#formulas-semana-cotizadas").val());
+    $("#anos-ant-semanas-cotizadas").val(totalSemanas);
     $("#anos-ant-500-semanas").val(500);
-    $("#anos-ant-semanas-reconocidas").val(
-        parseInt($("#formulas-semana-cotizadas").val()) - 500
-    );
+    $("#anos-ant-semanas-reconocidas").val(parseInt(totalSemanas) - 500);
 
     anosCompletos = Math.trunc($("#anos-ant-semanas-reconocidas").val() / 52);
     $("#anos-ant-anos-completos").val(anosCompletos);
@@ -473,9 +472,7 @@ function calculaFormulasExcel(
     totalPost00 = $("#anos-ant-anos-completos").val() * 52;
     $("#anos-ant-semanas-completas-posteriores-500").val(totalPost00);
 
-    $("#anos-ant-sem-reconocidas-post-500").val(
-        parseInt($("#formulas-semana-cotizadas").val()) - 500
-    );
+    $("#anos-ant-sem-reconocidas-post-500").val(parseInt(totalSemanas) - 500);
 
     $("#anos-ant-sem-completas-post-500").val(totalPost00);
 
@@ -501,8 +498,8 @@ function calculaFormulasExcel(
     $("#anos-ant-mas-anos-residuo").val(incrAnual);
 
     totAnosReconocidos =
-        parseInt($("#anos-ant-comp-reconocdos-post-500").val()) +
-        parseInt($("#anos-ant-mas-anos-residuo").val());
+        parseFloat($("#anos-ant-comp-reconocdos-post-500").val()) +
+        parseFloat($("#anos-ant-mas-anos-residuo").val());
     $("#anos-ant-tot-anos-reconocidos-post-500").val(totAnosReconocidos);
     $("#total-anos-reconocidos").val(totAnosReconocidos);
     // Buscar cuantía basica en tablas formulas-salario-promedio-vsm
@@ -514,10 +511,14 @@ function cuantiaBasica(salarioPromedioVsm, edadJubilacion) {
         url: "/buscar-cuantia-basica",
         type: "get",
         data: { salarioPromedioVsm: salarioPromedioVsm },
+        beforeSend: function() {
+            loadingUI("Buscando la empresa...");
+        },
         dataType: "json"
     })
         .done(function(response) {
             // console.log();
+
             $("#cuantia-basica-valor").val(response.data.cuantia_basica);
             $("#incremento-anual-cuantia-basica-valor").val(
                 response.data.incremento_anual
@@ -638,24 +639,24 @@ function cuantiaBasica(salarioPromedioVsm, edadJubilacion) {
             $("#igual-pension-anual-x-vejez-mensual").val(
                 (((totalAyudas + total7) * (111 / 100)) / 12).toFixed(2)
             );
-
-            switch (edadJubilacion) {
-                case "60":
+            // alert(edadJubilacion);
+            switch (parseInt(edadJubilacion)) {
+                case 60:
                     $porc = 75;
                     break;
-                case "61":
+                case 61:
                     $porc = 80;
                     break;
-                case "62":
+                case 62:
                     $porc = 85;
                     break;
-                case "63":
+                case 63:
                     $porc = 90;
                     break;
-                case "64":
+                case 64:
                     $porc = 95;
                     break;
-                case "65":
+                case 65:
                     $porc = 100;
                     break;
                 // default:
@@ -681,6 +682,8 @@ function cuantiaBasica(salarioPromedioVsm, edadJubilacion) {
             $("#pension-mensual-fin").text(
                 $.number((pensionAnualVejez * ($porc / 100)) / 12, 2, ".", ",")
             );
+
+            $.unblockUI();
         })
         .fail(function(statusCode, errorThrown) {
             $.unblockUI();
@@ -721,12 +724,9 @@ function calculaFormulasExcelHojas(
         salarioDiarioPromedio
     );
 
-    $("#anos-ant-semanas-cotizadas").val($("#formulas-semana-cotizadas").val());
+    $("#anos-ant-semanas-cotizadas").val(semanasCotizadas);
     $("#anos-ant-500-semanas").val(500);
-    $("#anos-ant-semanas-reconocidas").val(
-        parseInt($("#formulas-semana-cotizadas").val()) - 500
-    );
-    //console.log("error " + $("#formulas-semana-cotizadas").val());
+    $("#anos-ant-semanas-reconocidas").val(parseInt(semanasCotizadas) - 500);
     anosCompletos = Math.trunc($("#anos-ant-semanas-reconocidas").val() / 52);
     $("#anos-ant-anos-completos").val(anosCompletos);
 
@@ -734,7 +734,7 @@ function calculaFormulasExcelHojas(
     $("#anos-ant-semanas-completas-posteriores-500").val(totalPost00);
 
     $("#anos-ant-sem-reconocidas-post-500").val(
-        parseInt($("#formulas-semana-cotizadas").val()) - 500
+        parseInt(semanasCotizadas) - 500
     );
 
     $("#anos-ant-sem-completas-post-500").val(totalPost00);
@@ -761,8 +761,8 @@ function calculaFormulasExcelHojas(
     $("#anos-ant-mas-anos-residuo").val(incrAnual);
 
     totAnosReconocidos =
-        parseInt($("#anos-ant-comp-reconocdos-post-500").val()) +
-        parseInt($("#anos-ant-mas-anos-residuo").val());
+        parseFloat($("#anos-ant-comp-reconocdos-post-500").val()) +
+        parseFloat($("#anos-ant-mas-anos-residuo").val());
     $("#anos-ant-tot-anos-reconocidos-post-500").val(totAnosReconocidos);
     $("#total-anos-reconocidos").val(totAnosReconocidos);
     // Buscar cuantía basica en tablas formulas-salario-promedio-vsm
@@ -909,7 +909,7 @@ function cuantiaBasicaHojas(
                 (((totalAyudas + total7) * (111 / 100)) / 12).toFixed(2)
             );
             //  alert(edadPension);
-            switch (edadPension) {
+            switch (parseInt(edadPension)) {
                 case 60:
                     $porc = 75;
                     break;
@@ -988,7 +988,7 @@ function cuantiaBasicaHojas(
                 difEdad = 85 - edadPension;
             }
 
-            $("#" + hoja + "-dif-edad-85-text").text(difEdad);
+            $("#" + hoja + "-dif-edad-85-text").text(difEdad.toFixed(2));
             $("#" + hoja + "-dif-85").val(
                 $.number((totalAnual * difEdad).toFixed(2), 2, ".", ",")
             );
@@ -1677,12 +1677,43 @@ function calculaFechasHojaEdit(desde, hasta, elementoDom) {
 function calculaBtnHoja1(modal) {
     semanasCotizadas = $("#totalSemanas").val();
     salarioDiarioPromedio = $("#promedio-salarios").text();
-    edadJubilacion = $("#edadDe").val();
+
     salarioDiarioPromedio = convertNumberPure(salarioDiarioPromedio);
     if (modal) {
         loadingUI("Calculando formulas...", "white");
     }
 
+    $("#hoja-1-chosen-edad-pension").empty();
+    edadDe = $("#edadDe").val();
+    edadA = $("#edadA").val();
+    $("#hoja-1-chosen-edad-pension").append(
+        '<option value="' + edadDe + '">' + edadDe + " Expectativa edad desde"
+    );
+    $("#hoja-1-chosen-edad-pension").append(
+        '<option value="' + edadA + '">' + edadA + " Expectativa edad hasta"
+    );
+
+    edadCalculoHoja1Global = $("#edadCalculoHoja1Global").val();
+    if (edadCalculoHoja1Global != "") {
+        if (
+            edadCalculoHoja1Global != edadDe ||
+            edadCalculoHoja1Global != edadA
+        ) {
+            $("#hoja-1-chosen-edad-pension").append(
+                '<option value="' +
+                    edadCalculoHoja1Global +
+                    '">' +
+                    edadCalculoHoja1Global +
+                    " Otra edad de calculo"
+            );
+        }
+
+        $("#hoja-1-chosen-edad-pension").val(edadCalculoHoja1Global);
+    }
+
+    $("#hoja-1-chosen-edad-pension").trigger("chosen:updated");
+    edadJubilacion = $("#hoja-1-chosen-edad-pension").val();
+    //alert(edadJubilacion);
     calculaFormulasExcel(
         semanasCotizadas,
         salarioDiarioPromedio,
@@ -1707,15 +1738,15 @@ function calculaBtnHoja1(modal) {
         $("#hoja-1-semanas-descontadas").val($("#semanasDescontadas").val());
         $("#hoja-1-total-semanas").val($("#totalSemanas").val());
 
-        $("#hoja-1-edad-retiro").val($("#edadDe").val() + " Años");
+        $("#hoja-1-edad-retiro").val(edadJubilacion + " Años");
 
-        calcularTiempoIndividual();
+        calcularTiempoIndividual(edadJubilacion);
 
         $("#hoja-1-semanas-cotizadas-2").val($("#totalSemanas").val());
 
         $("#hoja-1-salario-promedio").val($("#promedio-salarios").text());
-        edadA = $("#edadA").val();
-        $("#hoja-1-edad-2").val(edadA);
+        // edadA = $("#edadA").val();
+        // $("#hoja-1-edad-2").val(edadA);
 
         $("#hoja-1-pension-mesual-sin-m40").val(
             $("#pension-mensual-fin").text()
@@ -1742,9 +1773,10 @@ function calculaBtnHoja1(modal) {
     }, 1500);
 }
 
-function calcularTiempoIndividual() {
+function calcularTiempoIndividual(edadJubilacion) {
+    //alert(edadJubilacion);
     fecNac = $("#fechaNacimiento").val();
-    edadA = $("#edadA").val();
+    edadA = edadJubilacion;
     fecPlan = $("#fechaPlan").val();
     $.ajax({
         url: "/calcular-tiempo-individual-faltante-retiro",
@@ -1764,4 +1796,131 @@ function calcularTiempoIndividual() {
             console.log(errorThrown);
             ajaxError(statusCode, errorThrown);
         });
+}
+
+function cargaTablaCambioSalalarioHoja1() {
+    i = 0;
+    fila = 1;
+
+    //$("#table-cambiar-salario tr:not(:first-child)").remove();
+    $("#table-cambiar-salario tr").remove();
+    //cargaFilasEstrategias();
+    i = 1;
+
+    $(".diasCotizacion").each(function() {
+        row = $(this).attr("row");
+        concepto = "Cotizaciones " + row;
+        fechaDesde = $("#fechaDesde" + row).val();
+        fechaHasta = $("#fechaHasta" + row).val();
+        dias = $("#dias" + row).val();
+        monto = $("#monto" + row).val();
+        agregarTableCambiosalarioHoja1(
+            concepto,
+            moment(fechaDesde).format("DD-MM-YYYY"),
+            moment(fechaHasta).format("DD-MM-YYYY"),
+            dias,
+            monto
+        );
+    });
+
+    var tbody = $("#table-cambiar-salario tbody");
+    $("#table-cambiar-salario tbody").html(
+        $("tr", tbody)
+            .get()
+            .reverse()
+    );
+
+    $("#body-salario-excedido").empty();
+
+    diasExcedidos = $("#dias-excedidos").text();
+    $("#dias-excedidos-calculo").html(diasExcedidos);
+
+    excedidos = convertNumberPure(diasExcedidos);
+    var filas = $("#body-cambiar-salario").find("tr");
+    totalGeneral = 0.0;
+    for (i = 0; i < filas.length; i++) {
+        var celdas = $(filas[i]).find("td");
+
+        diasTable = parseInt(celdas[3].innerText);
+        monto = celdas[4].innerText;
+        monto = monto.replace("$ ", "");
+        if (monto.indexOf(",") > -1) {
+            monto = convertNumberPure(monto);
+        }
+        montoCotizado = monto;
+        if (diasTable >= excedidos) {
+            totalMontoExcedido = excedidos * montoCotizado;
+            totalGeneral += totalMontoExcedido;
+            htmlTags =
+                "<tr><td class='text-center'>" +
+                excedidos +
+                "</td><td class='text-right'>" +
+                celdas[4].innerText +
+                "</td><td class='text-right'>$ " +
+                $.number(totalMontoExcedido, 2, ".", ",") +
+                "</td></tr>";
+            $("#table-salario-excedido tbody").append(htmlTags);
+            break;
+        } else {
+            totalMontoExcedido = diasTable * montoCotizado;
+            totalGeneral += totalMontoExcedido;
+            htmlTags =
+                "<tr><td class='text-center'>" +
+                diasTable +
+                "</td><td class='text-right'>" +
+                celdas[4].innerText +
+                "</td><td class='text-right'>$ " +
+                $.number(totalMontoExcedido, 2, ".", ",") +
+                "</td></tr>";
+            $("#table-salario-excedido tbody").append(htmlTags);
+            excedidos = excedidos - diasTable;
+        }
+
+        ////alert(diasTotal);
+    }
+
+    htmlTags =
+        "<tr style='background-color: #F2DEDE'><td colspan='2' class='text-center'>Total <strong>Monto Base</strong> a descontar</td>" +
+        "<td class='text-right text-danger'>$ " +
+        $.number(totalGeneral, 2, ".", ",") +
+        "</td></tr>";
+    $("#table-salario-excedido tbody").append(htmlTags);
+
+    //$("#hoja-2-salarios-neto").val(totalGeneral);
+    $("#monto-a-descontar-excedido").val(totalGeneral);
+
+    //totaldiasHojas2(0);
+}
+
+function agregarTableCambiosalarioHoja1(
+    concepto,
+    fechaDesde,
+    fechaHasta,
+    dias,
+    monto
+) {
+    var htmlTags =
+        '<tr><td><a class="clickCambiaSalario" monto_sbc="' +
+        monto +
+        '" href="">' +
+        concepto +
+        '</a></td><td class="text-center"><a class="clickCambiaSalario" monto_sbc="' +
+        monto +
+        '" href="">' +
+        fechaDesde +
+        '</a></td><td class="text-center"><a class="clickCambiaSalario" monto_sbc="' +
+        monto +
+        '" href="">' +
+        fechaHasta +
+        '</a></td><td class="text-center"><a class="clickCambiaSalario" monto_sbc="' +
+        monto +
+        '" href="">' +
+        dias +
+        '</a></td><td class="text-right"><a class="clickCambiaSalario" monto_sbc="' +
+        monto +
+        '" href="">$ ' +
+        monto +
+        "</a></td></tr>";
+
+    $("#table-cambiar-salario tbody").append(htmlTags);
 }

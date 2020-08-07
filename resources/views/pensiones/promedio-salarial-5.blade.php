@@ -31,7 +31,7 @@
 </style>
 <form id="formPaso5" method="post" enctype="multipart/form-data" data-parsley-validate="">
     @csrf
-    <input type="text" id="hoja-5-edad-real-pension">
+    <input type="text" id="hoja-5-edad-real-pension" >
     <div class="card">
         <div class="card-header"><i class="cil-functions-alt"></i> <strong>Promedio</strong>
             <small>Promedio Salario 5</small>

@@ -196,7 +196,7 @@ $(document).on("ready", function() {
         $("#table-promedio-salarial-3 tbody").append(htmlTags);
     }
 
-    $(".x_title").click(function(event) {
+    $(".x_title_hoja3").click(function(event) {
         event.preventDefault();
         var d = new Date();
         var dia = d.getDate();
@@ -205,14 +205,12 @@ $(document).on("ready", function() {
         var fechaHoy = anio + "-" + pad(mes, 2) + "-" + pad(dia, 2);
         //$("#fechaPlan").val(fechaHoy);
         estrategia = $(this).attr("estrategia");
-
         if (NewOrEdit == "New") {
             $("#hoja-3-fecha-desde-estrategia-" + estrategia).val(fechaHoy);
             $("#hoja-3-fecha-hasta-estrategia-" + estrategia).val(fechaHoy);
             $("#hoja-3-fecha-desde-estrategia-" + estrategia).focus();
         } else {
             $("#hoja-3-fecha-desde-estrategia-" + estrategia).focus();
-            // $("#hoja-2-edad-estrategia-" + estrategia).focus();
             $("#hoja-3-sbc-estrategia-" + estrategia).focus();
             $("#hoja-3-total-estrategia-" + estrategia).focus();
         }
@@ -234,12 +232,9 @@ $(document).on("ready", function() {
             dataType: "json"
         })
             .done(function(response) {
-                ////console.log(response);
+                console.log(response);
                 $(elementoDom).val(response.data);
-                pos = response.data.indexOf(",") + 1;
-                mes = response.data.substr(pos, 3);
-                edadReal = response.data.substr(0, 2).trim() + "." + mes.trim();
-                $("#hoja-3-edad-real-pension").val(edadReal);
+                $("#hoja-3-edad-real-pension").val(response.difInDays);
             })
             .fail(function(statusCode, errorThrown) {
                 $.unblockUI();
@@ -393,6 +388,7 @@ $(document).on("ready", function() {
         })
             .done(function(response) {
                 ////console.log(response);
+
                 $(fecha).val(response.data);
                 $("#hoja-3-sumas-dias-estrategia-" + id).hide();
                 fecDesde = $("#hoja-3-fecha-desde-estrategia-" + id).val();

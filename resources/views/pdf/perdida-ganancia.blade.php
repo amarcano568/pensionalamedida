@@ -134,7 +134,7 @@
                     @foreach ($pensiones as $item)
                         @if ($item->hoja != 'hoja-1')
                             <td style="vertical-align : middle" class="text-center">
-                                <strong>{{number_format(((($item->dif85 - $pension_Acum_Sin_M40)-$item->invertido_coop_m40)/($item->dif85 - $pension_Acum_Sin_M40))*100, 2, '.', ',')}}</strong>
+                                <strong>{{number_format(((($item->dif85 - $pension_Acum_Sin_M40)-$item->invertido_coop_m40)/($item->dif85 - $pension_Acum_Sin_M40))*100, 2, '.', ',')}}%</strong>
                             </td>
                         @endif
                     @endforeach 
@@ -162,19 +162,19 @@
                     </td>
                    
                     <td style="vertical-align : middle" class="text-center">
-                       <h4>{{ number_format($pension_1_4[0] * 12 + $pension_1_4[0] * 1 * 0.85, 2, '.', ',') }}</h4>
+                       <h4>$ {{ number_format($pension_1_4[0] * 12 + $pension_1_4[0] * 1 * 0.85, 2, '.', ',') }}</h4>
                     </td>
                     <td style="vertical-align : middle" class="text-center">
-                        <h4>{{ number_format($pension_1_4[0] * 12 + $pension_1_4[0] * 1 * 0.85, 2, '.', ',') }}</h4>
+                        <h4>$ {{ number_format($pension_1_4[0] * 12 + $pension_1_4[0] * 1 * 0.85, 2, '.', ',') }}</h4>
                     </td>
                     <td style="vertical-align : middle" class="text-center">
                        
                     </td>
                     <td style="vertical-align : middle" class="text-center">
-                        <h4>{{ number_format($pension_1_4[1] * 24 + $pension_1_4[1] * 2 * 0.85, 2, '.', ',') }}</h4>
+                        <h4>$ {{ number_format($pension_1_4[1] * 24 + $pension_1_4[1] * 2 * 0.85, 2, '.', ',') }}</h4>
                     </td>
                     <td style="vertical-align : middle" class="text-center">
-                        <h4>{{ number_format($pension_1_4[1] * 24 + $pension_1_4[1] * 2 * 0.85, 2, '.', ',') }}</h4>
+                        <h4>$ {{ number_format($pension_1_4[1] * 24 + $pension_1_4[1] * 2 * 0.85, 2, '.', ',') }}</h4>
                     </td>
                 </tr>
                 <tr style="height: 4em;" bgcolor="#DFF0D8">
@@ -184,17 +184,17 @@
                     @foreach ($pensiones as $item)
                     @if ($item->hoja == 'hoja-2' or $item->hoja == 'hoja-3')
                         <td style="vertical-align : middle" class="text-center">
-                            <h4>{{number_format(((($item->dif85 - $pension_Acum_Sin_M40)-$item->invertido_coop_m40))-($pension_1_4[0] * 12 + $pension_1_4[0] * 1 * 0.85), 2, '.', ',')}}</h4>
+                            <h4>$ {{number_format(((($item->dif85 - $pension_Acum_Sin_M40)-$item->invertido_coop_m40))-($pension_1_4[0] * 12 + $pension_1_4[0] * 1 * 0.85), 2, '.', ',')}}</h4>
                         </td>
                     @endif
                     @if ($item->hoja == 'hoja-4')
                         <td style="vertical-align : middle" class="text-center">
-                            <h4>{{number_format(((($item->dif85 - $pension_Acum_Sin_M40)-$item->invertido_coop_m40)), 2, '.', ',')}}</h4>
+                            <h4>$ {{number_format(((($item->dif85 - $pension_Acum_Sin_M40)-$item->invertido_coop_m40)), 2, '.', ',')}}</h4>
                         </td>
                     @endif
                     @if ($item->hoja == 'hoja-5' or $item->hoja == 'hoja-6')
                         <td style="vertical-align : middle" class="text-center">
-                            <h4>{{number_format(((($item->dif85 - $pension_Acum_Sin_M40)-$item->invertido_coop_m40))-($pension_1_4[1] * 24 + $pension_1_4[1] * 2 * 0.85), 2, '.', ',')}}</h4>
+                            <h4>$ {{number_format(((($item->dif85 - $pension_Acum_Sin_M40)-$item->invertido_coop_m40))-($pension_1_4[1] * 24 + $pension_1_4[1] * 2 * 0.85), 2, '.', ',')}}</h4>
                         </td>
                     @endif
                 @endforeach 

@@ -193,7 +193,7 @@ data-keyboard="false">
             </div>
 
             <div class="x_panel">
-                <div estrategia="1" class="x_title">
+                <div estrategia="1" class="x_title x_title_hoja3">
                     <h6 style="cursor: pointer" class="collapse-link"><i class="far fa-edit"></i> 1.- EN SU EMPRESA ACTUAL (PARA DAR TIEMPO A GESTIONAR SU BAJA)</h6>
                     <ul class="nav navbar-right panel_toolbox">
                         <li>
@@ -282,7 +282,7 @@ data-keyboard="false">
             </div>
 
             <div class="x_panel">
-                <div estrategia="2" class="x_title">
+                <div estrategia="2" class="x_title x_title_hoja3">
                     <h6 style="cursor: pointer" class="collapse-link"><i class="far fa-edit"></i> 2.- COOPERATIVA (PARA GENERAR UNA VIGENCIA SÓLIDA FUTURA)</h6>
                     <ul class="nav navbar-right panel_toolbox">
                         <li>
@@ -381,7 +381,7 @@ data-keyboard="false">
             </div>
 
             <div class="x_panel">
-                <div estrategia="3" class="x_title">
+                <div estrategia="3" class="x_title x_title_hoja3">
                     <h6 style="cursor: pointer" class="collapse-link"><i class="far fa-edit"></i> 3.- M40 - RETROACTIVO (PARA RECUPERAR SEMANAS ANTERIORES)</h6>
                     <ul class="nav navbar-right panel_toolbox">
                         <li>
@@ -470,7 +470,7 @@ data-keyboard="false">
             </div>
 
             <div class="x_panel">
-                <div estrategia="4" class="x_title">
+                <div estrategia="4" class="x_title x_title_hoja3">
                     <h6 style="cursor: pointer" class="collapse-link"><i class="far fa-edit"></i> 4.- M40 - YA PAGADA (PARA RECUPERAR SEMANAS ANTERIORES)</h6>
                     <ul class="nav navbar-right panel_toolbox">
                         <li>
@@ -559,7 +559,7 @@ data-keyboard="false">
             </div>
 
             <div class="x_panel">
-                <div estrategia="5" class="x_title">
+                <div estrategia="5" class="x_title x_title_hoja3">
                     <h6 style="cursor: pointer" class="collapse-link"><i class="far fa-edit"></i> 5.- M40 BARATA (PARA SUMAR SEMANAS A PRECIO BAJO)</h6>
                     <ul class="nav navbar-right panel_toolbox">
                         <li>
@@ -648,7 +648,7 @@ data-keyboard="false">
             </div>
 
             <div class="x_panel">
-                <div estrategia="6" class="x_title">
+                <div estrategia="6" class="x_title x_title_hoja3">
                     <h6 style="cursor: pointer" class="collapse-link"><i class="far fa-edit"></i> 6.- M40 C0N SALARIO ALTO X PAGAR (PARA GENERAR EL SALARIO PROMEDIO ALTO)</h6>
                     <ul class="nav navbar-right panel_toolbox">
                         <li>

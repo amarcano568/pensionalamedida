@@ -143,11 +143,12 @@
     <![endif]-->
                 <table bgcolor="#ffffff" class="content" align="center" cellpadding="0" cellspacing="0" border="0">
                     <tr>
-                        <td bgcolor="#c7d8a7" class="header">
+                        <td bgcolor="#F8C180" class="header">
                             <table width="70" align="left" border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td height="70" style="padding: 0 20px 20px 0;">
-                                        <img src="{{ asset('img/logo.png') }}" alt="" width="118" height="46">
+                                        <img src="https://drive.google.com/file/d/1DwklYO4t5P1xWXbOuVy73bORskSOPi68/view?usp=sharing"
+                                            alt="" width="118" height="46">
                                     </td>
                                 </tr>
                             </table>
@@ -158,7 +159,7 @@
           <![endif]-->
                             <table class="col425" align="left" border="0" cellpadding="0" cellspacing="0"
                                 style="width: 100%; max-width: 425px;">
-                                <tr>
+                                <tr bgcolor="#F8C180">
                                     <td height="70">
                                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                             <tr>
@@ -187,13 +188,24 @@
                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td class="h2">
-                                        Estimado (a) {{ $cliente->nombre }}
+                                        Estimado (a) {{ strtoupper($cliente['nombre']) }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="bodycopy">
-                                        Adjunto a este correo encontrara un archivo pdf contentivo del resumen de las
-                                        alternativas de pensión.
+                                        Adjuntamos un archivo pdf con el resumen de su Planeación. Éste resumen es una
+                                        vista general de lo que puede obtener
+                                        mensualmente de pensión con las distintas alternativas de inversión que le
+                                        ofrecemos en Modalidad 40.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><br></td>
+                                </tr>
+                                <tr>
+                                    <td class="bodycopy">Para recibir el documento en su versión completa (con las
+                                        propuestas detalladas y explicadas),
+                                        solicitamos por favor el 50% del pago restante.
                                     </td>
                                 </tr>
                             </table>
@@ -222,15 +234,18 @@
                                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                             <tr>
                                                 <td class="bodycopy">
-                                                    Este resumen de ninguna
-                                                    manera es la Planeación. El
-                                                    análisis detallado se integra
-                                                    por 16 HOJAS CON
-                                                    REPORTES E
-                                                    INDICADORES
-                                                    NUMÉRICOS, y será
-                                                    enviado una vez que se
-                                                    liquide el costo del plan.
+                                                    Puede hacer su pago a la misma cuenta donde depositó el anticipo:
+                                                    <br><br>
+                                                    • Tarjeta Banamex 5204 1654 0379 4393 (Oxxo o banco Banamex).
+                                                    <br>
+                                                    • Clabe interbancaria 0022 2570 1416 7151 97.
+                                                    <br>
+                                                    • A nombre de Graciela Miriam Jacinto Hernández
+                                                    <br>
+                                                    • Favor de enviar su comprobante de pago a:
+                                                    <br>
+                                                    ventas@pensionalamedida.com
+
                                                 </td>
                                             </tr>
                                         </table>
@@ -251,10 +266,10 @@
                     </tr>
                     <tr>
                         <td class="innerpadding bodycopy">
-                            Si tiene alguna duda puede llamarnos a los siguientes números telefónicos
-                            {{ $empresa->telefonofijo }} {{ $empresa->telefonoMovil }} o puede escribirnos al siguiente
-                            correo
-                            electrónico {{ $empresa->email }} y con gusto lo atenderemos.
+                            Si tiene alguna duda puede llamarnos al teléfono {{ $empresa['telefonofijo'] }}
+                            {{ $empresa['telefonoMovil'] }} o
+                            puede escribirnos al siguiente correo electrónico {{ $empresa['email'] }} y con gusto le
+                            atenderemos.
                         </td>
                     </tr>
                     <tr>

@@ -3,9 +3,10 @@ $(document).on("ready", function() {
     var pathname = document.location.pathname;
     var pathnameArray = pathname.split("/public/");
     var tituloimg = "";
-    var descripcionImg = "";
+    var edadCalculoHoja1Global = 0;
     var DataTables_Pensiones = "";
     var PasosWizart = 1;
+    var datosModificadosSinGuardar = false;
     sw = true;
 
     server = pathnameArray.length > 0 ? pathnameArray[0] + "/public/" : "";
@@ -21,10 +22,13 @@ $(document).on("ready", function() {
             "</ol>"
     );
 
-    window.onbeforeunload = function(e) {
-        alert(e);
-        return "Texto de aviso";
-    };
+    window.onbeforeunload = confirmaSalida;
+
+    function confirmaSalida() {
+        if (!datosModificadosSinGuardar) {
+            return "Vas a abandonar esta pagina. Si has hecho algun cambio sin grabar vas a perdertodos los datos.";
+        }
+    }
 
     $("html, body").animate({ scrollTop: 0 }, 1250);
 
@@ -56,6 +60,12 @@ $(document).on("ready", function() {
             .done(function(response) {
                 console.log(response);
                 response.data.forEach(element => {
+                    if (element.hoja == "hoja-1") {
+                        $("#edadCalculoHoja1Global").val(
+                            element.edad_jubilacion
+                        );
+                    }
+
                     hoja = element.hoja.split("-");
                     $("#hoja-" + hoja[1] + "-pension-mensual-con-m40").val(
                         $.number(element.pension_mensual, 2, ".", ",")
@@ -1047,14 +1057,13 @@ $(document).on("ready", function() {
             $("#div-dias-excedidos").show(200);
 
             $("#dias-excedidos-2").text(diasExcedidos + "d");
-            id = $("#table-cotizaciones tr:last").attr("id");
-            monto = parseFloat($("#monto" + id).val());
-            $("#ultimo-salario").text("$" + monto);
-            $("#salario-auxiliar").text("$" + diasExcedidos * monto);
+            cargaTablaCambioSalalarioHoja1();
+
+            monto = parseFloat($("#monto-a-descontar-excedido").val());
+            $("#salario-auxiliar").text("$" + $.number(monto, 2, ".", ","));
 
             totalSalarios =
-                parseFloat(calculaTotalSalarios()) -
-                parseFloat(diasExcedidos * monto);
+                parseFloat(calculaTotalSalarios()) - parseFloat(monto);
             $("#salarios-totales").text($.number(totalSalarios, 2, ".", ","));
             $("#dias-totales").text(1750);
             $("#promedio-salarios").text(
@@ -1204,6 +1213,10 @@ $(document).on("ready", function() {
         configuraDropZone(iconoDropZone);
     });
 
+    $("#modal-cargar-cotizaciones").on("shown.bs.modal", function() {
+        cargaTablaCambioSalalarioHoja1();
+    });
+
     $("#modal-subir-excel").on("hidden.bs.modal", function() {
         $("#modal-cargar-cotizaciones").modal("show");
     });
@@ -1256,6 +1269,7 @@ $(document).on("ready", function() {
                 $("#body-cotizaciones").html(response.data);
                 sumaDiasCotizados();
                 $("#modal-subir-excel").modal("hide");
+                cargaTablaCambioSalalarioHoja1();
             },
             error: function(file, response) {
                 return false;
@@ -1367,6 +1381,7 @@ $(document).on("ready", function() {
                                 alertify.error(data.mensaje);
                             }
                             $.unblockUI();
+                            datosModificadosSinGuardar = true;
                             setTimeout(function() {
                                 location.href = "/gestionar-pension";
                             }, 1500);
@@ -1380,7 +1395,7 @@ $(document).on("ready", function() {
                 function() {
                     // En caso de Cancelar
                     alertify.error(
-                        '<i class="fa-2x fas fa-ban"></i><br>Se Cancelo el Proceso para guardar el cliente.'
+                        '<i class="fa-2x fas fa-ban"></i><br>Se Cancelo el Proceso para guardar los planes de Pensión.'
                     );
                 }
             )
@@ -1664,7 +1679,8 @@ $(document).on("ready", function() {
             esposa: $("#esposa").val(),
             hijos: $("#hijos").val(),
             padres: $("#padres").val(),
-            edad_jubilacion: $("#edadDe").val()
+            //edad_jubilacion: $("#edadDe").val()
+            edad_jubilacion: $("#hoja-1-chosen-edad-pension").val()
         });
 
         for (i = 2; i <= 6; i++) {
@@ -1757,7 +1773,6 @@ $(document).on("ready", function() {
     function estrategiasSave() {
         var arreglo = [];
         var i = 1;
-        // alert($("#hoja-1-pension-mesual-sin-m40").val());
         for (hoja = 2; hoja <= 6; hoja++) {
             for (estrategia = 1; estrategia <= 6; estrategia++) {
                 if (
@@ -1786,12 +1801,6 @@ $(document).on("ready", function() {
                         "#hoja-" + hoja + "-otro-valor-estrategia-" + estrategia
                     ).val()
                 );
-                desde1 = $(
-                    "#hoja-" + hoja + "-fecha-desde-estrategia-" + estrategia
-                ).val();
-                hasta1 = $(
-                    "#hoja-" + hoja + "-fecha-hasta-estrategia-" + estrategia
-                ).val();
                 total1 = convertNumberPure(
                     $("#hoja-" + hoja + "-total-estrategia-" + estrategia).val()
                 );
@@ -1802,8 +1811,18 @@ $(document).on("ready", function() {
                     arreglo.push({
                         hoja: "hoja-" + hoja,
                         estrategia: estrategia,
-                        desde: desde1,
-                        hasta: hasta1,
+                        desde: $(
+                            "#hoja-" +
+                                hoja +
+                                "-fecha-desde-estrategia-" +
+                                estrategia
+                        ).val(),
+                        hasta: $(
+                            "#hoja-" +
+                                hoja +
+                                "-fecha-hasta-estrategia-" +
+                                estrategia
+                        ).val(),
                         edad: $(
                             "#hoja-" + hoja + "-edad-estrategia-" + estrategia
                         ).val(),

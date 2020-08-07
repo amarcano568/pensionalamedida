@@ -98,7 +98,7 @@ class PdfsController extends Controller
 
         $data = [
             'email'   => $cliente->email,
-            'subject' => 'Resumen del plan - Pensión a la medida',
+            'subject' => 'Planeación A La Medida – Resumen',
             'adjunto'    =>  $rutaFile
         ];
 
@@ -124,12 +124,17 @@ class PdfsController extends Controller
         $expectativas = Expectativas_Salariales::where('uuid', $request->uuid)
             ->first();
 
+        $fecNac = Carbon::parse($cliente->fechaNacimiento);
+        $fechaFutura = $fecNac->addYear($expectativas->edadA);
+        //$edad =  $fecNac->diff($fechaRetiro)->format('%y Años, %m meses, %d días');
+        $maxima_en_monto =  $expectativas->rangoInversionA * (Carbon::parse($expectativas->fechaPlan)->diffInDays($fechaFutura) / 365) * 12;
+
         $edad_faltante_cliente = $this->AnosFaltantes($cliente->fechaNacimiento, $expectativas->edadA, $expectativas->fechaPlan);
         $cliente->edad_faltante = $edad_faltante_cliente;
         $edad_abs = explode(',', $edad_faltante_cliente);
         $meses = ((int)substr($edad_abs[1], 0, 2) * 10) / 12;
 
-        $edad_abs = ((int)substr($edad_faltante_cliente, 0, 2) + ($meses / 10)) * 12;
+        $edad_abs = (int)substr($edad_faltante_cliente, 0, 2) + (float)($meses / 10);
         $cliente->edad_abs_faltante = $edad_abs;
 
         $pension_dif85_hoja1 = Pension_Final::where('uuid', $request->uuid)->where('hoja', 'hoja-1')->select('dif85')->first();
@@ -148,7 +153,7 @@ class PdfsController extends Controller
             if ($hoja == 'hoja-1') {
                 $expectativas = Expectativas_Salariales::where('uuid', $pension->uuid)->first();
                 $pension->edad_real_pension = $expectativas->edadDe . ' Años, 0 meses';
-                $pension->porc_pension = $this->porcentaje_pension($pension->edad_real_pension);
+                $pension->porc_pension = $this->porcentaje_pension($pension->edad_real_pension, $hoja);
             } else {
                 $cotiza_clientes_fechas = Cotizaciones_Clientes::where('uuid', $pension->uuid)
                     ->where('estrategias', '6')
@@ -157,8 +162,8 @@ class PdfsController extends Controller
 
                 $fecNac = Carbon::parse($cliente->fechaNacimiento);
                 $fechaRetiro = $al;
-                $pension->edad_real_pension =  $fecNac->diff($fechaRetiro)->format('%y Años, %m meses');
-                $pension->porc_pension = $this->porcentaje_pension($pension->edad_real_pension);
+                $pension->edad_real_pension =  $fecNac->diff($fechaRetiro)->format('%y Años, %m meses, %d días');
+                $pension->porc_pension = $this->porcentaje_pension($pension->edad_real_pension, $hoja);
             }
             if ($hoja != 'hoja-1') {
                 $pension->rendimiento_anual = ($pension->dif85 - $pension_dif85_hoja1->dif85) / $pension->dif85_text;
@@ -207,9 +212,10 @@ class PdfsController extends Controller
             /** Nivel de Vida */
             'nivel_vida' => $nivel_vida,
             /**Fechas y Salarios */
-            'tmp_fecha_salario' => $tmp_fecha_salario
+            'tmp_fecha_salario' => $tmp_fecha_salario,
+            'maxima_en_monto' => $maxima_en_monto
         );
-
+        //dd($data);
         return view('pdf.pdf-detalle', $data);
     }
 
@@ -238,12 +244,15 @@ class PdfsController extends Controller
         return array('fecha_menor' => $fecha_menor, 'fecha_mayor' => $fecha_mayor);
     }
 
-    public function porcentaje_pension($edad_real)
+    public function porcentaje_pension($edad_real, $hoja = '')
     {
         $pos = strpos($edad_real, ',') + 1;
-        $mes = substr($edad_real, $pos, 3);
+        $mes = (int)substr($edad_real, $pos, 3);
+        $mes = round($mes * 10 / 12);
+
         $edadReal = trim(substr($edad_real, 0, 2)) . "." . trim($mes);
-        $edad = round($edadReal);
+        $edad = (int)round((float)$edadReal, 0);
+        //echo $edad . '<br>';
         if ($edad == 60) {
             $porc = '80%';
         } else if ($edad == 61) {
@@ -625,7 +634,7 @@ class PdfsController extends Controller
             } else {
                 $fecNac = Carbon::parse($cliente->fechaNacimiento);
                 $fechaRetiro = Carbon::parse($al);
-                $pension->edad_real_pension =  $fecNac->diff($fechaRetiro)->format('%y Años, %m meses');
+                $pension->edad_real_pension =  $fecNac->diff($fechaRetiro)->format('%y Años, %m meses, %d días');
                 $pension->porc_pension = $this->porcentaje_pension($pension->edad_real_pension);
             }
             if ($hoja != 'hoja-1') {
@@ -715,7 +724,7 @@ class PdfsController extends Controller
 
         $data = [
             'email'   => $cliente->email,
-            'subject' => 'Detalle del plan - Pensión a la medida',
+            'subject' => 'Planeación A La Medida – Plan',
             'adjunto'    =>  $rutaFile
         ];
 
@@ -754,6 +763,7 @@ class PdfsController extends Controller
         $pensiones = Pension_Final::where('uuid', $request->uuid)->get();
         $expectativas = Expectativas_Salariales::where('uuid', $request->uuid)
             ->first();
+
         $cliente->edad_faltante = $this->AnosFaltantes($cliente->fechaNacimiento, $expectativas->edadA, $expectativas->fechaPlan);
 
         $pension_dif85_hoja1 = Pension_Final::where('uuid', $request->uuid)->where('hoja', 'hoja-1')->select('dif85')->first();
@@ -782,7 +792,7 @@ class PdfsController extends Controller
 
                 $fecNac = Carbon::parse($cliente->fechaNacimiento);
                 $fechaRetiro = $al;
-                $pension->edad_real_pension =  $fecNac->diff($fechaRetiro)->format('%y Años, %m meses');
+                $pension->edad_real_pension =  $fecNac->diff($fechaRetiro)->format('%y Años, %m meses, %d días');
                 $pension->porc_pension = $this->porcentaje_pension($pension->edad_real_pension);
             }
             if ($hoja != 'hoja-1') {

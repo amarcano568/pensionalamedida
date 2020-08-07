@@ -18,7 +18,7 @@
                     <div class="row">
                         <div class="col-sm-9 table-responsive">
                             <table id="table-cotizaciones" style="display: table;width: 100%"
-                                class="table table-responsive-sm table-hover table-outline mb-0" style="width: 100%">
+                                class="table table-responsive-sm table-hover table-outline mb-0 table-xs" style="width: 100%">
                                 <thead class="thead-light">
                                     <tr>
                                         <th class="text-center">Del</th>
@@ -120,15 +120,15 @@
                                         <hr>
                                         <table class="table table-bordered">
                                             <tbody>
-                                                <tr>
-                                                    <td style="width: 30%" class="text-center">
-                                                        <span class="text-danger" id="dias-excedidos-2"> 0</span>
+                                                <tr bgcolor="#F2DEDE" style="vertical-align : middle;">
+                                                    <td colspan="2" style="width: 30%" class="text-center">
+                                                        <span > Salario excedido</span>
                                                     </td>
-                                                    <td style="width: 30%" class="text-center">
+                                                    {{-- <td style="width: 30%" class="text-center">
                                                         <span class="text-danger" id="ultimo-salario"> 0</span>
-                                                    </td>
-                                                    <td style="width: 40%" class="text-center">
-                                                        <span class="text-danger" id="salario-auxiliar"> 0</span>
+                                                    </td> --}}
+                                                    <td style="width: 40%;vertical-align : middle;" class="text-center">
+                                                        <strong  id="salario-auxiliar"> 0</strong>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -181,10 +181,12 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary btn-promary" data-toggle="modal"
+                    <button type="button" class="btn btn-primary" data-toggle="modal"
                         data-target="#modal-subir-excel"><i class="far fa-file-excel"></i> Importar
                         desde excel</button>
-                    {{-- <button type="button" class="btn btn-primary btn-success"><i class="cil-save"></i> Guardar</button> --}}
+                    <button type="button" class="btn btn-success" data-toggle="modal"
+                    data-target="#modal-cambiar-salario"><i class="cil-list"></i>
+                        Ver Tabla Salarios excedidos</button>
                     <button type="button" class="btn-cerrar-modal-cotizaciones btn btn-secondary btn-info" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>

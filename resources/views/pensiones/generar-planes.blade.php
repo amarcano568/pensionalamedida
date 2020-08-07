@@ -2,6 +2,8 @@
 @section('contenido')
 <br><br>
 <div id="divGestionarPension" style="padding: 1em;margin-top: -2em;">
+    
+    <input type="text" id="edadCalculoHoja1Global" style="display: none;">
         <input type="text" value="{{ $NewPlan }}" id="NewOrEdit" name="NewOrEdit" style="display: none;">
         <input type="text" value="{{ $uuid }}" id="uuid-pension" name="uuid-pension" style="display: none;">
         <input class="form-control" id="idCliente" name="idCliente" type="text" style="display: none" value="{{ $idCliente }}">

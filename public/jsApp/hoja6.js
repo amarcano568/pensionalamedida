@@ -190,7 +190,7 @@ $(document).on("ready", function() {
         $("#table-promedio-salarial-6 tbody").append(htmlTags);
     }
 
-    $(".x_title").click(function(event) {
+    $(".x_title_hoja6").click(function(event) {
         event.preventDefault();
         var d = new Date();
         var dia = d.getDate();
@@ -230,10 +230,7 @@ $(document).on("ready", function() {
             .done(function(response) {
                 ////console.log(response);
                 $(elementoDom).val(response.data);
-                pos = response.data.indexOf(",") + 1;
-                mes = response.data.substr(pos, 3);
-                edadReal = response.data.substr(0, 2).trim() + "." + mes.trim();
-                $("#hoja-6-edad-real-pension").val(edadReal);
+                $("#hoja-6-edad-real-pension").val(response.difInDays);
             })
             .fail(function(statusCode, errorThrown) {
                 $.unblockUI();

@@ -193,7 +193,7 @@ data-keyboard="false">
             </div>
 
             <div class="x_panel" >
-                <div estrategia="1" class="x_title">
+                <div estrategia="1" class="x_title x_title_hoja2">
                     <h6 style="cursor: pointer" class="collapse-link"><i class="far fa-edit"></i> 1.- EN SU EMPRESA ACTUAL (PARA DAR TIEMPO A GESTIONAR SU BAJA)</h6>
                     <ul class="nav navbar-right panel_toolbox">
                         <li>
@@ -282,7 +282,7 @@ data-keyboard="false">
             </div>
 
             <div class="x_panel">
-                <div estrategia="2" class="x_title">
+                <div estrategia="2" class="x_title x_title_hoja2">
                     <h6 style="cursor: pointer" class="collapse-link"><i class="far fa-edit"></i> 2.- COOPERATIVA (PARA GENERAR UNA VIGENCIA SÓLIDA FUTURA)</h6>
                     <ul class="nav navbar-right panel_toolbox">
                         <li>
@@ -310,7 +310,7 @@ data-keyboard="false">
                                 <td style="width: 10%" class="text-center">Costo</td>
                             </tr>
                             <tr>
-                                <td style="width: 10%" class="text-center"><input estrategia="2" id="hoja-2-fecha-desde-estrategia-2" name="hoja-2-fecha-desde-estrategia-1" type="date" class="form-control input-xs hoja-2-fecha-desde-estrategia" estrategia="1" ></td>
+                                <td style="width: 10%" class="text-center"><input estrategia="2" id="hoja-2-fecha-desde-estrategia-2" name="hoja-2-fecha-desde-estrategia-2" type="date" class="form-control input-xs hoja-2-fecha-desde-estrategia" estrategia="1" ></td>
                                 <td style="width: 10%" class="text-center">
                                     <div class="row" style="display: none" id="hoja-2-sumas-dias-estrategia-2">
                                         <div class="col-sm-9">
@@ -381,7 +381,7 @@ data-keyboard="false">
             </div>
 
             <div class="x_panel">
-                <div estrategia="3" class="x_title">
+                <div estrategia="3" class="x_title x_title_hoja2">
                     <h6 style="cursor: pointer" class="collapse-link"><i class="far fa-edit"></i> 3.- M40 - RETROACTIVO (PARA RECUPERAR SEMANAS ANTERIORES)</h6>
                     <ul class="nav navbar-right panel_toolbox">
                         <li>
@@ -409,7 +409,7 @@ data-keyboard="false">
                                 <td style="width: 10%" class="text-center">Costo</td>
                             </tr>
                             <tr>
-                                <td style="width: 10%" class="text-center"><input estrategia="3" id="hoja-2-fecha-desde-estrategia-3" name="hoja-2-fecha-desde-estrategia-1" type="date" class="form-control input-xs hoja-2-fecha-desde-estrategia" estrategia="1" ></td>
+                                <td style="width: 10%" class="text-center"><input estrategia="3" id="hoja-2-fecha-desde-estrategia-3" name="hoja-2-fecha-desde-estrategia-3" type="date" class="form-control input-xs hoja-2-fecha-desde-estrategia" estrategia="1" ></td>
                                 <td style="width: 10%" class="text-center">
                                     <div class="row" style="display: none" id="hoja-2-sumas-dias-estrategia-3">
                                         <div class="col-sm-9">
@@ -470,7 +470,7 @@ data-keyboard="false">
             </div>
 
             <div class="x_panel">
-                <div estrategia="4" class="x_title">
+                <div estrategia="4" class="x_title x_title_hoja2">
                     <h6 style="cursor: pointer" class="collapse-link"><i class="far fa-edit"></i> 4.- M40 - YA PAGADA (PARA RECUPERAR SEMANAS ANTERIORES)</h6>
                     <ul class="nav navbar-right panel_toolbox">
                         <li>
@@ -498,7 +498,7 @@ data-keyboard="false">
                                 <td style="width: 10%" class="text-center">Costo</td>
                             </tr>
                             <tr>
-                                <td style="width: 10%" class="text-center"><input estrategia="4" id="hoja-2-fecha-desde-estrategia-4" name="hoja-2-fecha-desde-estrategia-1" type="date" class="form-control input-xs hoja-2-fecha-desde-estrategia" estrategia="1" ></td>
+                                <td style="width: 10%" class="text-center"><input estrategia="4" id="hoja-2-fecha-desde-estrategia-4" name="hoja-2-fecha-desde-estrategia-4" type="date" class="form-control input-xs hoja-2-fecha-desde-estrategia" estrategia="1" ></td>
                                 <td style="width: 10%" class="text-center">
                                     <div class="row" style="display: none" id="hoja-2-sumas-dias-estrategia-4">
                                         <div class="col-sm-9">
@@ -559,7 +559,7 @@ data-keyboard="false">
             </div>
 
             <div class="x_panel">
-                <div estrategia="5" class="x_title">
+                <div estrategia="5" class="x_title x_title_hoja2">
                     <h6 style="cursor: pointer" class="collapse-link"><i class="far fa-edit"></i> 5.- M40 BARATA (PARA SUMAR SEMANAS A PRECIO BAJO)</h6>
                     <ul class="nav navbar-right panel_toolbox">
                         <li>
@@ -587,7 +587,7 @@ data-keyboard="false">
                                 <td style="width: 10%" class="text-center">Costo</td>
                             </tr>
                             <tr>
-                                <td style="width: 10%" class="text-center"><input estrategia="5" id="hoja-2-fecha-desde-estrategia-5" name="hoja-2-fecha-desde-estrategia-1" type="date" class="form-control input-xs hoja-2-fecha-desde-estrategia" estrategia="1" ></td>
+                                <td style="width: 10%" class="text-center"><input estrategia="5" id="hoja-2-fecha-desde-estrategia-5" name="hoja-2-fecha-desde-estrategia-5" type="date" class="form-control input-xs hoja-2-fecha-desde-estrategia" estrategia="1" ></td>
                                 <td style="width: 10%" class="text-center">
                                     <div class="row" style="display: none" id="hoja-2-sumas-dias-estrategia-5">
                                         <div class="col-sm-9">
@@ -648,7 +648,7 @@ data-keyboard="false">
             </div>
 
             <div class="x_panel">
-                <div estrategia="6" class="x_title">
+                <div estrategia="6" class="x_title x_title_hoja2">
                     <h6 style="cursor: pointer" class="collapse-link"><i class="far fa-edit"></i> 6.- M40 C0N SALARIO ALTO X PAGAR (PARA GENERAR EL SALARIO PROMEDIO ALTO)</h6>
                     <ul class="nav navbar-right panel_toolbox">
                         <li>
@@ -676,7 +676,7 @@ data-keyboard="false">
                                 <td style="width: 10%" class="text-center">Costo</td>
                             </tr>
                             <tr>
-                                <td style="width: 10%" class="text-center"><input estrategia="6" id="hoja-2-fecha-desde-estrategia-6" name="hoja-2-fecha-desde-estrategia-1" type="date" class="form-control input-xs hoja-2-fecha-desde-estrategia" estrategia="1" ></td>
+                                <td style="width: 10%" class="text-center"><input estrategia="6" id="hoja-2-fecha-desde-estrategia-6" name="hoja-2-fecha-desde-estrategia-6" type="date" class="form-control input-xs hoja-2-fecha-desde-estrategia" estrategia="1" ></td>
                                 <td style="width: 10%" class="text-center">
                                     <div class="row" style="display: none" id="hoja-2-sumas-dias-estrategia-6">
                                         <div class="col-sm-9">

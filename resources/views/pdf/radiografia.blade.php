@@ -447,15 +447,15 @@
                             @else
                                 <td bgcolor="#DFF0D8" style="vertical-align : middle" class="text-center">
                                     @if ($item->hoja == 'hoja-2')
-                                        <strong>{{number_format(($item->rendimiento_anual/$inv_tota_hoja2)*100, 2, '.', ',')}}</strong>
+                                        <strong>{{number_format(($item->rendimiento_anual/$inv_tota_hoja2)*100, 2, '.', ',')}}%</strong>
                                     @elseif ($item->hoja == 'hoja-3')
-                                        <strong>{{number_format(($item->rendimiento_anual/$inv_tota_hoja3)*100, 2, '.', ',')}}</strong>
+                                        <strong>{{number_format(($item->rendimiento_anual/$inv_tota_hoja3)*100, 2, '.', ',')}}%</strong>
                                     @elseif ($item->hoja == 'hoja-4')
-                                        <strong>{{number_format(($item->rendimiento_anual/$inv_tota_hoja4)*100, 2, '.', ',')}}</strong>
+                                        <strong>{{number_format(($item->rendimiento_anual/$inv_tota_hoja4)*100, 2, '.', ',')}}%</strong>
                                     @elseif ($item->hoja == 'hoja-5')
-                                        <strong>{{number_format(($item->rendimiento_anual/$inv_tota_hoja5)*100, 2, '.', ',')}}</strong>
+                                        <strong>{{number_format(($item->rendimiento_anual/$inv_tota_hoja5)*100, 2, '.', ',')}}%</strong>
                                     @elseif ($item->hoja == 'hoja-6')
-                                        <strong>{{number_format(($item->rendimiento_anual/$inv_tota_hoja6)*100, 2, '.', ',')}}</strong>   
+                                        <strong>{{number_format(($item->rendimiento_anual/$inv_tota_hoja6)*100, 2, '.', ',')}}%</strong>   
                                     @endif
                                 </td>
                             @endif

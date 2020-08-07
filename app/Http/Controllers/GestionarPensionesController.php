@@ -128,8 +128,9 @@ class GestionarPensionesController extends Controller
     {
         $fecNac = Carbon::parse($request->fecNac);
         $fechaRetiro = Carbon::parse($request->fechaFutura);
-        $edad =  $fecNac->diff($fechaRetiro)->format('%y Años, %m meses');
-        return response()->json(array('success' => true, 'mensaje' => 'Datos del cliente obtenido', 'data' => $edad));
+        $edad =  $fecNac->diff($fechaRetiro)->format('%y Años, %m meses, %d días');
+        $difInDays =  $fecNac->diffInDays($fechaRetiro) / 365;
+        return response()->json(array('success' => true, 'mensaje' => 'Datos del cliente obtenido', 'data' => $edad, 'difInDays' => $difInDays));
     }
 
     public function calcularAnosFaltante(Request $request)
@@ -278,7 +279,7 @@ class GestionarPensionesController extends Controller
 
     public function guardarPlanPension(Request $request)
     {
-
+        //dd($request->estrategias);
         try {
             DB::beginTransaction();
             $save = Pensiones::Guardar($request);

@@ -143,7 +143,7 @@
     <![endif]-->
                 <table bgcolor="#ffffff" class="content" align="center" cellpadding="0" cellspacing="0" border="0">
                     <tr>
-                        <td bgcolor="#c7d8a7" class="header">
+                        <td bgcolor="#F8C180" class="header">
                             <table width="70" align="left" border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td height="70" style="padding: 0 20px 20px 0;">
@@ -188,13 +188,21 @@
                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td class="h2">
-                                        Estimado (a) {{ $cliente['nombre'] }}
+                                        Estimado (a) {{ strtoupper($cliente['nombre']) }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="bodycopy">
-                                        Adjunto a este correo encontrara un archivo pdf con el detalle de las
-                                        alternativas de pensión.
+                                        Hemos recibido su pago <strong>¡Muchas gracias!</strong><br><br>
+                                        Adjuntamos un archivo pdf con la Planeación en su versión completa. <br><br>
+                                        Le recordamos que su Planeación incluye una consulta vía telefónica o video
+                                        llamada directa con el Contador Armando Galván (sin costo adicional) para
+                                        resolver sus
+                                        dudas o inquietudes acerca de su plan. <br><br>
+                                        Le pedimos por favor nos informe cuando esté listo (a) para agendar la consulta.
+                                        Puede solicitarla al teléfono 477 980 09 73 Ext. 1 ó enviar un mensaje al Whats
+                                        App al 477 599 74 12. <br>
+
                                     </td>
                                 </tr>
                             </table>
@@ -202,56 +210,42 @@
                     </tr>
                     <tr>
                         <td class="innerpadding borderbottom">
-                            <table width="115" align="left" border="0" cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <td height="115" style="padding: 0 20px 20px 0;">
-                                        <img class="fix"
-                                            src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/article1.png"
-                                            width="115" height="115" border="0" alt="" />
-                                    </td>
-                                </tr>
-                            </table>
-                            <!--[if (gte mso 9)|(IE)]>
-            <table width="380" align="left" cellpadding="0" cellspacing="0" border="0">
-              <tr>
-                <td>
-          <![endif]-->
                             <table class="col380" align="left" border="0" cellpadding="0" cellspacing="0"
-                                style="width: 100%; max-width: 380px;">
+                                style="width: 100%;">
                                 <tr>
                                     <td>
                                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                             <tr>
                                                 <td class="bodycopy">
-                                                    En el Pdf Adjunto encontrara toda la información detallada con las
-                                                    alternativas de <strong>Pensión</strong> e información de interes
-                                                    para lograr la
-                                                    pensión deseada.
+                                                    <strong>Para quienes ingresan por primera vez a Modalidad
+                                                        40:</strong> <br><br>
+                                                    Después de la consulta, ya con la opción de inversión elegida,
+                                                    nosotros le redactamos la carta de ingreso a la Modalidad 40, y
+                                                    también le damos una guía en PDF para facilitar el trámite de
+                                                    inscripción. <br><br>
+                                                    Puede solicitar su carta de ingreso a Modalidad 40 al correo:
+                                                    ventas@pensionalamedida.com <br><br>
+                                                    Cualquier duda, seguimos a sus ordenes
+
                                                 </td>
                                             </tr>
                                         </table>
                                     </td>
                                 </tr>
                             </table>
-                            <!--[if (gte mso 9)|(IE)]>
-                </td>
-              </tr>
-          </table>
-          <![endif]-->
                         </td>
                     </tr>
                     <tr>
                         <td class="innerpadding borderbottom">
-                            <img class="fix" src="{{ asset('img/logo.png') }}" width="100%" border="0" alt="" />
+                            <img class="fix" src="{{ asset('img/logo-xl.png') }}" width="100%" border="0" alt="" />
                         </td>
                     </tr>
                     <tr>
                         <td class="innerpadding bodycopy">
-                            Si tiene alguna duda puede llamarnos a los siguientes números telefónicos
-                            {{ $empresa['telefonofijo'] }} {{ $empresa['telefonoMovil'] }} o puede escribirnos al
-                            siguiente
-                            correo
-                            electrónico {{ $empresa['email'] }} y con gusto lo atenderemos.
+                            Si tiene alguna duda puede llamarnos al teléfono {{ $empresa['telefonofijo'] }}
+                            {{ $empresa['telefonoMovil'] }} o
+                            puede escribirnos al siguiente correo electrónico {{ $empresa['email'] }} y con gusto le
+                            atenderemos.
                         </td>
                     </tr>
                     <tr>

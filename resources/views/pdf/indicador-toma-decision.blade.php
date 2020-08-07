@@ -42,7 +42,7 @@
                     </td>
                     <td rowspan="4" style="border-right: 5px solid#28A745;width: 5%;" class="text-center">
                         <br>
-                        <strong>{{$item->edad_anos_meses}}</strong>
+                        <strong>{{$item->edad_real_pension}}</strong>
                     </td>
                 </tr>
                 <tr style="height: 2.5em;!important">

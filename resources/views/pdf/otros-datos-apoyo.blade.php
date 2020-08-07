@@ -70,11 +70,11 @@
                         MONTO DE PENSIÓN
                     </td>
                     <td colspan="2" style="vertical-align : middle">Máxima monto (A)</td>
-                    <td style="vertical-align : middle"><strong>{{number_format($expectativas->rangoInversionA*$cliente->edad_abs_faltante, 2, '.', ',')}}</strong></td>
-                    <td style="vertical-align : middle"><strong>{{number_format($expectativas->rangoInversionA*$cliente->edad_abs_faltante, 2, '.', ',')}}</strong></td>
-                    <td style="vertical-align : middle"><strong>{{number_format($expectativas->rangoInversionA*$cliente->edad_abs_faltante, 2, '.', ',')}}</strong></td>
-                    <td style="vertical-align : middle"><strong>{{number_format($expectativas->rangoInversionA*$cliente->edad_abs_faltante, 2, '.', ',')}}</strong></td>
-                    <td style="vertical-align : middle"><strong>{{number_format($expectativas->rangoInversionA*$cliente->edad_abs_faltante, 2, '.', ',')}}</strong></td>
+                    <td style="vertical-align : middle"><strong>{{number_format($maxima_en_monto, 2, '.', ',')}}</strong></td>
+                    <td style="vertical-align : middle"><strong>{{number_format($maxima_en_monto, 2, '.', ',')}}</strong></td>
+                    <td style="vertical-align : middle"><strong>{{number_format($maxima_en_monto, 2, '.', ',')}}</strong></td>
+                    <td style="vertical-align : middle"><strong>{{number_format($maxima_en_monto, 2, '.', ',')}}</strong></td>
+                    <td style="vertical-align : middle"><strong>{{number_format($maxima_en_monto, 2, '.', ',')}}</strong></td>
                 </tr>
                 <tr style="height: 2.5em;" class="text-center">
                     <td colspan="2" style="vertical-align : middle" >CALCULADA (B)</td>
@@ -88,7 +88,7 @@
                     <td colspan="2" style="vertical-align : middle">Diferencia   ( A - B )</td>
                     @foreach ($pensiones as $item)
                         @if ($item->hoja != 'hoja-1')
-                            <td style="vertical-align : middle" class="text-danger"><strong>{{number_format($item->costo_total-($expectativas->rangoInversionA*$cliente->edad_abs_faltante), 2, '.', ',')}}</strong></td>
+                            <td style="vertical-align : middle" class="text-danger"><strong>{{number_format($item->costo_total-$maxima_en_monto, 2, '.', ',')}}</strong></td>
                         @endif
                     @endforeach
                 </tr>
@@ -96,7 +96,7 @@
                     <td colspan="2" style="vertical-align : middle">% de efectividad</td>
                     @foreach ($pensiones as $item)
                         @if ($item->hoja != 'hoja-1')
-                            <td style="vertical-align : middle" class="text-danger"><strong>{{number_format(($item->costo_total-($expectativas->rangoInversionA*$cliente->edad_abs_faltante))/($expectativas->rangoInversionA*$cliente->edad_abs_faltante)*100, 2, '.', ',')}}%</strong></td>
+                            <td style="vertical-align : middle" class="text-danger"><strong>{{number_format(($item->costo_total-($expectativas->rangoInversionA*$cliente->edad_abs_faltante))/($maxima_en_monto)*100, 2, '.', ',')}}%</strong></td>
                         @endif
                     @endforeach
                 </tr>
@@ -132,7 +132,7 @@
                     </td>
                     @foreach ($pensiones as $item)
                         @if ($item->hoja != 'hoja-1')
-                            <td style="vertical-align : middle"><strong>{{number_format(((85-$item->dif85_text-$expectativas->edadA)/(85-$item->dif85_text))*100, 2, '.', ',')}}%</strong></td>
+                            <td style="vertical-align : middle"><strong>{{number_format(((85-$item->dif85_text-$expectativas->edadA)/$expectativas->edadA)*100, 2, '.', ',')}}%</strong></td>
                         @endif
                     @endforeach
                 </tr>
