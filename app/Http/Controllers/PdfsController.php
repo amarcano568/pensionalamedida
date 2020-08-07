@@ -126,7 +126,6 @@ class PdfsController extends Controller
 
         $fecNac = Carbon::parse($cliente->fechaNacimiento);
         $fechaFutura = $fecNac->addYear($expectativas->edadA);
-        //$edad =  $fecNac->diff($fechaRetiro)->format('%y Años, %m meses, %d días');
         $maxima_en_monto =  $expectativas->rangoInversionA * (Carbon::parse($expectativas->fechaPlan)->diffInDays($fechaFutura) / 365) * 12;
 
         $edad_faltante_cliente = $this->AnosFaltantes($cliente->fechaNacimiento, $expectativas->edadA, $expectativas->fechaPlan);
@@ -602,6 +601,10 @@ class PdfsController extends Controller
         $cliente->edad = Carbon::parse($cliente->fechaNacimiento)->age;
         $expectativas = Expectativas_Salariales::where('uuid', $request->uuid)->first();
 
+        $fecNac = Carbon::parse($cliente->fechaNacimiento);
+        $fechaFutura = $fecNac->addYear($expectativas->edadA);
+        $maxima_en_monto =  $expectativas->rangoInversionA * (Carbon::parse($expectativas->fechaPlan)->diffInDays($fechaFutura) / 365) * 12;
+
         $edad_faltante_cliente = $this->AnosFaltantes($cliente->fechaNacimiento, $expectativas->edadA, $expectativas->fechaPlan);
         $cliente->edad_faltante = $edad_faltante_cliente;
         $edad_abs = explode(',', $edad_faltante_cliente);
@@ -688,7 +691,8 @@ class PdfsController extends Controller
             'expectativas' => $expectativas,
             /** Nivel de vida */
             'nivel_vida' => $nivel_vida,
-            'tmp_fecha_salario' => $tmp_fecha_salario
+            'tmp_fecha_salario' => $tmp_fecha_salario,
+            'maxima_en_monto' => $maxima_en_monto
 
         );
 
@@ -763,6 +767,9 @@ class PdfsController extends Controller
         $pensiones = Pension_Final::where('uuid', $request->uuid)->get();
         $expectativas = Expectativas_Salariales::where('uuid', $request->uuid)
             ->first();
+        $fecNac = Carbon::parse($cliente->fechaNacimiento);
+        $fechaFutura = $fecNac->addYear($expectativas->edadA);
+        $maxima_en_monto =  $expectativas->rangoInversionA * (Carbon::parse($expectativas->fechaPlan)->diffInDays($fechaFutura) / 365) * 12;
 
         $cliente->edad_faltante = $this->AnosFaltantes($cliente->fechaNacimiento, $expectativas->edadA, $expectativas->fechaPlan);
 
@@ -840,7 +847,8 @@ class PdfsController extends Controller
             'expectativas' => $expectativas,
             /** Nivel de Vida */
             'nivel_vida' => $nivel_vida,
-            'tmp_fecha_salario' => $tmp_fecha_salario
+            'tmp_fecha_salario' => $tmp_fecha_salario,
+            'maxima_en_monto' => $maxima_en_monto
         );
 
         $view = \View::make('pdf.pdf-detalle', $data);
