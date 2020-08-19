@@ -5,9 +5,9 @@
         $pension_Acum_Sin_M40 = $item->dif85;
     }
 
-    $detalle = explode('|',$item->edad_detalle);
-    $ano = $detalle[0];
-    $mes = $detalle[1];
+    // $detalle = explode('|',$item->edad_detalle);
+    // $ano = $detalle[0];
+    // $mes = $detalle[1];
 ?>
 
 @if ($item->hoja!='hoja-1')
@@ -40,9 +40,8 @@
                     <td class="text-center" style="border-right: 5px solid#28A745;width: 10%">
                         <strong>{{Carbon\Carbon::parse($item->al)->format('d-m-Y')}}</strong>
                     </td>
-                    <td rowspan="4" style="border-right: 5px solid#28A745;width: 5%;" class="text-center">
-                        <br>
-                        <strong>{{$item->edad_real_pension}}</strong>
+                    <td rowspan="4" style="border-right: 5px solid#28A745;width: 5%;vertical-align : middle;" class="text-center">
+                        <h6>{{$item->edad_real_pension}}</h6>
                     </td>
                 </tr>
                 <tr style="height: 2.5em;!important">
@@ -58,7 +57,7 @@
                         <h4>{{number_format((($item->dif85 - $pension_Acum_Sin_M40)-$item->invertido_coop_m40) / $item->costo_total, 2, '.', ',')}}</h4>
                     </td>
                     <td class="text-center" colspan="2">
-                        <strong>COTIZAS</strong>
+                        <strong>Cotizas en M40 Alta</strong>
                     </td>
                 </tr>
                 <tr style="height: 2.5em;!important">
@@ -68,12 +67,12 @@
                     <td  class="text-center" bgcolor="#EBEDEF"">
                         $<strong>{{number_format(($item->dif85 - $pension_Acum_Sin_M40)-$item->invertido_coop_m40, 2, '.', ',')}}</strong>
                     </td>
-                    <td>
-                        Años +
+                    <td colspan="2" rowspan="2" class="text-center" style="vertical-align : middle;">
+                        <h5>{{ $item->edad_detalle }}</h5>
                     </td>
-                    <td class="text-center"  >
+                    {{-- <td class="text-center"  >
                         <strong>{{ $ano }}</strong>
-                    </td>
+                    </td> --}}
                 </tr>
                 <tr>
                     <td colspan="3">
@@ -83,12 +82,12 @@
                     $ <strong>{{ number_format($item->costo_total, 2, '.', ',') }}</strong>
                     </td>
                     <td style="border-right: 5px solid#28A745;" class="text-center"><strong>Veces</strong></td>
-                    <td>
+                    {{-- <td>
                         Meses
                     </td>
                     <td class="text-center">
                         <strong>{{$mes}}</strong>
-                    </td>
+                    </td> --}}
                 </tr>
 
             </tbody>

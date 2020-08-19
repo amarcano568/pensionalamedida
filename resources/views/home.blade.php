@@ -70,7 +70,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div>
-                            <h4 class="card-title mb-0">Pensiones gestionadas</h4>
+                            <h4 class="card-title mb-0">Planes de Pensión</h4>
                             <div class="small text-muted">Ultimos 30 días</div>
                         </div>
                         {{-- <div class="btn-toolbar d-none d-md-block" role="toolbar"

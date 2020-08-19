@@ -278,9 +278,9 @@
                     @endif
                 @endforeach
                 </tr>
-                <tr>
+                <tr style="height: 1.5em!important;vertical-align : middle">
                     <td colspan="8">
-                        <h5 class="text-danger text-uppercase">Cifras resultantes para Pensión</h5>
+                        <h6 class="text-danger text-uppercase">Cifras resultantes para Pensión</h6>
                     </td>
                 </tr>
                 <tr style="height: 2.5em;">
@@ -337,9 +337,9 @@
                         @endif
                     @endforeach
                 </tr>
-                <tr>
+                <tr style="height: 1.5em!important;vertical-align : middle">
                     <td colspan="8">
-                        <h5 class="text-success text-uppercase">Ingresos</h5>
+                        <h6 class="text-success text-uppercase">Ingresos</h6>
                     </td>
                 </tr>
                 <tr style="height: 2.5em;">
@@ -384,9 +384,9 @@
                         @endif
                     @endforeach
                 </tr>
-                <tr>
+                <tr style="height: 1.5em!important;vertical-align : middle">
                     <td colspan="8">
-                        <h5 class="text-success text-uppercase">Indicadores</h5>
+                        <h6 class="text-success text-uppercase">Indicadores</h6>
                     </td>
                 </tr>
                 @php

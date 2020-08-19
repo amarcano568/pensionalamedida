@@ -1109,6 +1109,11 @@ $(document).on("ready", function() {
         calculaTotalCotizacionDias(row);
     });
 
+    $(document).on("focusout", ".montoCotizacion", function(event) {
+        row = $(this).attr("row");
+        calculaTotalCotizacionDias(row);
+    });
+
     $(document).on("click", "#addFila", function(event) {
         event.preventDefault();
         agregarFila();

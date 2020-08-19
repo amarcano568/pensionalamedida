@@ -38,7 +38,7 @@
             <div class="col-md-12">
                 <div class="nav-tabs-boxed">
                     <ul class="nav nav-tabs" role="tablist">
-                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#indice" role="tab"
+                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#indice" role="tab"
                             aria-controls="messages"><i class="fas fa-info"></i> INDICE</a></li>
                         <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#incicadores-tomar-decision" role="tab"
                                 aria-controls="home"><i class="fas fa-balance-scale-right"></i> A.- INDICADORES TOMAR DECISIONES</a></li>
@@ -56,11 +56,13 @@
                                     aria-controls="messages"><i class="fas fa-suitcase-rolling"></i> NIVEL DE VIDA <button id="btn-ipnc" class="btn btn-sm btn-info">INPC</button></a></li>
                         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#fechas_salarios" role="tab"
                             aria-controls="messages"><i class="far fa-calendar-alt"></i> FECHAS Y SALARIOS</a></li>
-                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#otros_datos_apoyo" role="tab"
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#otros_datos_apoyo" role="tab"
                             aria-controls="messages"><i class="fab fa-accessible-icon"></i> OTROS DATOS DE APOYO</a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#islr" role="tab"
+                            aria-controls="messages"><i class="fas fa-dollar-sign"></i> ISLR</a></li>
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane " id="incicadores-tomar-decision" role="tabpanel">
+                        <div class="tab-pane" id="incicadores-tomar-decision" role="tabpanel">
                             @include('pdf.indicador-toma-decision')
                         </div>
                         <div class="tab-pane" id="perdida-ganancia" role="tabpanel">
@@ -75,7 +77,7 @@
                         <div class="tab-pane" id="expectativas" role="tabpanel">
                             @include('pdf.expectativas')
                         </div>
-                        <div class="tab-pane " id="indice" role="tabpanel">
+                        <div class="tab-pane active" id="indice" role="tabpanel">
                             @include('pdf.indice')
                         </div>
                         <div class="tab-pane" id="definicion_ganancia_neta" role="tabpanel">
@@ -91,8 +93,11 @@
                         <div class="tab-pane" id="fechas_salarios" role="tabpanel">
                             @include('pdf.fechas-y-salarios')
                         </div>
-                        <div class="tab-pane active" id="otros_datos_apoyo" role="tabpanel">
+                        <div class="tab-pane" id="otros_datos_apoyo" role="tabpanel">
                             @include('pdf.otros-datos-apoyo')
+                        </div>
+                        <div class="tab-pane" id="islr" role="tabpanel">
+                            @include('pdf.islr')
                         </div>
                     </div>
                 </div>

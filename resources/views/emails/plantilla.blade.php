@@ -285,13 +285,13 @@
                                         <table border="0" cellspacing="0" cellpadding="0">
                                             <tr>
                                                 <td width="37" style="text-align: center; padding: 0 10px 0 10px;">
-                                                    <a href="https://www.facebook.com/pensionalamedida/">
+                                                    <a href="{{$empresa['facebook']}}">
                                                         <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/facebook.png"
                                                             width="37" height="37" alt="Facebook" border="0" />
                                                     </a>
                                                 </td>
                                                 <td width="37" style="text-align: center; padding: 0 10px 0 10px;">
-                                                    <a href="https://www.youtube.com/channel/UChYkW5PSNBXw-xTBxf9wJUQ">
+                                                    <a href="{{$empresa['youtube']}}">
                                                         <img src="https://image.flaticon.com/icons/png/512/48/48968.png"
                                                             width="37" height="37" alt="Twitter" border="0" />
                                                     </a>

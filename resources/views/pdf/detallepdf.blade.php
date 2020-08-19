@@ -224,12 +224,10 @@
         <div class="otraPagina">
             <h5 class="text-uppercase" style="margin-top: -1em;">3.- Radiografía integral comparativa de las  Seis Opciones de Pensión</h5>
             @include('pdf.radiografia')
-            {{-- <h6 class="text-danger">¡¡ NO HAY MEJOR INVERSIÓN QUE LA MODALIDAD 40 !!</h6> --}}
         </div>
         <div class="otraPagina">
             <h5 class="text-uppercase" style="margin-top: -1em;">4.- Ganancia Neta Acumulada que genera la Modalidad 40  (GNA)</h5>
             @include('pdf.definicion-ganancia-neta')
-            {{-- <h6 class="text-danger">¡¡ NO HAY MEJOR INVERSIÓN QUE LA MODALIDAD 40 !!</h6> --}}
         </div>
         <div class="otraPagina">
             <h5 class="text-uppercase" style="margin-top: -1em;">4.- Ganancia Neta Acumulada que genera la Modalidad 40  (GNA)</h5>
@@ -242,15 +240,20 @@
         </div>
         <div class="otraPagina">
             <h5 class="text-uppercase" style="margin-top: -1em;">6.- Impuesto Sobre la Renta a pagar</h5>
-            <br><br><br><br><br>
-            <div class="row">
-                <div class="col-sm-4"></div>
-                <div class="col-sm-4">
-                    <h3>Ceros Impuestos, aunque en Noviembre de cada año pagarás un poco de ISR (Impuesto Sobre la Renta), 
-                        ya que en ese mes recibes la Pensión 
-                        y el Aguinaldo (2 ingresos), por lo que la tasa de ISR aumenta, SOLO PARA ESE MES.</h3>
+            @if ($showIslr)
+                <br><br><br>
+                @include('pdf.islr')
+            @else
+                <br><br><br><br><br>
+                <div class="row">
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4">
+                        <h3>Ceros Impuestos, aunque en Noviembre de cada año pagarás un poco de ISR (Impuesto Sobre la Renta), 
+                            ya que en ese mes recibes la Pensión 
+                            y el Aguinaldo (2 ingresos), por lo que la tasa de ISR aumenta, SOLO PARA ESE MES.</h3>
+                    </div>
                 </div>
-            </div>
+            @endif
         </div>
         <div class="otraPagina">
             <h5 class="text-uppercase" style="margin-top: -1em;">7.- Otros datos de apoyo para tomar decisiones</h5>

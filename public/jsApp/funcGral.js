@@ -692,6 +692,29 @@ function cuantiaBasica(salarioPromedioVsm, edadJubilacion) {
         });
 }
 
+function edadMayorFunc(hoja) {
+    var arreglo = [];
+    edad = 0;
+    for (estategia = 1; estategia <= 6; estategia++) {
+        edadJubilacion = $("#" + hoja + "-edad-estrategia-" + estrategia).val();
+        mes = parseInt(edadJubilacion.substr(9, 2));
+        ano = parseInt(edadJubilacion.substr(0, 2));
+        edadPension1 = mes >= 6 ? ano + 1 : ano;
+        edadPension1 = edadPension1 > 65 ? 65 : edadPension1;
+
+        if (edadPension1 > edad) {
+            edad = edadPension1;
+            estra = estrategia;
+        }
+    }
+
+    arreglo.push({
+        edad: edad,
+        estrategia: estra
+    });
+    return JSON.parse(JSON.stringify(arreglo));
+}
+
 function calculaFormulasExcelHojas(
     semanasCotizadas,
     salarioDiarioPromedio,

@@ -28,6 +28,7 @@ use PDF;
 class PdfsController extends Controller
 {
     use funcGral;
+    protected $showIslr;
 
     public function generarPdfResumen(Request $request)
     {
@@ -138,15 +139,40 @@ class PdfsController extends Controller
 
         $pension_dif85_hoja1 = Pension_Final::where('uuid', $request->uuid)->where('hoja', 'hoja-1')->select('dif85')->first();
 
+        $showIslr = false;
         $pensiones->map(function ($pension)  use ($cliente, $pension_dif85_hoja1) {
             $hoja = $pension->hoja;
+
+            $pension->jubilacion = 0;
+            $pension->UMAs15 = 86.88 * 15 * 30.4;
+            //86.88 * 15 * 30.4
+
+            $base_impuesto = ($pension->pension_mensual + $pension->jubilacion) - $pension->UMAs15;
+            $pension->base_impuesto = $base_impuesto > 0 ? $base_impuesto : 0;
+
+            if ($base_impuesto > 0) {
+                $showIslr = true;
+            }
+
+            if ($pension->base_impuesto > 0) {
+                $islr = $this->buscarISLR($pension->base_impuesto);
+                $pension->islr_LI = $islr->limite_inferior;
+                $pension->islr_tasa = $islr->porc;
+                $pension->islr_cuota_fija = $islr->cuota_fija;
+            } else {
+                $islr = 0;
+                $pension->islr_LI = 0;
+                $pension->islr_tasa = 0;
+                $pension->islr_cuota_fija = 0;
+            }
+
 
             $rango_fecha = $this->rangos_fechas($pension->uuid, $hoja);
             $del = $rango_fecha['fecha_menor'];
             $al = $rango_fecha['fecha_mayor'];
             $pension->del = $rango_fecha['fecha_menor'];
             $pension->al = $rango_fecha['fecha_mayor'];
-            $pension->edad_detalle = $del->diff($al)->format('%y | %m');
+            $pension->edad_detalle = $del->diff($al)->format('%y Años, %m meses y %d días');
             $pension->edad_anos_meses = $al->diff($del)->format('%y año(s) más %m mes(es)');
 
             if ($hoja == 'hoja-1') {
@@ -212,10 +238,21 @@ class PdfsController extends Controller
             'nivel_vida' => $nivel_vida,
             /**Fechas y Salarios */
             'tmp_fecha_salario' => $tmp_fecha_salario,
-            'maxima_en_monto' => $maxima_en_monto
+            'maxima_en_monto' => $maxima_en_monto,
+            'showIslr' => $showIslr
         );
         //dd($data);
         return view('pdf.pdf-detalle', $data);
+    }
+
+    public function buscarISLR($base_impuesto)
+    {
+        $valor = $base_impuesto;
+
+        $islr =  DB::table('islr')
+            ->whereRaw('? >= limite_inferior and ? <= limite_superior', [$valor, $valor])->first();
+
+        return $islr;
     }
 
     public function rangos_fechas($uuid, $hoja)
@@ -617,8 +654,33 @@ class PdfsController extends Controller
 
         $pension_dif85_hoja1 = Pension_Final::where('uuid', $request->uuid)->where('hoja', 'hoja-1')->select('dif85')->first();
 
+        $this->showIslr = false;
         $pensiones->map(function ($pension)  use ($cliente, $pension_dif85_hoja1) {
             $hoja = $pension->hoja;
+
+            $pension->jubilacion = 0;
+            $pension->UMAs15 = 86.88 * 15 * 30.4;
+            //86.88 * 15 * 30.4
+
+            $base_impuesto = ($pension->pension_mensual + $pension->jubilacion) - $pension->UMAs15;
+            $pension->base_impuesto = $base_impuesto > 0 ? $base_impuesto : 0;
+
+            if ($pension->base_impuesto > 0) {
+                $this->showIslr = true;
+            }
+
+            if ($pension->base_impuesto > 0) {
+                $islr = $this->buscarISLR($pension->base_impuesto);
+                $pension->islr_LI = $islr->limite_inferior;
+                $pension->islr_tasa = $islr->porc;
+                $pension->islr_cuota_fija = $islr->cuota_fija;
+            } else {
+                $islr = 0;
+                $pension->islr_LI = 0;
+                $pension->islr_tasa = 0;
+                $pension->islr_cuota_fija = 0;
+            }
+
             $cotiza_clientes_fechas = Cotizaciones_Clientes::where('uuid', $pension->uuid)
                 ->where('estrategias', '6')
                 ->where('hoja', $hoja)
@@ -627,7 +689,7 @@ class PdfsController extends Controller
             $al = Carbon::parse($cotiza_clientes_fechas['al']);
             $pension->del = $cotiza_clientes_fechas['del'];
             $pension->al = $cotiza_clientes_fechas['al'];
-            $pension->edad_detalle = $del->diff($al)->format('%y | %m');
+            $pension->edad_detalle = $del->diff($al)->format('%y Años, %m meses y %d días');
             $pension->edad_anos_meses = $al->diff($del)->format('%y año(s) más %m mes(es)');
 
             if ($hoja == 'hoja-1') {
@@ -644,8 +706,6 @@ class PdfsController extends Controller
                 $pension->rendimiento_anual = ($pension->dif85 - $pension_dif85_hoja1->dif85) / $pension->dif85_text;
             }
         });
-
-        //dd($pensiones);
 
         foreach ($pensiones as $pension) {
             if ($pension->hoja == 'hoja-1') {
@@ -692,7 +752,8 @@ class PdfsController extends Controller
             /** Nivel de vida */
             'nivel_vida' => $nivel_vida,
             'tmp_fecha_salario' => $tmp_fecha_salario,
-            'maxima_en_monto' => $maxima_en_monto
+            'maxima_en_monto' => $maxima_en_monto,
+            'showIslr' => $this->showIslr
 
         );
 
@@ -706,7 +767,7 @@ class PdfsController extends Controller
             $ruta = '/pdf/' . $nameFilePdf;
         }
         $nro = rand(1, 1000);
-
+        // dd($data);
         \PDF::loadView('pdf.detallepdf', $data)->setPaper('letter', 'landscape')->save($rutaFile);
         return response()->json(array('success' => true, 'mensaje' => 'Pdf detalle generado exitosamente', 'data' => $ruta, 'email' => $cliente->email));
     }
@@ -775,8 +836,32 @@ class PdfsController extends Controller
 
         $pension_dif85_hoja1 = Pension_Final::where('uuid', $request->uuid)->where('hoja', 'hoja-1')->select('dif85')->first();
 
+        $showIslr = false;
         $pensiones->map(function ($pension)  use ($cliente, $pension_dif85_hoja1) {
             $hoja = $pension->hoja;
+
+            $pension->jubilacion = 0;
+            $pension->UMAs15 = 86.88 * 15 * 30.4;
+            //86.88 * 15 * 30.4
+
+            $base_impuesto = ($pension->pension_mensual + $pension->jubilacion) - $pension->UMAs15;
+            $pension->base_impuesto = $base_impuesto > 0 ? $base_impuesto : 0;
+
+            if ($pension->base_impuesto > 0) {
+                $this->showIslr = true;
+            }
+
+            if ($pension->base_impuesto > 0) {
+                $islr = $this->buscarISLR($pension->base_impuesto);
+                $pension->islr_LI = $islr->limite_inferior;
+                $pension->islr_tasa = $islr->porc;
+                $pension->islr_cuota_fija = $islr->cuota_fija;
+            } else {
+                $islr = 0;
+                $pension->islr_LI = 0;
+                $pension->islr_tasa = 0;
+                $pension->islr_cuota_fija = 0;
+            }
 
             $rango_fecha = $this->rangos_fechas($pension->uuid, $hoja);
             //dd($rango_fecha['fecha_menor']->format('Y-m-d'));
@@ -784,7 +869,7 @@ class PdfsController extends Controller
             $al = $rango_fecha['fecha_mayor'];
             $pension->del = $rango_fecha['fecha_menor'];
             $pension->al = $rango_fecha['fecha_mayor'];
-            $pension->edad_detalle = $del->diff($al)->format('%y | %m');
+            $pension->edad_detalle = $del->diff($al)->format('%y Años, %m meses y %d días');
             $pension->edad_anos_meses = $al->diff($del)->format('%y año(s) más %m mes(es)');
 
             if ($hoja == 'hoja-1') {
@@ -848,7 +933,8 @@ class PdfsController extends Controller
             /** Nivel de Vida */
             'nivel_vida' => $nivel_vida,
             'tmp_fecha_salario' => $tmp_fecha_salario,
-            'maxima_en_monto' => $maxima_en_monto
+            'maxima_en_monto' => $maxima_en_monto,
+            'showIslr' => $this->showIslr
         );
 
         $view = \View::make('pdf.pdf-detalle', $data);

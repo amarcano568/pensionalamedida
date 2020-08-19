@@ -738,7 +738,7 @@ data-keyboard="false">
         </div>
         <div class="modal-footer">
             <button type="button" class="btn-cerrar-modal btn btn-secondary btn-info"
-                data-dismiss="modal">Cerrar</button>
+            id="btn-cerrar-modal-hoja-5">Cerrar</button>
         </div>
     </div>
 </div>

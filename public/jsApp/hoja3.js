@@ -243,90 +243,6 @@ $(document).on("ready", function() {
             });
     }
 
-    // function changeChosenEdadPensionHoja3(estrategia) {
-    //     edadJubilacion = $("#hoja-3-edad-estrategia-1").val();
-    //     mes = parseInt(edadJubilacion.substr(9, 2));
-    //     ano = parseInt(edadJubilacion.substr(0, 2));
-    //     edadPension1 = mes >= 6 ? ano + 1 : ano;
-    //     edadPension1 = edadPension > 65 ? 65 : edadPension1;
-
-    //     edadJubilacion = $("#hoja-3-edad-estrategia-2").val();
-    //     mes = parseInt(edadJubilacion.substr(9, 2));
-    //     ano = parseInt(edadJubilacion.substr(0, 2));
-    //     edadPension2 = mes >= 6 ? ano + 1 : ano;
-    //     edadPension2 = edadPension > 65 ? 65 : edadPension2;
-
-    //     edadJubilacion = $("#hoja-3-edad-estrategia-3").val();
-    //     mes = parseInt(edadJubilacion.substr(9, 2));
-    //     ano = parseInt(edadJubilacion.substr(0, 2));
-    //     edadPension3 = mes >= 6 ? ano + 1 : ano;
-    //     edadPension3 = edadPension > 65 ? 65 : edadPension3;
-
-    //     edadJubilacion = $("#hoja-3-edad-estrategia-4").val();
-    //     mes = parseInt(edadJubilacion.substr(9, 2));
-    //     ano = parseInt(edadJubilacion.substr(0, 2));
-    //     edadPension4 = mes >= 6 ? ano + 1 : ano;
-    //     edadPension4 = edadPension > 65 ? 65 : edadPension4;
-
-    //     edadJubilacion = $("#hoja-3-edad-estrategia-5").val();
-    //     mes = parseInt(edadJubilacion.substr(9, 2));
-    //     ano = parseInt(edadJubilacion.substr(0, 2));
-    //     edadPension5 = mes >= 6 ? ano + 1 : ano;
-    //     edadPension5 = edadPension > 65 ? 65 : edadPension5;
-
-    //     edadJubilacion = $("#hoja-3-edad-estrategia-6").val();
-    //     mes = parseInt(edadJubilacion.substr(9, 2));
-    //     ano = parseInt(edadJubilacion.substr(0, 2));
-    //     edadPension6 = mes >= 6 ? ano + 1 : ano;
-    //     edadPension6 = edadPension > 65 ? 65 : edadPension2;
-
-    //     $("#hoja-3-edad-calculo-pension").empty();
-
-    //     $("#hoja-3-edad-calculo-pension").append(
-    //         '<option value="' +
-    //             edadPension1 +
-    //             '">' +
-    //             edadPension1 +
-    //             " años - Empresa actual</option>"
-    //     );
-    //     $("#hoja-3-edad-calculo-pension").append(
-    //         '<option value="' +
-    //             edadPension2 +
-    //             '">' +
-    //             edadPension2 +
-    //             " años - Cooperativa</option>"
-    //     );
-    //     $("#hoja-3-edad-calculo-pension").append(
-    //         '<option value="' +
-    //             edadPension3 +
-    //             '">' +
-    //             edadPension3 +
-    //             " años - M40 Retroactivo</option>"
-    //     );
-    //     $("#hoja-3-edad-calculo-pension").append(
-    //         '<option value="' +
-    //             edadPension4 +
-    //             '">' +
-    //             edadPension4 +
-    //             " años - M40 Ya Pagada</option>"
-    //     );
-    //     $("#hoja-3-edad-calculo-pension").append(
-    //         '<option value="' +
-    //             edadPension5 +
-    //             '">' +
-    //             edadPension5 +
-    //             " años - M40 Barata</option>"
-    //     );
-    //     $("#hoja-3-edad-calculo-pension").append(
-    //         '<option value="' +
-    //             edadPension6 +
-    //             '">' +
-    //             edadPension6 +
-    //             " años - M40 Salario Alto</option>"
-    //     );
-    //     $("#hoja-3-edad-calculo-pension").trigger("chosen:updated");
-    // }
-
     $(".hoja-3-fecha-desde-estrategia").focusout(function(ev) {
         estrategia = $(this).attr("estrategia");
         desde = $("#hoja-3-fecha-nacimiento").val();
@@ -640,8 +556,82 @@ $(document).on("ready", function() {
         }
     });
 
-    $("#modal-hoja-3-estrategias").on("hide.bs.modal", function() {
-        totaldiasHojas3(0);
+    // $("#modal-hoja-3-estrategias").on("hide.bs.modal", function() {
+    //     totaldiasHojas3(0);
+    // });
+
+    $("#btn-cerrar-modal-hoja-3").click(function(event) {
+        estrategiaEdad = $("#hoja-3-edad-calculo-pension").val();
+        edadJubilacion = $("#hoja-3-edad-estrategia-" + estrategiaEdad).val();
+        mes = parseInt(edadJubilacion.substr(9, 2));
+        ano = parseInt(edadJubilacion.substr(0, 2));
+        edadPension = mes >= 6 ? ano + 1 : ano;
+        edadPension = edadPension > 65 ? 65 : edadPension;
+
+        if (parseInt(edadPension) >= 60) {
+            edadMayor = edadMayorFunc("hoja-3");
+            console.log(edadPension + " <=> " + edadMayor[0].edad);
+            if (edadPension < edadMayor[0].edad) {
+                alertify
+                    .confirm(
+                        '<h5 class="text-primary">Edad incorrecta para calculo de pensión.</h5>',
+                        '<h5 class="text-secondary">Se recomienda usar la edad de <strong>' +
+                            edadMayor[0].edad +
+                            "</strong> años generada en la estrategia " +
+                            edadMayor[0].estrategia +
+                            "</h5>",
+                        function() {
+                            return;
+                        },
+                        function() {
+                            totaldiasHojas3(0);
+                            $("#modal-hoja-3-estrategias").modal("hide");
+                        }
+                    )
+                    .set("labels", {
+                        ok:
+                            '<i class="fas fa-check"></i> Seleccionar edad sugerida',
+                        cancel: "Cerrar con edad seleccionada"
+                    })
+                    .set({
+                        transition: "zoom"
+                    })
+                    .set({
+                        modal: true,
+                        closableByDimmer: false
+                    });
+            } else {
+                totaldiasHojas3(0);
+                $("#modal-hoja-3-estrategias").modal("hide");
+            }
+        } else {
+            alertify
+                .confirm(
+                    '<h5 class="text-primary"><i class="fas fa-calculator"></i> Calcular Pensión.</h5>',
+                    '<h5 class="text-secondary">La edad de calculo de la pensión es menor a 60 años, si cierra la ventana de estrategias sin corregir la edad no realizara un nuevo calculo de pensión mensual. </h5>',
+                    function() {
+                        return;
+                    },
+                    function() {
+                        // En caso de Cancelar
+                        alertify.error(
+                            '<i class="fa-2x fas fa-ban"></i><br>No se realizo el nuevo calculo de Pensión.'
+                        );
+                        $("#modal-hoja-3-estrategias").modal("hide");
+                    }
+                )
+                .set("labels", {
+                    ok: '<i class="fas fa-check"></i> Corregir edad',
+                    cancel: "Cerrar sin corregir edad"
+                })
+                .set({
+                    transition: "zoom"
+                })
+                .set({
+                    modal: true,
+                    closableByDimmer: false
+                });
+        }
     });
 
     function totaldiasHojas3(changeMonto) {
