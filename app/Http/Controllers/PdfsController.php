@@ -288,13 +288,13 @@ class PdfsController extends Controller
 
         $edadReal = trim(substr($edad_real, 0, 2)) . "." . trim($mes);
         $edad = (int)round((float)$edadReal, 0);
-        //echo $edad . '<br>';
+        //  echo $edad . '<br>';
         if ($edad == 60) {
-            $porc = '80%';
+            $porc = '75%';
         } else if ($edad == 61) {
-            $porc = '85%';
+            $porc = '80%';
         } else if ($edad == 62) {
-            $porc = '90%';
+            $porc = '85%';
         } else if ($edad == 63) {
             $porc = '90%';
         } else if ($edad == 64) {

@@ -36,6 +36,35 @@ $(document).on("ready", function() {
 
     NewOrEdit = $("#NewOrEdit").val();
 
+    $(
+        "#rangoPensionDe, #rangoPensionA, #rangoInversionDe, #rangoInversionA"
+    ).keyup(function() {
+        id = $(this)[0].id;
+        console.log(id);
+        monto = $.number($(this).val(), 2, ".", ",");
+        labelsMontoExpectativas(id, monto);
+    });
+
+    function labelsMontoExpectativas(id, monto) {
+        switch (id) {
+            case "rangoPensionDe":
+                mensaje = "De";
+                break;
+            case "rangoPensionA":
+                mensaje = "A";
+                break;
+            case "rangoInversionDe":
+                mensaje = "De";
+                break;
+            case "rangoInversionA":
+                mensaje = "A";
+                break;
+        }
+        label =
+            "<span class='text-info'>" + mensaje + " ($ " + monto + ")</span>";
+        $("#label" + id).html(label);
+    }
+
     if (NewOrEdit == "Edit") {
         ponerReadOnly("nombreCliente");
         uuid = $("#uuid-pension").val();
@@ -58,7 +87,7 @@ $(document).on("ready", function() {
             dataType: "json"
         })
             .done(function(response) {
-                console.log(response);
+                //console.log(response);
                 response.data.forEach(element => {
                     if (element.hoja == "hoja-1") {
                         $("#edadCalculoHoja1Global").val(
@@ -105,7 +134,7 @@ $(document).on("ready", function() {
             })
             .fail(function(statusCode, errorThrown) {
                 $.unblockUI();
-                console.log(errorThrown);
+                //console.log(errorThrown);
                 ajaxError(statusCode, errorThrown);
             });
     }
@@ -118,7 +147,7 @@ $(document).on("ready", function() {
             dataType: "json"
         })
             .done(function(response) {
-                console.log(response);
+                //console.log(response);
                 $("#table-cotizaciones tbody").empty();
                 $("#body-cotizaciones").html(response.data);
                 sumaDiasCotizados();
@@ -147,7 +176,7 @@ $(document).on("ready", function() {
             })
             .fail(function(statusCode, errorThrown) {
                 $.unblockUI();
-                console.log(errorThrown);
+                //console.log(errorThrown);
                 ajaxError(statusCode, errorThrown);
             });
     }
@@ -160,7 +189,7 @@ $(document).on("ready", function() {
             dataType: "json"
         })
             .done(function(response) {
-                console.log(response);
+                //console.log(response);
                 cargaCotizacionConEstrategiasEdit(response, id);
                 i = 0;
                 fila = $("#table-promedio-salarial-" + id + " tr:last").attr(
@@ -198,7 +227,7 @@ $(document).on("ready", function() {
             })
             .fail(function(statusCode, errorThrown) {
                 $.unblockUI();
-                console.log(errorThrown);
+                //console.log(errorThrown);
                 ajaxError(statusCode, errorThrown);
             });
     }
@@ -274,7 +303,7 @@ $(document).on("ready", function() {
             dataType: "json"
         })
             .done(function(response) {
-                console.log(response);
+                //console.log(response);
                 $("#hoja-2-edad-calculo-pension").empty();
                 $("#hoja-3-edad-calculo-pension").empty();
                 $("#hoja-4-edad-calculo-pension").empty();
@@ -350,7 +379,7 @@ $(document).on("ready", function() {
             })
             .fail(function(statusCode, errorThrown) {
                 $.unblockUI();
-                console.log(errorThrown);
+                //console.log(errorThrown);
                 ajaxError(statusCode, errorThrown);
             });
     }
@@ -396,7 +425,7 @@ $(document).on("ready", function() {
     }
 
     function cargaCotizacionConEstrategiasEdit(response, id) {
-        //console.log(response);
+        ////console.log(response);
         response.data.forEach(element => {
             switch (parseInt(element.estrategias)) {
                 case 6: // M40 -ALTO 2
@@ -521,7 +550,7 @@ $(document).on("ready", function() {
             dataType: "json"
         })
             .done(function(response) {
-                console.log(response);
+                //console.log(response);
                 $("#fechaNacimiento").val(response.data.fechaNacimiento);
                 $("#fechaPlan").val(response.data.fechaPlan);
                 $("#edadDe").val(response.data.edadDe);
@@ -545,6 +574,19 @@ $(document).on("ready", function() {
                 $("#rangoPensionA").val(response.data.rangoPensionA);
                 $("#rangoInversionDe").val(response.data.rangoInversionDe);
                 $("#rangoInversionA").val(response.data.rangoInversionA);
+
+                monto = $.number(response.data.rangoPensionDe, 2, ".", ",");
+                labelsMontoExpectativas("rangoPensionDe", monto);
+
+                monto = $.number(response.data.rangoPensionA, 2, ".", ",");
+                labelsMontoExpectativas("rangoPensionA", monto);
+
+                monto = $.number(response.data.rangoInversionDe, 2, ".", ",");
+                labelsMontoExpectativas("rangoInversionDe", monto);
+
+                monto = $.number(response.data.rangoInversionA, 2, ".", ",");
+                labelsMontoExpectativas("rangoInversionA", monto);
+
                 $("#statusRetiro").prop(
                     "checked",
                     response.data.vigente == "S" ? true : false
@@ -555,7 +597,7 @@ $(document).on("ready", function() {
             })
             .fail(function(statusCode, errorThrown) {
                 $.unblockUI();
-                console.log(errorThrown);
+                //console.log(errorThrown);
                 ajaxError(statusCode, errorThrown);
             });
     }
@@ -568,7 +610,7 @@ $(document).on("ready", function() {
             dataType: "json"
         })
             .done(function(response) {
-                console.log(response);
+                //console.log(response);
                 muestraCliente(
                     response.data.id,
                     response.data.nombre,
@@ -584,7 +626,7 @@ $(document).on("ready", function() {
             })
             .fail(function(statusCode, errorThrown) {
                 $.unblockUI();
-                console.log(errorThrown);
+                //console.log(errorThrown);
                 ajaxError(statusCode, errorThrown);
             });
     }
@@ -606,7 +648,7 @@ $(document).on("ready", function() {
                                 "<p><strong>&nbsp; No se encontro resultados  &nbsp;</strong></p>"
                             ].join("\n"),
                             suggestion: function(data) {
-                                //console.log(data)
+                                ////console.log(data)
                                 return (
                                     "<p><strong><span class='text-secondary'>" +
                                     data.id +
@@ -632,7 +674,7 @@ $(document).on("ready", function() {
                                 },
                                 dataType: "json",
                                 success: function(json) {
-                                    //console.log(json)
+                                    ////console.log(json)
                                     return processAsync(json);
                                 }
                             });
@@ -640,7 +682,7 @@ $(document).on("ready", function() {
                     }
                 )
                 .on("typeahead:selected", function(evt, item) {
-                    //console.log(evt);
+                    ////console.log(evt);
                     $("#formPaso1")
                         .parsley()
                         .reset();
@@ -734,7 +776,7 @@ $(document).on("ready", function() {
             dataType: "json"
         })
             .done(function(response) {
-                //console.log(response);
+                ////console.log(response);
                 $("#divEdadCliente").html(
                     '<i class="text-primary cil-birthday-cake"></i> ' +
                         response.data
@@ -742,7 +784,7 @@ $(document).on("ready", function() {
             })
             .fail(function(statusCode, errorThrown) {
                 $.unblockUI();
-                console.log(errorThrown);
+                //console.log(errorThrown);
                 ajaxError(statusCode, errorThrown);
             });
     }
@@ -758,7 +800,7 @@ $(document).on("ready", function() {
             dataType: "json"
         })
             .done(function(response) {
-                console.log(response);
+                //console.log(response);
                 $("#divEdadParaPensionarte").html(
                     '<i class="text-success cil-beach-access"></i> ' +
                         response.data
@@ -766,7 +808,7 @@ $(document).on("ready", function() {
             })
             .fail(function(statusCode, errorThrown) {
                 $.unblockUI();
-                console.log(errorThrown);
+                //console.log(errorThrown);
                 ajaxError(statusCode, errorThrown);
             });
     });
@@ -936,7 +978,7 @@ $(document).on("ready", function() {
                         }
                     })
                         .done(function(data) {
-                            console.log(data);
+                            //console.log(data);
                             if (data.success === true) {
                                 alertify.success(data.mensaje);
                             } else {
@@ -948,7 +990,7 @@ $(document).on("ready", function() {
                         })
                         .fail(function(statusCode, errorThrown) {
                             $.unblockUI();
-                            console.log(errorThrown);
+                            //console.log(errorThrown);
                             ajaxError(statusCode, errorThrown);
                         });
                 },
@@ -999,8 +1041,8 @@ $(document).on("ready", function() {
             row = $(this).attr("row");
             fechaDesde = $("#fechaDesde" + row).val();
             fechaHasta = $("#fechaHasta" + row).val();
-            console.log(fechaDesde);
-            console.log(fechaHasta);
+            //console.log(fechaDesde);
+            //console.log(fechaHasta);
             $.ajax({
                 url: "/calcular-dias-entre-fechas",
                 type: "get",
@@ -1008,7 +1050,7 @@ $(document).on("ready", function() {
                 dataType: "json"
             })
                 .done(function(response) {
-                    //console.log(response);
+                    ////console.log(response);
                     $("#dias" + row).val(response.data);
                     sumaDiasCotizados();
                     //$("#monto" + row).focus();
@@ -1016,7 +1058,7 @@ $(document).on("ready", function() {
                 })
                 .fail(function(statusCode, errorThrown) {
                     $.unblockUI();
-                    console.log(errorThrown);
+                    //console.log(errorThrown);
                     ajaxError(statusCode, errorThrown);
                 });
         }
@@ -1101,7 +1143,7 @@ $(document).on("ready", function() {
             parseInt($("#dias" + row).val()) *
             parseInt($("#monto" + row).val());
         $("#totalMontoCotizacion" + row).val(total);
-        console.log(total);
+        //console.log(total);
     }
 
     $(document).on("change", ".montoCotizacion", function(event) {
@@ -1248,7 +1290,7 @@ $(document).on("ready", function() {
             maxFiles: 1,
             removedfile: function(file) {
                 var name = file.name;
-                // console.log(name);
+                // //console.log(name);
                 $.ajax({
                     type: "post",
                     url: "delete-logo",
@@ -1256,10 +1298,10 @@ $(document).on("ready", function() {
                         filename: name
                     },
                     success: function(data) {
-                        console.log("File has been successfully removed!!");
+                        //console.log("File has been successfully removed!!");
                     },
                     error: function(e) {
-                        console.log(e);
+                        //console.log(e);
                     }
                 });
                 var fileRef;
@@ -1269,7 +1311,7 @@ $(document).on("ready", function() {
             },
             params: {},
             success: function(file, response) {
-                console.log(response);
+                //console.log(response);
                 $("#table-cotizaciones tbody").empty();
                 $("#body-cotizaciones").html(response.data);
                 sumaDiasCotizados();
@@ -1323,6 +1365,21 @@ $(document).on("ready", function() {
             return false;
         }
 
+        validaPlanes = planesValid();
+        console.log(validaPlanes);
+        if (validaPlanes[0].success === false) {
+            alertify.alert(
+                '<span class="text-danger"><i class="fas fa-exclamation-triangle"></i> Planes de pensión no culminados</span>',
+                '<strong class="text-danger">No se puede guardar este plan de pensión debido a las siguientes observaciones:</strong></br>' +
+                    validaPlanes[0].message,
+                function() {
+                    // alertify.success("Ok");
+                }
+            );
+
+            return false;
+        }
+
         alertify
             .confirm(
                 '<h5 class="text-primary"><i class="cil-save"></i> PLANES DE GESTION.</h5>',
@@ -1340,7 +1397,7 @@ $(document).on("ready", function() {
                     var cotizacionesHoja6 = cotizacionesHojaToJson(6);
                     var resumenPensiones = PensionResumida();
                     var estrategias = estrategiasSave();
-                    console.log(resumenPensiones);
+                    //console.log(resumenPensiones);
 
                     var form = $("#formPaso1");
                     var formData =
@@ -1379,7 +1436,7 @@ $(document).on("ready", function() {
                         }
                     })
                         .done(function(data) {
-                            console.log(data);
+                            //console.log(data);
                             if (data.success === true) {
                                 alertify.success(data.mensaje);
                             } else {
@@ -1393,7 +1450,7 @@ $(document).on("ready", function() {
                         })
                         .fail(function(statusCode, errorThrown) {
                             $.unblockUI();
-                            console.log(errorThrown);
+                            //console.log(errorThrown);
                             ajaxError(statusCode, errorThrown);
                         });
                 },
@@ -1417,6 +1474,29 @@ $(document).on("ready", function() {
             });
     });
 
+    function planesValid() {
+        var arreglo = [];
+        mensaje = "";
+        success = true;
+        for (hoja = 2; hoja <= 6; hoja++) {
+            pension = $("#hoja-" + hoja + "-pension-mensual-con-m40").val();
+            pensionMensual = parseFloat(convertNumberPure(pension));
+            console.log(pensionMensual);
+            mensaje += isNaN(pensionMensual)
+                ? '<i class="text-danger fas fa-times"></i> Plan de pensión en la hoja ' +
+                  hoja +
+                  " no calculado.</br>"
+                : "";
+        }
+
+        arreglo.push({
+            success: mensaje == "" ? true : false,
+            message: mensaje
+        });
+
+        return arreglo;
+    }
+
     function cotizacionesHojaToJson(hoja) {
         var arreglo = [];
         var i = 1;
@@ -1426,7 +1506,7 @@ $(document).on("ready", function() {
             var celdas = $(filas[i]).find("td");
 
             concepto = celdas[0].innerText;
-            // console.log(concepto);
+            // //console.log(concepto);
 
             if ((i >= 1) & (i <= 4)) {
                 indice = 2;
@@ -1452,7 +1532,7 @@ $(document).on("ready", function() {
             cadMonto = celdas[++indice].innerHTML;
             monto = cadMonto.substr(cadMonto.indexOf('value="') + 7);
             monto = monto.substr(0, monto.length - 8);
-            console.log(monto);
+            //console.log(monto);
 
             arreglo.push({
                 hoja: "hoja-" + hoja,

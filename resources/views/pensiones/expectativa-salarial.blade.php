@@ -150,7 +150,7 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="rangoPensionDe">De</label>
+                                        <label for="rangoPensionDe" id="labelrangoPensionDe">De ($ 0)</label>
                                         <input style="text-align:right;" class="form-control" id="rangoPensionDe"
                                             name="rangoPensionDe" type="number" placeholder="$ Pesos" requireddata-parsley-type="number" required data-parsley-type="number"
                                             data-parsley-required-message="<i class='fas fa-exclamation-triangle'></i> El rango de la pensión es requerido." data-parsley-trigger="keyup"  min="1">
@@ -158,7 +158,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="rangoPensionA">A</label>
+                                        <label for="rangoPensionA" id="labelrangoPensionA">A ($ 0)</label>
                                         <input style="text-align:right;" class="form-control" id="rangoPensionA"
                                             name="rangoPensionA" type="number" placeholder="$ Pesos" required data-parsley-gte="#rangoPensionDe" data-parsley-gte-message="<i class='fas fa-exclamation-triangle'></i> Este rango debe ser igual o mayor al rango anterior." data-parsley-required-message="<i class='fas fa-exclamation-triangle'></i> El rango de la pensión es requerido." data-parsley-trigger="keyup"  >
                                     </div>
@@ -179,14 +179,14 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="rangoInversionDe">De</label>
+                                        <label for="rangoInversionDe" id="labelrangoInversionDe">De ($ 0)</label>
                                         <input style="text-align:right;" class="form-control" id="rangoInversionDe"
                                             name="rangoInversionDe" type="number" placeholder="$ Pesos" required data-parsley-required-message="<i class='fas fa-exclamation-triangle'></i> El rango de inversión es requerido." data-parsley-trigger="keyup"  min="1">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="rangoInversionA">A</label>
+                                        <label for="rangoInversionA" id="labelrangoInversionA">A ($ 0)</label>
                                         <input style="text-align:right;" class="form-control" id="rangoInversionA"
                                             name="rangoInversionA" type="number" placeholder="$ Pesos" required data-parsley-gte="#rangoInversionDe" data-parsley-gte-message="<i class='fas fa-exclamation-triangle'></i> Este rango de inversión ser igual o mayor al rango anterior." data-parsley-required-message="<i class='fas fa-exclamation-triangle'></i> El rango de inversión es requerido." data-parsley-trigger="keyup"  >
                                     </div>
