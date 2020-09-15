@@ -13,13 +13,14 @@ $(document).on("ready", function() {
     $("#btn-formulas").click(function(event) {
         event.preventDefault();
 
-        semanasCotizadas = $("#totalSemanas").val();
+        semanasCotizadas = parseInt($("#totalSemanas").val());
+        semanasFaltanP60 = parseInt($("#hoja-1-semanas-faltan-p60").val());
         salarioDiarioPromedio = $("#promedio-salarios").text();
         edadJubilacion = $("#hoja-1-chosen-edad-pension").val();
         salarioDiarioPromedio = convertNumberPure(salarioDiarioPromedio);
         //salarioDiarioPromedio = salarioDiarioPromedio.replace(".", ",");
         calculaFormulasExcel(
-            semanasCotizadas,
+            semanasCotizadas + semanasFaltanP60,
             salarioDiarioPromedio,
             edadJubilacion,
             true

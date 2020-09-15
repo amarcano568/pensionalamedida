@@ -49,50 +49,6 @@ $(document).on("ready", function() {
         calculaPensionNewEdad();
     });
 
-    function calculaPensionNewEdad() {
-        newEdad = $("#hoja-1-chosen-edad-pension").val();
-        $("#hoja-1-edad-retiro").val(newEdad + " Años");
-
-        semanasCotizadas = $("#totalSemanas").val();
-        salarioDiarioPromedio = $("#promedio-salarios").text();
-        salarioDiarioPromedio = convertNumberPure(salarioDiarioPromedio);
-        // alert(newEdad);
-        calculaFormulasExcel(
-            semanasCotizadas,
-            salarioDiarioPromedio,
-            newEdad,
-            false
-        );
-
-        setTimeout(function() {
-            calcularTiempoIndividual(newEdad);
-
-            $("#hoja-1-pension-mesual-sin-m40").val(
-                $("#pension-mensual-fin").text()
-            );
-
-            $("#hoja-1-pension-anual-sin-m40").val(
-                $("#pension-anual-fin").text()
-            );
-
-            aguinaldo = convertNumberPure(
-                $("#hoja-1-pension-mesual-sin-m40").val()
-            );
-            aguinaldo = aguinaldo * 0.85;
-            $("#hoja-1-aguinaldo").val($.number(aguinaldo, 2, ".", ","));
-
-            totalAnual = convertNumberPure($("#pension-anual-fin").text());
-            totalAnual = totalAnual + aguinaldo;
-            $("#hoja-1-total-anual").val($.number(totalAnual, 2, ".", ","));
-
-            difEdad = 85 - parseFloat(edadA);
-            $("#dif-edad-85").text(difEdad);
-            $("#hoja-1-dif-85").val(
-                $.number(totalAnual * difEdad, 2, ".", ",")
-            );
-        }, 1500);
-    }
-
     $("#hoja-1-chosen-edad-pension").change(function(ev) {
         ev.preventDefault();
         calculaPensionNewEdad();

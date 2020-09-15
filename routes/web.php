@@ -95,6 +95,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/buscar-cotizaciones-hoja', 'GestionarPensionesController@buscarCotizacionesHoja');
 	Route::get('/buscar-data-adicional', 'GestionarPensionesController@buscarDataAdicional');
 	Route::get('/buscar-estrategias-save-on-bd', 'GestionarPensionesController@buscarEstrategiasSaveOnBd');
+	Route::get('/calcular-semanas-faltantes-60', 'GestionarPensionesController@calcularSemanasFaltantes60');
 
 
 

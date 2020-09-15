@@ -48,6 +48,7 @@ class Pensiones extends Model
             $espectativas->edadA              = $request->edadA;
             $espectativas->semanasCotizadas   = $request->semanasCotizadas;
             $espectativas->semanasDescontadas = $request->semanasDescontadas;
+            $espectativas->semanasFaltantes60 = $request->semanasFaltan60;
             $espectativas->esposa             = $request->esposa;
             $espectativas->padres             = $request->padres;
             $espectativas->hijos              = $request->hijos;

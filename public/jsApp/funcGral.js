@@ -437,8 +437,7 @@ function calculaFormulasExcel(
     }
     promedioSalario = $("#promedio-salarios").text();
     edadDe = $("#hoja-1-chosen-edad-pension").val();
-    //alert(edadDe);
-    totalSemanas = $("#totalSemanas").val();
+    totalSemanas = semanasCotizadas;
 
     if (muestraModal) {
         $("#modal-formulas").modal("show");
@@ -1698,7 +1697,10 @@ function calculaFechasHojaEdit(desde, hasta, elementoDom) {
 }
 
 function calculaBtnHoja1(modal) {
-    semanasCotizadas = $("#totalSemanas").val();
+    semanasCotizadas =
+        parseInt($("#totalSemanas").val()) +
+        parseInt($("#hoja-1-semanas-faltan-p60").val());
+
     salarioDiarioPromedio = $("#promedio-salarios").text();
 
     salarioDiarioPromedio = convertNumberPure(salarioDiarioPromedio);
@@ -1736,7 +1738,6 @@ function calculaBtnHoja1(modal) {
 
     $("#hoja-1-chosen-edad-pension").trigger("chosen:updated");
     edadJubilacion = $("#hoja-1-chosen-edad-pension").val();
-    //alert(edadJubilacion);
     calculaFormulasExcel(
         semanasCotizadas,
         salarioDiarioPromedio,
@@ -1765,7 +1766,10 @@ function calculaBtnHoja1(modal) {
 
         calcularTiempoIndividual(edadJubilacion);
 
-        $("#hoja-1-semanas-cotizadas-2").val($("#totalSemanas").val());
+        $("#hoja-1-semanas-cotizadas-2").val(
+            parseInt($("#totalSemanas").val()) +
+                parseInt($("#hoja-1-semanas-faltan-p60").val())
+        );
 
         $("#hoja-1-salario-promedio").val($("#promedio-salarios").text());
         // edadA = $("#edadA").val();
@@ -1946,4 +1950,45 @@ function agregarTableCambiosalarioHoja1(
         "</a></td></tr>";
 
     $("#table-cambiar-salario tbody").append(htmlTags);
+}
+
+function calculaPensionNewEdad() {
+    newEdad = $("#hoja-1-chosen-edad-pension").val();
+    $("#hoja-1-edad-retiro").val(newEdad + " Años");
+
+    semanasCotizadas = parseInt($("#totalSemanas").val());
+    semanasFaltantes60 = parseInt($("#hoja-1-semanas-faltan-p60").val());
+    salarioDiarioPromedio = $("#promedio-salarios").text();
+    salarioDiarioPromedio = convertNumberPure(salarioDiarioPromedio);
+    // alert(newEdad);
+    calculaFormulasExcel(
+        semanasCotizadas + semanasFaltantes60,
+        salarioDiarioPromedio,
+        newEdad,
+        false
+    );
+
+    setTimeout(function() {
+        calcularTiempoIndividual(newEdad);
+
+        $("#hoja-1-pension-mesual-sin-m40").val(
+            $("#pension-mensual-fin").text()
+        );
+
+        $("#hoja-1-pension-anual-sin-m40").val($("#pension-anual-fin").text());
+
+        aguinaldo = convertNumberPure(
+            $("#hoja-1-pension-mesual-sin-m40").val()
+        );
+        aguinaldo = aguinaldo * 0.85;
+        $("#hoja-1-aguinaldo").val($.number(aguinaldo, 2, ".", ","));
+
+        totalAnual = convertNumberPure($("#pension-anual-fin").text());
+        totalAnual = totalAnual + aguinaldo;
+        $("#hoja-1-total-anual").val($.number(totalAnual, 2, ".", ","));
+
+        difEdad = 85 - parseFloat(edadA);
+        $("#dif-edad-85").text(difEdad);
+        $("#hoja-1-dif-85").val($.number(totalAnual * difEdad, 2, ".", ","));
+    }, 1500);
 }

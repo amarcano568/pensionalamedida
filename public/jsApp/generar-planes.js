@@ -36,6 +36,10 @@ $(document).on("ready", function() {
 
     NewOrEdit = $("#NewOrEdit").val();
 
+    if (NewOrEdit == "New") {
+        $("#hoja-1-switch-calcula-semanas-60").prop("checked", false);
+    }
+
     $(
         "#rangoPensionDe, #rangoPensionA, #rangoInversionDe, #rangoInversionA"
     ).keyup(function() {
@@ -561,6 +565,36 @@ $(document).on("ready", function() {
                     response.data.semanasCotizadas -
                         response.data.semanasDescontadas
                 );
+
+                $("#hoja-1-semanas-faltan-p60").val(
+                    response.data.semanasFaltantes60
+                );
+
+                if (response.data.semanasFaltantes60 > 0) {
+                    totalSemanas = parseInt($("#totalSemanas").val());
+                    totSem =
+                        totalSemanas +
+                        parseInt(response.data.semanasFaltantes60);
+                    $("#TotalSemanasHoja1").text(
+                        "Total semanas: " +
+                            totalSemanas +
+                            " + " +
+                            response.data.semanasFaltantes60 +
+                            " = " +
+                            totSem
+                    );
+                    $("#hoja-1-semanas-cotizadas-2").val(totSem);
+                    $("#hoja-1-switch-calcula-semanas-60").prop(
+                        "checked",
+                        true
+                    );
+                } else {
+                    $("#hoja-1-switch-calcula-semanas-60").prop(
+                        "checked",
+                        false
+                    );
+                }
+
                 $("#esposa")
                     .val(response.data.esposa)
                     .trigger("chosen:updated");
@@ -1387,6 +1421,7 @@ $(document).on("ready", function() {
                 function() {
                     var NewOrEdit = $("#NewOrEdit").val();
                     var idCliente = $("#idCliente").val();
+                    var semanasFaltan60 = $("#hoja-1-semanas-faltan-p60").val();
                     var uuid = $("#uuid-pension").val();
 
                     var cotizacionesHoja1 = cotizacionesToJson();
@@ -1409,6 +1444,8 @@ $(document).on("ready", function() {
                         uuid +
                         "&idCliente=" +
                         idCliente +
+                        "&semanasFaltan60=" +
+                        semanasFaltan60 +
                         "&cotizacionesHoja1=" +
                         cotizacionesHoja1 +
                         "&cotizacionesHoja2=" +
@@ -1940,4 +1977,55 @@ $(document).on("ready", function() {
 
         return JSON.stringify(arreglo);
     }
+
+    $(document).on("change", "#hoja-1-switch-calcula-semanas-60", function(
+        event
+    ) {
+        event.preventDefault();
+        if ($("#hoja-1-switch-calcula-semanas-60").prop("checked")) {
+            fecNac = $("#fechaNacimiento").val();
+            fecPlan = $("#fechaPlan").val();
+            $.ajax({
+                url: "/calcular-semanas-faltantes-60",
+                type: "get",
+                data: { fecNac: fecNac, fecPlan: fecPlan },
+                dataType: "json"
+            })
+                .done(function(response) {
+                    if (response.success) {
+                        alertify.success(response.mensaje);
+                        $("#hoja-1-semanas-faltan-p60").val(response.data);
+                        totalSemanas = parseInt($("#totalSemanas").val());
+                        totSem = totalSemanas + parseInt(response.data);
+                        $("#TotalSemanasHoja1").text(
+                            "Total semanas: " +
+                                totalSemanas +
+                                " + " +
+                                response.data +
+                                " = " +
+                                totSem
+                        );
+                        $("#hoja-1-semanas-cotizadas-2").val(totSem);
+                        calculaPensionNewEdad();
+                    } else {
+                        alertify.error(response.mensaje);
+                        $("#hoja-1-switch-calcula-semanas-60").prop(
+                            "checked",
+                            false
+                        );
+                    }
+                })
+                .fail(function(statusCode, errorThrown) {
+                    $.unblockUI();
+                    //console.log(errorThrown);
+                    ajaxError(statusCode, errorThrown);
+                });
+        } else {
+            $("#hoja-1-semanas-faltan-p60").val(0);
+            totalSemanas = parseInt($("#totalSemanas").val());
+            $("#TotalSemanasHoja1").text("Total semanas: " + totalSemanas);
+            $("#hoja-1-semanas-cotizadas-2").val(totalSemanas);
+            calculaPensionNewEdad();
+        }
+    });
 });

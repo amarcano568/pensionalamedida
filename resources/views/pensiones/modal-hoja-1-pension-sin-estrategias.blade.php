@@ -115,9 +115,23 @@
                                     </tr>
                                     <tr>
                                         <td class="table-columna1-cuantia">Semanas cotizadas</td>
-                                        <td class="table-columna2-cuantia"><input id="hoja-1-semanas-cotizadas-2"
-                                                name="hoja-1-semanas-cotizadas-2" type="text" class="form-control input-xs"
-                                                readonly></td>
+                                        <td class="table-columna2-cuantia">
+                                            <input id="hoja-1-semanas-cotizadas-2" name="hoja-1-semanas-cotizadas-2" type="text" class="form-control input-xs" readonly>
+                                            <span style="font-size: 12px" id='TotalSemanasHoja1'>Total semanas: </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-columna1-cuantia">Sems que faltan p/60</td>
+                                        <td class="table-columna2-cuantia">
+                                            <div class="row">
+                                                <div class="col-sm-4 float-right">
+                                                    <label class="c-switch c-switch-label c-switch-pill c-switch-opposite-primary">
+                                                        <input id="hoja-1-switch-calcula-semanas-60" name="hoja-1-switch-calcula-semanas-60" class="c-switch-input" type="checkbox" checked=""><span class="c-switch-slider" data-checked="✓" data-unchecked="✕"></span>
+                                                    </label>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <input id="hoja-1-semanas-faltan-p60" name="hoja-1-semanas-faltan-p60" type="text" class="form-control input-xs" value="0" readonly> </div>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="table-columna1-cuantia">Salario promedio</td>

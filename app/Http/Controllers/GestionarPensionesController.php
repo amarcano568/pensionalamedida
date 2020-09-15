@@ -279,7 +279,7 @@ class GestionarPensionesController extends Controller
 
     public function guardarPlanPension(Request $request)
     {
-        //dd($request->estrategias);
+        //dd($request);
         try {
             DB::beginTransaction();
             $save = Pensiones::Guardar($request);
@@ -378,5 +378,16 @@ class GestionarPensionesController extends Controller
     {
         $estrategias = Estrategias::where('uuid', $request->uuid)->get();
         return response()->json(array('success' => true, 'mensaje' => 'Estrategias obtenidas', 'data' => $estrategias));
+    }
+
+    public function calcularSemanasFaltantes60(Request $request)
+    {
+        $edad =  $this->Edad($request->fecNac);
+        if ($edad >= 60) {
+            return response()->json(array('success' => false, 'mensaje' => 'El cliente tiene <strong>' . $edad . '</strong> años por lo tanto no hay semanas pendiente por calcular.', 'data' => $edad));
+        }
+
+        $detalleFecha = $this->TiempoIndividualFaltanteRetiro($request->fecNac, 60, $request->fecPlan);
+        return response()->json(array('success' => true, 'mensaje' => $detalleFecha['semanas'] . ' semanas agregadas para el calculo de pensión de la hoja1,', 'data' => $detalleFecha['semanas']));
     }
 }
