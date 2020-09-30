@@ -124,6 +124,7 @@
 @include('pensiones.modal-hoja-5-estrategias')
 @include('pensiones.modal-hoja-6-estrategias')
 @include('pensiones.modal-cambiar-salario')
+@include('pensiones.modal-descontar-semanas')
 @endsection
 @section('javascript')
 <script src="{{ asset('jsApp/generar-planes.js') }}"></script>

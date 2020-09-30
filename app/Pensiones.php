@@ -10,6 +10,7 @@ use \App\Expectativas_Salariales;
 use \App\Cotizaciones_Clientes;
 use \App\Pension_Final;
 use \App\Estrategias;
+use \App\Semanas_Descontadas;
 
 class Pensiones extends Model
 {
@@ -206,7 +207,18 @@ class Pensiones extends Model
                 $row->save();
             }
 
-
+            Semanas_Descontadas::where('uuid', $uuid)->get()->each->delete();
+            $semanasDescontadas = json_decode($request->semanasDescontadasArray);
+            //dd($semanasDescontadas);
+            foreach ($semanasDescontadas as $items) {
+                $semanas             = new Semanas_Descontadas;
+                $semanas->uuid        = $uuid;
+                $semanas->tipo        = $items->tipo;
+                $semanas->fecha_desde = $items->desde == '' ? null : $items->desde;
+                $semanas->fecha_hasta = $items->hasta == '' ? null : $items->hasta;
+                $semanas->semanas     = $items->semanas;
+                $semanas->save();
+            }
 
             DB::commit();
             return true;

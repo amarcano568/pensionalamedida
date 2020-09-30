@@ -79,11 +79,14 @@
                                 </div>
                             </div>
                             <div class="form-group row" style="margin-top: -1em;">
-                                <label class="col-md-6 col-form-label text-danger" for="select1">Descontadas (-)</label>
+                                <label class="col-md-6 col-form-label text-danger" for="select1">
+                                    Descontadas (-) 
+                                    <a href="" id="descontar-semanas"><i class="text-info far fa-edit"></i></a>
+                                </label>
                                 <div class="col-md-6">
                                     <input style="text-align:right;" class="form-control" id="semanasDescontadas"
                                         name="semanasDescontadas" type="number" data-parsley-trigger="keyup"
-                                        data-parsley-type="number" value="0"  min="0" max="9999" >
+                                        data-parsley-type="number" value="0"  min="0" max="9999" readonly>
                                 </div>
                             </div>
                             <hr style="margin-top: -0.75em;">

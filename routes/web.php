@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+
+use Carbon\Carbon;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -96,7 +100,12 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/buscar-data-adicional', 'GestionarPensionesController@buscarDataAdicional');
 	Route::get('/buscar-estrategias-save-on-bd', 'GestionarPensionesController@buscarEstrategiasSaveOnBd');
 	Route::get('/calcular-semanas-faltantes-60', 'GestionarPensionesController@calcularSemanasFaltantes60');
-
+	Route::get('/buscar-semanas-descontadas', 'GestionarPensionesController@buscarSemanasDescontadas');
+	Route::get('/calcula-semanas-descuentos-semanas', function (Request $request) {
+		$desde = Carbon::parse($request->desde);
+		$hasta = Carbon::parse($request->hasta);
+		return $desde->diffInWeeks($hasta);
+	});
 
 
 	/**Generar Pdfs */
@@ -112,4 +121,13 @@ Route::group(['middleware' => 'auth'], function () {
 
 	/** Inicio tablero */
 	Route::get('/buscar-data-tablero', 'PerfilController@buscarDataTablero');
+
+	/** Semanas descontadas */
+	Route::group(['middleware' => ['permission:gestionar_pension']], function () {
+		Route::get('gestion-semanas-descontadas', 'GestionarSemanasDescontadas@gestionSemanasDescontadas')->name('gestion-semanas-descontadas.gestionSemanasDescontadas');
+	});
+	Route::get('/listar-semanas-descontadas', 'GestionarSemanasDescontadas@listarSemanasDescontadas');
+	Route::get('/bloquear-tipos-semanas', 'GestionarSemanasDescontadas@bloquearTiposSemanas');
+	Route::get('/editar-semanas-descontadas', 'GestionarSemanasDescontadas@editarSemanasDescontadas');
+	Route::post('actualizar-tipos-semanas', 'GestionarSemanasDescontadas@actualizaTiposSemanas');
 });

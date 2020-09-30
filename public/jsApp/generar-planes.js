@@ -8,6 +8,7 @@ $(document).on("ready", function() {
     var PasosWizart = 1;
     var datosModificadosSinGuardar = false;
     sw = true;
+    var objetoDataTables_Semanas = "";
 
     server = pathnameArray.length > 0 ? pathnameArray[0] + "/public/" : "";
 
@@ -628,12 +629,114 @@ $(document).on("ready", function() {
                 $("#fechaBaja").val(response.data.fechaRetiro);
                 $("#comentarios").val(response.data.comentarios);
                 $("#otrosComentarios").val(response.data.otrosComentarios);
+
+                semanasDescontadas(uuid);
             })
             .fail(function(statusCode, errorThrown) {
                 $.unblockUI();
                 //console.log(errorThrown);
                 ajaxError(statusCode, errorThrown);
             });
+    }
+
+    function semanasDescontadas(uuid) {
+        destroy_existing_data_table("#table-semanas-descontadas");
+        $.fn.dataTable.ext.pager.numbers_length = 4;
+        objetoDataTables_Semanas = $("#table-semanas-descontadas").DataTable({
+            order: [[1, "asc"]],
+            dom: "",
+            processing: true,
+            serverSide: true,
+            responsive: true,
+            paginationType: "input",
+            sPaginationType: "full_numbers",
+            language: {
+                searchPlaceholder: "Buscar",
+                sProcessing: "Procesando...",
+                sLengthMenu: "Mostrar _MENU_ Tipo",
+                sZeroRecords: "",
+                sEmptyTable: "",
+                sInfo: "Del _START_ al _END_ de un total de _TOTAL_ Tipos",
+                sInfoEmpty: "De 0 al 0 de un total de 0 Tipos",
+                sInfoFiltered: "(filtrado de un total de _MAX_ Tipos)",
+                sInfoPostFix: "",
+                sSearch: "",
+                sUrl: "",
+                sInfoThousands: ",",
+                sLoadingRecords: "",
+                oPaginate: {
+                    sFirst: '<i class="fas fa-angle-double-left"></i>',
+                    sLast: '<i class="fas fa-angle-double-right"></i>',
+                    sNext: '<i class="fas fa-angle-right"></i>',
+                    sPrevious: '<i class="fas fa-angle-left"></i>'
+                },
+                oAria: {
+                    sSortAscending:
+                        ": Activar para ordenar la columna de manera ascendente",
+                    sSortDescending:
+                        ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+            lengthMenu: [
+                [5, 10, 20, 25, 50, -1],
+                [5, 10, 20, 25, 50, "Todos"]
+            ],
+            iDisplayLength: -1,
+            ajax: {
+                method: "get",
+                url: "/buscar-semanas-descontadas",
+                data: { uuid: uuid }
+            },
+            initComplete: function(settings, json) {},
+            columns: [
+                {
+                    data: "tipo"
+                },
+                {
+                    data: "nombre"
+                },
+                {
+                    data: "fecha_desde"
+                },
+                {
+                    data: "fecha_hasta"
+                },
+                {
+                    data: "semanas"
+                },
+                {
+                    data: "action"
+                }
+            ],
+            columnDefs: [
+                {
+                    width: "5%",
+                    targets: 0
+                },
+                {
+                    width: "20%",
+                    targets: 1,
+                    orderable: false
+                },
+                {
+                    width: "20%",
+                    targets: 2
+                },
+                {
+                    width: "10%",
+                    targets: 3
+                },
+                {
+                    width: "10%",
+                    targets: 4
+                },
+                {
+                    width: "10%",
+                    targets: 5,
+                    className: "dt-body-center"
+                }
+            ]
+        });
     }
 
     function buscarCliente(idCliente) {
@@ -1432,8 +1535,8 @@ $(document).on("ready", function() {
                     var cotizacionesHoja6 = cotizacionesHojaToJson(6);
                     var resumenPensiones = PensionResumida();
                     var estrategias = estrategiasSave();
-                    //console.log(resumenPensiones);
-
+                    var semanasDescontadas = semanasDescontadasSave();
+                    console.log(semanasDescontadas);
                     var form = $("#formPaso1");
                     var formData =
                         form.serialize() +
@@ -1461,7 +1564,9 @@ $(document).on("ready", function() {
                         "&resumenPensiones=" +
                         resumenPensiones +
                         "&estrategias=" +
-                        estrategias;
+                        estrategias +
+                        "&semanasDescontadasArray=" +
+                        semanasDescontadas;
                     var route = form.attr("action");
                     $.ajax({
                         url: route,
@@ -1510,6 +1615,45 @@ $(document).on("ready", function() {
                 closableByDimmer: false
             });
     });
+
+    function semanasDescontadasSave() {
+        var arreglo = [];
+        $("#body-semanas-descontadas tr").each(function() {
+            var tipo = $(this)
+                .find("td")
+                .eq(0)
+                .html();
+            if (tipo != "") {
+                tipo = tipo.split("|");
+                var nombre = $(this)
+                    .find("td")
+                    .eq(1)
+                    .html();
+                var desde = $(this)
+                    .find("td")
+                    .eq(2)
+                    .html();
+                var hasta = $(this)
+                    .find("td")
+                    .eq(3)
+                    .html();
+                var semanas = $(this)
+                    .find("td")
+                    .eq(4)
+                    .html();
+                //undefined
+                arreglo.push({
+                    tipo: tipo[1],
+                    nombre: nombre,
+                    desde: desde,
+                    hasta: hasta,
+                    semanas: semanas
+                });
+            }
+        });
+
+        return JSON.stringify(arreglo);
+    }
 
     function planesValid() {
         var arreglo = [];
@@ -2028,4 +2172,203 @@ $(document).on("ready", function() {
             calculaPensionNewEdad();
         }
     });
+
+    $("#descontar-semanas").on("click", function(e) {
+        e.preventDefault();
+        $("#modal-descontar-semanas").modal("show");
+    });
+
+    $("#btn-agregar-tipo-semanas-desc").on("click", function(e) {
+        e.preventDefault();
+        var tipo = $("#tipo-desc-semana").val();
+        $("#input-semanas-descontadas").html("");
+        tipo = tipo.split("|");
+        if (tipo[0] == "fechas") {
+            dom =
+                '<div class="row">' +
+                '<div class="col-sm-3">' +
+                '<label for="">Desde</label>' +
+                '<input type="date" id="desde-descontar-semanas" class="form-control">' +
+                "</div>" +
+                '<div class="col-sm-3">' +
+                '<label for="">Hasta</label>' +
+                '<input type="date" id="hasta-descontar-semanas" class="form-control">' +
+                "</div>" +
+                '<div class="col-sm-2">' +
+                '<label for="">Semanas</label>' +
+                '<input id="semanas-descontar" name="semanas-descontar" type="number" min="1" class="form-control" readonly>' +
+                "</div>" +
+                '<div class="col-sm-1">' +
+                '<label for=""> </label>' +
+                ' <button id="btn-save-semanas-descontadas-fechas" class="btn btn-success"><i class="cil-save"></i></button>' +
+                "</div>" +
+                "</div>";
+            $("#input-semanas-descontadas").html(dom);
+            $("#desde-descontar-semanas").focus();
+        } else {
+            dom =
+                '<div class="row">' +
+                '<div class="col-sm-3">' +
+                '<label for="">Semanas</label>' +
+                '<input id="semanas-descontar" name="semanas-descontar" type="number" min="1" class="form-control" required>' +
+                "</div>" +
+                '<div class="col-sm-1">' +
+                '<label for=""> </label>' +
+                '<button id="btn-save-semanas-descontadas-numeros" class="btn btn-success"><i class="cil-save"></i></button>' +
+                "</div>" +
+                "</div>";
+            $("#input-semanas-descontadas").html(dom);
+            $("#semanas-descontar").focus();
+        }
+    });
+
+    $(document).on("click", ".borrar-semanas-descontadas", function(event) {
+        event.preventDefault();
+        semanas = $(this).attr("semanas");
+        $(this)
+            .closest("tr")
+            .remove();
+        tot = parseInt($("#semanasDescontadas").val()) - parseInt(semanas);
+        $("#semanasDescontadas").val(tot);
+
+        totSem =
+            parseInt($("#semanasCotizadas").val()) -
+            parseInt($("#semanasDescontadas").val());
+        $("#totalSemanas").val(totSem);
+    });
+
+    $(document).on(
+        "change",
+        "#desde-descontar-semanas,#hasta-descontar-semanas",
+        function(event) {
+            event.preventDefault();
+            desde = $("#desde-descontar-semanas").val();
+            hasta = $("#hasta-descontar-semanas").val();
+            $.ajax({
+                url: "/calcula-semanas-descuentos-semanas",
+                type: "get",
+                data: { desde: desde, hasta: hasta },
+                dataType: "json"
+            })
+                .done(function(response) {
+                    $("#semanas-descontar").val(response);
+                })
+                .fail(function(statusCode, errorThrown) {
+                    $.unblockUI();
+                    ajaxError(statusCode, errorThrown);
+                });
+        }
+    );
+
+    $(document).on("click", "#btn-save-semanas-descontadas-fechas", function(
+        event
+    ) {
+        desde = $("#desde-descontar-semanas").val();
+        hasta = $("#hasta-descontar-semanas").val();
+        semanas = $("#semanas-descontar").val();
+        uuid = $("#uuid-pension").val();
+        tipo = $("#tipo-desc-semana").val();
+        //tipo = tipo.split("|");
+        nombre = $("#tipo-desc-semana option:selected").text();
+        if (desde == "") {
+            alertify.error(
+                "<i class='fa-2x far fa-calendar-alt'></i><br>Debe ingresar la fecha desde"
+            );
+            $("#desde-descontar-semanas").focus();
+            return false;
+        }
+
+        if (hasta == "") {
+            alertify.error(
+                "<i class='fa-2x far fa-calendar-alt'></i><br>Debe ingresar la fecha hasta"
+            );
+            $("#hasta-descontar-semanas").focus();
+            return false;
+        }
+
+        agregarFilaSemanasDescontadas(
+            desde,
+            hasta,
+            semanas,
+            uuid,
+            tipo,
+            nombre
+        );
+    });
+
+    $(document).on("click", "#btn-save-semanas-descontadas-numeros", function(
+        event
+    ) {
+        fila = $(
+            $("#table-semanas-descontadas").find("tbody > tr")[1]
+        ).children("td")[0];
+        console.log(fila);
+
+        desde = "";
+        hasta = "";
+        semanas = $("#semanas-descontar").val();
+        uuid = $("#uuid-pension").val();
+        tipo = $("#tipo-desc-semana").val();
+        nombre = $("#tipo-desc-semana option:selected").text();
+        // tipo = tipo.split("|");
+        agregarFilaSemanasDescontadas(
+            desde,
+            hasta,
+            semanas,
+            uuid,
+            tipo,
+            nombre,
+            fila
+        );
+    });
+
+    function agregarFilaSemanasDescontadas(
+        desde,
+        hasta,
+        semanas,
+        uuid,
+        tipo,
+        nombre,
+        fila
+    ) {
+        if (fila === undefined) {
+            //  objetoDataTables_Semanas.ajax.reload();
+        }
+
+        var htmlTags =
+            "<tr>" +
+            "<td>" +
+            tipo +
+            "</td>" +
+            "<td>" +
+            nombre +
+            "</td>" +
+            "<td>" +
+            desde +
+            "</td>" +
+            "<td>" +
+            hasta +
+            "</td>" +
+            "<td>" +
+            semanas +
+            "</td>" +
+            '<td><div class="icono-action text-center">' +
+            '<a semanas="' +
+            semanas +
+            '" class="borrar-semanas-descontadas" data-trigger="hover" data-html="true" data-toggle="popover" data-placement="top" data-content="Eliminar semanas descontadas (<strong>' +
+            nombre +
+            '</strong>)." href="" data-accion="eliminar-semanas" >' +
+            '   <i class="text-danger far fa-trash-alt"></i>' +
+            "</a>" +
+            "</div></td>";
+
+        $("#table-semanas-descontadas tbody").append(htmlTags);
+        tot = parseInt($("#semanasDescontadas").val()) + parseInt(semanas);
+        $("#semanasDescontadas").val(tot);
+
+        totSem =
+            parseInt($("#semanasCotizadas").val()) -
+            parseInt($("#semanasDescontadas").val());
+        $("#totalSemanas").val(totSem);
+    }
 });

@@ -10,6 +10,8 @@ use \App\Expectativas_Salariales;
 use \App\Formulas_tabla;
 use \App\Cotizaciones;
 use \App\Cotizaciones_Clientes;
+use \App\Tipos_Semanas_Descontadas;
+use \App\Semanas_Descontadas;
 use \App\Estrategias;
 use Carbon\Carbon;
 use \DataTables;
@@ -149,12 +151,13 @@ class GestionarPensionesController extends Controller
         } else {
             $newEdit = 'Edit';
         }
-        // dd($newEdit);
+        $tiposDescuentoSemanas = Tipos_Semanas_Descontadas::where('status', 1)->get();
         $data = array(
             'tablas' => $tablas,
             'NewPlan' => $newEdit,
             'uuid' => $request->idPension == '0' ? '' : $request->idPension,
-            'idCliente' => $request->idPension == '0' ? '' : $request->idCliente
+            'idCliente' => $request->idPension == '0' ? '' : $request->idCliente,
+            'tiposDescuentoSemanas' => $tiposDescuentoSemanas
         );
 
         return view('pensiones.generar-planes', $data);
@@ -303,7 +306,28 @@ class GestionarPensionesController extends Controller
             ->join('clientes', 'pensiones.idCliente', 'clientes.id')
             ->where('expectativas_salariales.uuid', $request->uuid)
             ->first();
+
         return response()->json(array('success' => true, 'mensaje' => 'Expectativa salarial obtenida para el cliente', 'data' => $expectativas));
+    }
+
+    public function buscarSemanasDescontadas(Request $request)
+    {
+
+        $semanasDescontadas = Semanas_Descontadas::join('tipos_semanas_descontadas', 'semanas_descontadas.tipo', 'tipos_semanas_descontadas.id')
+            ->where('uuid', $request->uuid)->get();
+        //dd($semanasDescontadas);
+        return Datatables::of($semanasDescontadas)
+            ->addIndexColumn()
+            ->addColumn('action', function ($row) {
+                $btn = '<div class="icono-action text-center">
+                        <a semanas="' . $row->semanas . '" class="borrar-semanas-descontadas" data-trigger="hover" data-html="true" data-toggle="popover" data-placement="top" data-content="Eliminar semanas descontadas (<strong>' . $row->nombre . '</strong>)." href="" data-accion="eliminar-semanas" idSemana="' . $row->id . '">
+                            <i class="text-danger far fa-trash-alt"></i>
+                        </a>
+                    </div>';
+                return $btn;
+            })
+            ->rawColumns(['action'])
+            ->make(true);
     }
 
     public function buscarCotizacionesHoja1(Request $request)

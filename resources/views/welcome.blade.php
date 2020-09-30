@@ -178,6 +178,15 @@
                                 </a>
                             </li>
                         @endcan
+                        @can('mantenimiento_semanas_descontadas')
+                            <li class="c-sidebar-nav-item">
+                                <a class="c-sidebar-nav-link" href="{{URL::to('/gestion-semanas-descontadas')}}">
+                                    <svg class="c-sidebar-nav-icon">
+                                        <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-calendar') }}"></use>
+                                    </svg> Tipos semanas descontadas
+                                </a>
+                            </li>
+                        @endcan
                         @can('mantenimiento_empresa')
                             <li class="c-sidebar-nav-item">
                                 <a class="c-sidebar-nav-link" href="{{URL::to('/informacion-empresa')}}">

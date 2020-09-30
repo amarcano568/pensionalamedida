@@ -70,8 +70,8 @@ $(document).on("ready", function() {
             dataType: "json"
         })
             .done(function(response) {
-                ////console.log(response);
-                $("#hoja-2-anos-retiro").val(response.data.ano);
+                console.log(response);
+                $("#hoja-2-anos-retiro").val(response.data.anos);
                 $("#hoja-2-meses-retiro").val(response.data.meses);
                 $("#hoja-2-semanas-retiro").val(response.data.semanas);
                 $("#hoja-2-dias-retiro").val(response.data.dias);
