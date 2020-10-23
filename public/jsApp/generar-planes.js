@@ -572,7 +572,7 @@ $(document).on("ready", function() {
                 );
 
                 if (response.data.semanasFaltantes60 > 0) {
-                    totalSemanas = parseInt($("#totalSemanas").val());
+                    totalSemanas = parseInt($("#semanasCotizadas").val());
                     totSem =
                         totalSemanas +
                         parseInt(response.data.semanasFaltantes60);
@@ -2139,7 +2139,7 @@ $(document).on("ready", function() {
                     if (response.success) {
                         alertify.success(response.mensaje);
                         $("#hoja-1-semanas-faltan-p60").val(response.data);
-                        totalSemanas = parseInt($("#totalSemanas").val());
+                        totalSemanas = parseInt($("#semanasCotizadas").val());
                         totSem = totalSemanas + parseInt(response.data);
                         $("#TotalSemanasHoja1").text(
                             "Total semanas: " +
@@ -2166,7 +2166,7 @@ $(document).on("ready", function() {
                 });
         } else {
             $("#hoja-1-semanas-faltan-p60").val(0);
-            totalSemanas = parseInt($("#totalSemanas").val());
+            totalSemanas = parseInt($("#semanasCotizadas").val());
             $("#TotalSemanasHoja1").text("Total semanas: " + totalSemanas);
             $("#hoja-1-semanas-cotizadas-2").val(totalSemanas);
             calculaPensionNewEdad();

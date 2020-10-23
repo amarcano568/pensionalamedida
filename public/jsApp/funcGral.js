@@ -1698,9 +1698,9 @@ function calculaFechasHojaEdit(desde, hasta, elementoDom) {
 
 function calculaBtnHoja1(modal) {
     semanasCotizadas =
-        parseInt($("#totalSemanas").val()) +
+        parseInt($("#semanasCotizadas").val()) +
         parseInt($("#hoja-1-semanas-faltan-p60").val());
-
+    //alert(semanasCotizadas);
     salarioDiarioPromedio = $("#promedio-salarios").text();
 
     salarioDiarioPromedio = convertNumberPure(salarioDiarioPromedio);
@@ -1767,7 +1767,7 @@ function calculaBtnHoja1(modal) {
         calcularTiempoIndividual(edadJubilacion);
 
         $("#hoja-1-semanas-cotizadas-2").val(
-            parseInt($("#totalSemanas").val()) +
+            parseInt($("#semanasCotizadas").val()) +
                 parseInt($("#hoja-1-semanas-faltan-p60").val())
         );
 
@@ -1956,7 +1956,7 @@ function calculaPensionNewEdad() {
     newEdad = $("#hoja-1-chosen-edad-pension").val();
     $("#hoja-1-edad-retiro").val(newEdad + " Años");
 
-    semanasCotizadas = parseInt($("#totalSemanas").val());
+    semanasCotizadas = parseInt($("#semanasCotizadas").val());
     semanasFaltantes60 = parseInt($("#hoja-1-semanas-faltan-p60").val());
     salarioDiarioPromedio = $("#promedio-salarios").text();
     salarioDiarioPromedio = convertNumberPure(salarioDiarioPromedio);

@@ -379,7 +379,7 @@
                             <td bgcolor="#DFF0D8" style="vertical-align : middle" class="text-center"></td>
                         @else
                             <td bgcolor="#DFF0D8" style="vertical-align : middle" class="text-center">
-                                <strong>{{number_format($item->dif85, 2, '.', ',')}}</strong>
+                                <strong>hola</strong>
                             </td>
                         @endif
                     @endforeach

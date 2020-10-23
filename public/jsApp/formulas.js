@@ -13,7 +13,7 @@ $(document).on("ready", function() {
     $("#btn-formulas").click(function(event) {
         event.preventDefault();
 
-        semanasCotizadas = parseInt($("#totalSemanas").val());
+        semanasCotizadas = parseInt($("#semanasCotizadas").val());
         semanasFaltanP60 = parseInt($("#hoja-1-semanas-faltan-p60").val());
         salarioDiarioPromedio = $("#promedio-salarios").text();
         edadJubilacion = $("#hoja-1-chosen-edad-pension").val();
