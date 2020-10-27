@@ -144,7 +144,7 @@
                                             Edad <a href="" id="btn-hoja-1-new-edad-pension"><i class="text-primary fas fa-plus-circle"></i></a>
                                         </td>
                                         <td class="table-columna2-cuantia">
-                                            <input data-parsley-range="[60, 65]" type="text" class="form-control input-xs" id="hoja-1-new-edad-pension" name="hoja-1-new-edad-pension" style="display: none;">
+                                            <input data-parsley-range="[60, 99]" type="text" class="form-control input-xs" id="hoja-1-new-edad-pension" name="hoja-1-new-edad-pension" style="display: none;">
                                             <a href="" class="float-right"><i id="ok-hoja-1-new-edad-pension" style="display: none" class="fas fa-check"></i>
                                             </a>
                                             <select class="chosen-select" name="hoja-1-chosen-edad-pension" id="hoja-1-chosen-edad-pension"></select>

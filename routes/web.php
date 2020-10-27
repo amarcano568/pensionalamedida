@@ -106,6 +106,8 @@ Route::group(['middleware' => 'auth'], function () {
 		$hasta = Carbon::parse($request->hasta);
 		return $desde->diffInWeeks($hasta);
 	});
+	Route::get('/calcular-dif85-hoja1', 'GestionarPensionesController@calcularDif85Hoja1');
+	
 
 
 	/**Generar Pdfs */
