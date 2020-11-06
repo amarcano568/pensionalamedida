@@ -1171,35 +1171,31 @@ $(document).on("ready", function() {
         }
     });
 
-    $(document).on(
-        "focusout",
-        ".fechaCotizacionDesde, .fechaCotizacionHasta",
-        function(event) {
-            row = $(this).attr("row");
-            fechaDesde = $("#fechaDesde" + row).val();
-            fechaHasta = $("#fechaHasta" + row).val();
-            //console.log(fechaDesde);
-            //console.log(fechaHasta);
-            $.ajax({
-                url: "/calcular-dias-entre-fechas",
-                type: "get",
-                data: { fechaDesde: fechaDesde, fechaHasta: fechaHasta },
-                dataType: "json"
+    $(document).on("focusout", ".fechaCotizacionHasta", function(event) {
+        row = $(this).attr("row");
+        fechaDesde = $("#fechaDesde" + row).val();
+        fechaHasta = $("#fechaHasta" + row).val();
+        //console.log(fechaDesde);
+        //console.log(fechaHasta);
+        $.ajax({
+            url: "/calcular-dias-entre-fechas",
+            type: "get",
+            data: { fechaDesde: fechaDesde, fechaHasta: fechaHasta },
+            dataType: "json"
+        })
+            .done(function(response) {
+                ////console.log(response);
+                $("#dias" + row).val(response.data);
+                sumaDiasCotizados();
+                //$("#monto" + row).focus();
+                calculaTotalCotizacionDias(row);
             })
-                .done(function(response) {
-                    ////console.log(response);
-                    $("#dias" + row).val(response.data);
-                    sumaDiasCotizados();
-                    //$("#monto" + row).focus();
-                    calculaTotalCotizacionDias(row);
-                })
-                .fail(function(statusCode, errorThrown) {
-                    $.unblockUI();
-                    //console.log(errorThrown);
-                    ajaxError(statusCode, errorThrown);
-                });
-        }
-    );
+            .fail(function(statusCode, errorThrown) {
+                $.unblockUI();
+                //console.log(errorThrown);
+                ajaxError(statusCode, errorThrown);
+            });
+    });
 
     function sumaDiasCotizados() {
         filas = $("#table-cotizaciones >tbody >tr").length + 1;
@@ -1291,6 +1287,7 @@ $(document).on("ready", function() {
     $(document).on("focusout", ".montoCotizacion", function(event) {
         row = $(this).attr("row");
         calculaTotalCotizacionDias(row);
+        sumaDiasCotizados();
     });
 
     $(document).on("click", "#addFila", function(event) {

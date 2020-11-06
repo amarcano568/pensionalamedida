@@ -122,8 +122,11 @@ class PdfsController extends Controller
         $cliente = Clientes::find($request->idCliente);
         $cliente->edad = Carbon::parse($cliente->fechaNacimiento)->age;
         $pensiones = Pension_Final::where('uuid', $request->uuid)->get();
+        
         $expectativas = Expectativas_Salariales::where('uuid', $request->uuid)
             ->first();
+          
+        //$pensiones->semanasFaltantes60 = $expectativas->semanasFaltantes60;
 
         $fecNac = Carbon::parse($cliente->fechaNacimiento);
         $fechaFutura = $fecNac->addYear($expectativas->edadA);
@@ -177,8 +180,10 @@ class PdfsController extends Controller
 
             if ($hoja == 'hoja-1') {
                 $expectativas = Expectativas_Salariales::where('uuid', $pension->uuid)->first();
-                $pension->edad_real_pension = $expectativas->edadDe . ' Años, 0 meses';
+                //$pension->edad_real_pension = $expectativas->edadDe . ' Años, 0 meses';
+                $pension->edad_real_pension = $pension->edad_jubilacion . ' Años, 0 meses';
                 $pension->porc_pension = $this->porcentaje_pension($pension->edad_real_pension, $hoja);
+                $pension->semanas_cotizadas = $pension->semanas_cotizadas+$expectativas->semanasFaltantes60;
             } else {
                 $cotiza_clientes_fechas = Cotizaciones_Clientes::where('uuid', $pension->uuid)
                     ->where('estrategias', '6')
@@ -239,7 +244,7 @@ class PdfsController extends Controller
             /**Fechas y Salarios */
             'tmp_fecha_salario' => $tmp_fecha_salario,
             'maxima_en_monto' => $maxima_en_monto,
-            'showIslr' => $showIslr
+            'showIslr' => $showIslr,
         );
         //dd($data);
         return view('pdf.pdf-detalle', $data);

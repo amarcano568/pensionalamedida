@@ -1839,6 +1839,7 @@ function cargaTablaCambioSalalarioHoja1() {
         concepto = "Cotizaciones " + row;
         fechaDesde = $("#fechaDesde" + row).val();
         fechaHasta = $("#fechaHasta" + row).val();
+
         dias = $("#dias" + row).val();
         monto = $("#monto" + row).val();
         agregarTableCambiosalarioHoja1(

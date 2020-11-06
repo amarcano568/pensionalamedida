@@ -151,7 +151,8 @@
                         @endif
                     @endforeach 
                 </tr>
-                <tr>
+
+                {{-- <tr>
                     <td bgcolor="#F2DEDE" colspan="7">
                         <strong>Menos (-)</strong>
                     </td>
@@ -198,7 +199,7 @@
                         </td>
                     @endif
                 @endforeach 
-                </tr>
+                </tr> --}}
             </tbody>
         </table>
         <table>

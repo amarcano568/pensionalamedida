@@ -1,22 +1,29 @@
-<?php $hoja = 2;  ?>
+<?php $hoja = 2; $sw = true; ?>
 @foreach ($pensiones as $item)
-<?php
-    if ($item->hoja == 'hoja-1'){
-        $pension_Acum_Sin_M40 = $item->dif85;
-    }
+    <?php
+        if ($item->hoja == 'hoja-1'){
+            $pension_Acum_Sin_M40 = $item->dif85;
+        }
 
-    // $detalle = explode('|',$item->edad_detalle);
-    // $ano = $detalle[0];
-    // $mes = $detalle[1];
-?>
+    ?>
 
 @if ($item->hoja!='hoja-1')
 
 <div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-12" style="margin-top: -0.5em;">
         <table id="" style="display: table;width: 100%"
             class="table table-xs table-hover">
             <tbody id="">
+                @if ($sw)
+                    <tr style="text-align: center">
+                        <td colspan="8" style="border-top: 0px; border-left: 0px;"></td>
+                        <td>Alta</td>
+                        <td>Baja</td>
+                    </tr>
+                    @php
+                        $sw = false;
+                    @endphp
+                @endif
                 <tr>
                     <td bgcolor="orange" rowspan="4" style="width: 5%;vertical-align : middle;" class="text-center">
                         <h3 style="text-shadow: 1px 1px 2px black, 0 0 25px, 0 0 5px ;color: white;">{{$hoja++}}

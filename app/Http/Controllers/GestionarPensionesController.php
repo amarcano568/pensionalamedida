@@ -135,6 +135,11 @@ class GestionarPensionesController extends Controller
         return response()->json(array('success' => true, 'mensaje' => 'Datos del cliente obtenido', 'data' => $edad, 'difInDays' => $difInDays));
     }
 
+    public function calcularDif85Hoja1(Request $request){
+        $fechaRetiro = Carbon::parse($request->fecNac)->addYear(85);
+        
+    }
+
     public function calcularAnosFaltante(Request $request)
     {
 
