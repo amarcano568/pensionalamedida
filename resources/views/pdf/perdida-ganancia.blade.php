@@ -202,7 +202,7 @@
                 </tr> --}}
             </tbody>
         </table>
-        <table>
+        {{-- <table>
             <tr>
                 <td>
                     <h5 class="text-danger">Dos datos importantes en este reporte:</h5>
@@ -210,6 +210,6 @@
                     <p>2.- Aunque inviertes mucho en M40, en tu caso recuperas lo invertido de 8.6 a 13.9  veces, dependiendo la Opción que elijas.</p>
                 </td>
             </tr>
-        </table>
+        </table> --}}
     </div>
 </div>
