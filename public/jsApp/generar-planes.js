@@ -1310,6 +1310,10 @@ $(document).on("ready", function() {
         sumaDiasCotizados();
     });
 
+    function uniqId() {
+        return Math.round(new Date().getTime() + Math.random() * 100);
+    }
+
     function agregarFila() {
         id = $("#table-cotizaciones tr:last").attr("id");
         ultimoMonto = $("#totalMontoCotizacion" + id).val();
@@ -1328,15 +1332,15 @@ $(document).on("ready", function() {
             return false;
         }
 
-        filas = 0;
-        $(".diasCotizacion").each(function() {
-            id = $(this).attr("row");
-            if (id > filas) {
-                filas = id;
-            }
-        });
+        // filas = 0;
+        // $(".diasCotizacion").each(function() {
+        //     id = $(this).attr("row");
+        //     if (id > filas) {
+        //         filas = id;
+        //     }
+        // });
 
-        filas++;
+        filas = uniqId();
         var htmlTags =
             '<tr class="row2" id="' +
             filas +
