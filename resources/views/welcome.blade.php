@@ -205,6 +205,15 @@
                                 </a>
                             </li>
                         @endcan
+                        @can('porcentaje')
+                            <li class="c-sidebar-nav-item">
+                                <a class="c-sidebar-nav-link" href="{{URL::to('/porcentaje-calculo-anual')}}">
+                                    <svg class="c-sidebar-nav-icon">
+                                        <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-calculator') }}"></use>
+                                    </svg> Porc % calculo anual
+                                </a>
+                            </li>
+                        @endcan
                     </ul>
                 </li>
             @endcan

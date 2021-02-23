@@ -7,6 +7,7 @@ use \DataTables;
 use Illuminate\Support\Facades\DB;
 use Exception;
 use \App\Tipos_Semanas_Descontadas;
+use \App\Porc_calculo;
 use Illuminate\Http\Request;
 
 class GestionarSemanasDescontadas extends Controller
@@ -84,4 +85,35 @@ class GestionarSemanasDescontadas extends Controller
             return $this->internalException($e, __FUNCTION__);
         }
     }
+
+    public function porcentajeCalculoAnual()
+    {
+        return view('por_calculo_anual.porcentajes');
+    }
+
+    public function listarPorcentajesCalculos(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $semanas = Porc_calculo::get();
+
+            //dd($semanas);
+            return Datatables::of($semanas)
+                ->addIndexColumn()
+                // ->addColumn('action', function ($row) {
+                //     $btn = '<div class="icono-action text-center">
+                //                 <a data-trigger="hover" data-html="true" data-toggle="popover" data-placement="top" data-content="Editar porcentaje año(<strong>' . $row->ano . '</strong>)." href="" data-accion="editar-porcentaje" idTipo="' . $row->id . '">
+                //                     <i style="font-size: 1em;" class="text-success cil-pencil"></i>
+                //                 </a>
+                //             </div>';
+                //     return $btn;
+                // })
+                // ->rawColumns(['action'])
+                ->make(true);
+        } catch (Exception $e) {
+            DB::rollback();
+            return $this->internalException($e, __FUNCTION__);
+        }
+    }
+
 }

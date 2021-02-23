@@ -132,4 +132,10 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/bloquear-tipos-semanas', 'GestionarSemanasDescontadas@bloquearTiposSemanas');
 	Route::get('/editar-semanas-descontadas', 'GestionarSemanasDescontadas@editarSemanasDescontadas');
 	Route::post('actualizar-tipos-semanas', 'GestionarSemanasDescontadas@actualizaTiposSemanas');
+
+	/** Porcentaje de calulo Anual */
+	Route::group(['middleware' => ['permission:porcentaje']], function () {
+		Route::get('porcentaje-calculo-anual', 'GestionarSemanasDescontadas@porcentajeCalculoAnual')->name('porcentaje-calculo-anual.porcentajeCalculoAnual');
+	});
+	Route::get('/listar-porcentajes-calculos', 'GestionarSemanasDescontadas@listarPorcentajesCalculos');
 });
