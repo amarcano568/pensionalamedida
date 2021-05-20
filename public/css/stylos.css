@@ -836,10 +836,6 @@ div[data-role="editor-toolbar"] {
     left: auto;
 }
 
-.row {
-    line-height: 1em;
-}
-
 .row2 {
     line-height: 0.25em !important;
 }

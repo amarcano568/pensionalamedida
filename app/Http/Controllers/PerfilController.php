@@ -17,12 +17,7 @@ class PerfilController extends Controller
 {
     public function verPerfil()
     {
-        $paises = Paises::get();
-        $data = array(
-            'paises' => $paises,
-        );
-
-        return view('perfiles.perfil', $data);
+        return view('perfiles.perfil');
     }
 
     public function buscarPerfil()

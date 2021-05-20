@@ -121,8 +121,8 @@
               <div class="card-body text-center">
                 <div>
                   <h2>Importante!</h2>
-                  <p>Sistema de Control para la gestión de pensiones a la medida, para tener acceso al sistema debe poseer una cuenta de usuario.</p>
-                  <img src="/img/logo.png" alt="">
+                  <p>Sistema de Control para la gestión de la Faculta <strong>Ftuebe</strong>, para tener acceso al sistema debe poseer una cuenta de usuario.</p>
+                  <img src="img/logo.png" alt="" class="img-responsive" style="width: 100%">
                 </div>
               </div>
             </div>

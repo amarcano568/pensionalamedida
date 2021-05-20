@@ -95,21 +95,7 @@
                                         placeholder="Código postal" value="">
                                 </div>
                             </div>
-                            <!-- /.row-->
-                            <div class="form-group">
-                                <label for="country">
-                                    País
-                                </label>
-                                <select id="pais" name="pais" class="chosen-select"
-                                    data-placeholder="Seleccione un Pais...">
-                                    <option></option>
-                                    @foreach( $paises as $pais )
-                                        <option value="{{ $pais->idPais }}">
-                                            {{ $pais->nombre }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
+                            <!-- /.row-->                          
                         </div>
                         <div class="tab-pane fade" id="graficos" role="tabpanel" aria-labelledby="graficos-tab">
                             <br>

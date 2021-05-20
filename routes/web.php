@@ -36,37 +36,65 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('cambiar-contrasena', 'PerfilController@cambiarContrasena');
 	Route::post('actualiza-password', 'PerfilController@actualizaPassword');
 
+	/**	Importar nuevos alumnos */
+	Route::post('subir-fichero-nuevos-alumnos', 'AlumnosController@subirFicheroNuevosAlumnos');
+	Route::post('delete-fichero-importar-alumno', 'AlumnosController@deleteFicheroImportarAlumno');
 
+	
+	/**	Alumnos */	
+	Route::group(['middleware' => ['permission:gestion_alumnos']], function () {
+		Route::get('gestionar-estudiantes', 'AlumnosController@gestionarEstudiantes')->name('gestion-estudiantes.gestionarEstudiantes');
+	});
+	Route::post('/listar-estudiantes', 'AlumnosController@listarEstudiantes');
+	Route::post('/ver-grupo-familiar-alumno', 'AlumnosController@verGrupoFamiliarAlumno');
+	Route::post('/listar-trabajos-realizados', 'AlumnosController@listarTrabajosRealizados');
+	//Route::post('guardar-trabajo-imputado', 'AlumnosController@imputarTrabajo');
+	Route::post('/eliminar-trabajo', 'AlumnosController@eliminarTrabajo');
+	Route::post('/guardar-trabajo-imputado', 'AlumnosController@guardarTrabajoImputado');
+	Route::post('/ver-hospedaje-alumno', 'AlumnosController@verHospedajeAlumno');
+	Route::post('/actualizar-hospedaje', 'AlumnosController@actualizarHospedaje');
+
+	/**	Grupos familiares */
+	Route::group(['middleware' => ['permission:gestion_grupos_familiares']], function () {
+		Route::get('gestionar-grupos-familiares', 'GruposFamiliaresController@gestionarGrupoFamiliar')->name('gestion-grupos-familiares.gestionarGrupoFamiliar');
+	});
+	Route::post('/listar-grupos-familiares', 'GruposFamiliaresController@listarGruposFamiliares');
+	Route::post('/eliminar-grupo-familiar', 'GruposFamiliaresController@eliminarGrupoFamiliar');
+	Route::post('/editar-grupo-familiar', 'GruposFamiliaresController@editarGrupoFamiliar');
+	Route::post('/eliminar-hijo', 'GruposFamiliaresController@eliminarHijo');
+	Route::post('/actualizar-hijo', 'GruposFamiliaresController@actualizarHijo');
+	Route::post('/guardar-grupo-familiar', 'GruposFamiliaresController@guardarGrupoFamiliar');
+
+	/**	Residencia */
+	Route::group(['middleware' => ['permission:gestion_residencia']], function () {
+		Route::get('gestion-residencia', 'ResidenciaController@gestionResidencia')->name('gestion-residencia.gestionResidencia');
+	});
+	Route::post('/listar-habitaciones', 'ResidenciaController@listarHabitaciones');
+	Route::post('/editar-habitacion', 'ResidenciaController@getDataHabitacion');
+	Route::post('/actualizar-habitaciones', 'ResidenciaController@actualizarHabitaciones');
+	Route::post('/eliminar-habitacion', 'ResidenciaController@eliminarHabitacion');
+	Route::post('/listar-huespedes', 'ResidenciaController@listarHuespedes');
+	Route::post('/listar-mobiliarios', 'ResidenciaController@listarMobiliarios');
+	Route::post('/editar-mobiliario', 'ResidenciaController@editarMobiliario');
+	Route::post('/actualizar-mobiliarios', 'ResidenciaController@actualizarMobiliarios');
+	Route::post('eliminar-mobiliario', 'ResidenciaController@eliminarMobiliario');
+		
 	/**	Usuarios */
-	Route::group(['middleware' => ['permission:mantenimiento_usuarios']], function () {
-		Route::get('gestion-usuarios', 'MantenimientoUsuariosController@gestionUsuarios')->name('gestion-usuarios.gestionUsuarios');
-	});
-	Route::get('/listar-usuarios', 'MantenimientoUsuariosController@listarUsuarios');
-	Route::get('/editar-usuario', 'MantenimientoUsuariosController@editarUsuario');
-	Route::get('/bloquear-usuario', 'MantenimientoUsuariosController@bloquearUsuario');
-
-
-	/** Clientes */
-	//Route::get('/gestion-clientes', 'MantenimientoUsuariosController@bloquearUsuario');
-	Route::group(['middleware' => ['permission:gestionar_clientes']], function () {
-		Route::get('gestion-clientes', 'MantenimientoClientesController@gestionClientes')->name('gestion-clientes.gestionClientes');
-	});
-	Route::get('/listar-clientes', 'MantenimientoClientesController@listarClientes');
-	Route::get('/editar-cliente', 'MantenimientoClientesController@editarCliente');
-	Route::get('/calcular-edad', 'MantenimientoClientesController@calcularEdad');
-	Route::post('/actualizar-cliente', 'MantenimientoClientesController@actualizarCliente');
-	Route::get('generar-excel-clientes', 'MantenimientoClientesController@generarExcelClientes');
-	Route::get('buscar-curp', 'MantenimientoClientesController@buscarCurp');
-
-
+	// Route::group(['middleware' => ['permission:mantenimiento_usuarios']], function () {
+	// 	Route::get('gestion-usuarios', 'MantenimientoUsuariosController@gestionUsuarios')->name('gestion-usuarios.gestionUsuarios');
+	// });
+	// Route::get('/listar-usuarios', 'MantenimientoUsuariosController@listarUsuarios');
+	// Route::get('/editar-usuario', 'MantenimientoUsuariosController@editarUsuario');
+	// Route::get('/bloquear-usuario', 'MantenimientoUsuariosController@bloquearUsuario');
+	
 	/** Información de la Empresa */
-	Route::group(['middleware' => ['permission:mantenimiento_empresa']], function () {
-		Route::get('informacion-empresa', 'MantenimientoEmpresaController@informacionEmpresa')->name('informacion-empresa.informacionEmpresa');
-	});
-	Route::get('buscar-empresa', 'MantenimientoEmpresaController@buscarempresa');
-	Route::post('actualizar-empresa', 'MantenimientoEmpresaController@actualizarEmpresa');
-	Route::post('subir-logo', 'MantenimientoEmpresaController@subirLogo');
-	Route::post('delete-logo', 'MantenimientoEmpresaController@deleteLogo');
+	// Route::group(['middleware' => ['permission:mantenimiento_empresa']], function () {
+	// 	Route::get('informacion-empresa', 'MantenimientoEmpresaController@informacionEmpresa')->name('informacion-empresa.informacionEmpresa');
+	// });
+	// Route::get('buscar-empresa', 'MantenimientoEmpresaController@buscarempresa');
+	// Route::post('actualizar-empresa', 'MantenimientoEmpresaController@actualizarEmpresa');
+	// Route::post('subir-logo', 'MantenimientoEmpresaController@subirLogo');
+	// Route::post('delete-logo', 'MantenimientoEmpresaController@deleteLogo');
 
 	/** Gestión de roles */
 	Route::group(['middleware' => ['permission:gestion_roles']], function () {
@@ -76,66 +104,6 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('revocar-permiso', 'MantenimientoRolesController@revocarPermiso');
 	Route::get('dar-permiso-a', 'MantenimientoRolesController@darPermisoA');
 	Route::post('nuevo-role', 'MantenimientoRolesController@nuevoRole');
-
-
-	/** Pensiones */
-	Route::group(['middleware' => ['permission:gestionar_pension']], function () {
-		Route::get('gestionar-pension', 'GestionarPensionesController@gestionarPension')->name('gestionar-pension.gestionarPension');
-	});
-	Route::get('listar-pensiones', 'GestionarPensionesController@listarPensiones');
-	Route::get('buscar-cliente', 'GestionarPensionesController@buscarCliente');
-	Route::get('calcular-edad-completa', 'GestionarPensionesController@calcularEdadCompleta');
-	Route::get('calcular-anos-faltante', 'GestionarPensionesController@calcularAnosFaltante');
-	Route::get('generar-planes/{idPension}/{idCliente}', 'GestionarPensionesController@generarPlanes');
-	Route::get('calcular-dias-entre-fechas', 'GestionarPensionesController@calcularDiasEntreFechas');
-	Route::post('subir-excel-cotizaciones', 'GestionarPensionesController@subirExcelCotizaciones');
-	Route::get('buscar-cuantia-basica', 'GestionarPensionesController@buscarCuantiaBasica');
-	Route::get('calcular-tiempo-individual-faltante-retiro', 'GestionarPensionesController@calcularTiempoIndividualFaltanteRetiro');
-	Route::get('sumar-dias-a-fecha-estrategias', 'GestionarPensionesController@sumarDiasaFechaEstrategias');
-	Route::get('edad-cliente', 'GestionarPensionesController@edadCliente');
-	Route::post('guardar-plan-pension', 'GestionarPensionesController@guardarPlanPension');
-	Route::get('/buscar-expectativas', 'GestionarPensionesController@buscarExpectativas');
-	Route::get('/buscar-cotizaciones-hoja-1', 'GestionarPensionesController@buscarCotizacionesHoja1');
-	Route::get('/buscar-cotizaciones-hoja', 'GestionarPensionesController@buscarCotizacionesHoja');
-	Route::get('/buscar-data-adicional', 'GestionarPensionesController@buscarDataAdicional');
-	Route::get('/buscar-estrategias-save-on-bd', 'GestionarPensionesController@buscarEstrategiasSaveOnBd');
-	Route::get('/calcular-semanas-faltantes-60', 'GestionarPensionesController@calcularSemanasFaltantes60');
-	Route::get('/buscar-semanas-descontadas', 'GestionarPensionesController@buscarSemanasDescontadas');
-	Route::get('/calcula-semanas-descuentos-semanas', function (Request $request) {
-		$desde = Carbon::parse($request->desde);
-		$hasta = Carbon::parse($request->hasta);
-		return $desde->diffInWeeks($hasta);
-	});
-	Route::get('/calcular-dif85-hoja1', 'GestionarPensionesController@calcularDif85Hoja1');
 	
 
-
-	/**Generar Pdfs */
-	Route::get('generar-pdf-resumen/{uuid}/{idCliente}', 'PdfsController@generarPdfResumen');
-	Route::get('/ver-pdf-resumen', 'PdfsController@verPdfResumen');
-	Route::get('/send-mail-resumen', 'PdfsController@sendMailResumen');
-	Route::get('/data-toma-decisiones', 'PdfsController@dataTomaDecisiones');
-	Route::get('/restar-fechas', 'PdfsController@restarFechas');
-	Route::get('/ver-pdf-detalle', 'PdfsController@verPdfDetalle');
-	Route::get('generar-pdf-detalle/{uuid}/{idCliente}', 'PdfsController@generarPdfDetalle');
-	Route::get('/send-mail-detalle', 'PdfsController@sendMailDetalle');
-	Route::get('/change-view-nivel-vida', 'PdfsController@changeViewNivelVida');
-
-	/** Inicio tablero */
-	Route::get('/buscar-data-tablero', 'PerfilController@buscarDataTablero');
-
-	/** Semanas descontadas */
-	Route::group(['middleware' => ['permission:gestionar_pension']], function () {
-		Route::get('gestion-semanas-descontadas', 'GestionarSemanasDescontadas@gestionSemanasDescontadas')->name('gestion-semanas-descontadas.gestionSemanasDescontadas');
-	});
-	Route::get('/listar-semanas-descontadas', 'GestionarSemanasDescontadas@listarSemanasDescontadas');
-	Route::get('/bloquear-tipos-semanas', 'GestionarSemanasDescontadas@bloquearTiposSemanas');
-	Route::get('/editar-semanas-descontadas', 'GestionarSemanasDescontadas@editarSemanasDescontadas');
-	Route::post('actualizar-tipos-semanas', 'GestionarSemanasDescontadas@actualizaTiposSemanas');
-
-	/** Porcentaje de calulo Anual */
-	Route::group(['middleware' => ['permission:porcentaje']], function () {
-		Route::get('porcentaje-calculo-anual', 'GestionarSemanasDescontadas@porcentajeCalculoAnual')->name('porcentaje-calculo-anual.porcentajeCalculoAnual');
-	});
-	Route::get('/listar-porcentajes-calculos', 'GestionarSemanasDescontadas@listarPorcentajesCalculos');
 });

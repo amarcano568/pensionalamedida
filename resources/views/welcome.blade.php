@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <meta name="description" content="Sistema de Gestión de Pensiones">
     <meta name="author" content="Alexander Marcano A">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>.:: Sistema de Gestión | Pensión a la medida ::.</title>
     <link rel="apple-touch-icon" sizes="57x57" href="assets/favicon/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="assets/favicon/apple-icon-60x60.png">
@@ -79,7 +80,6 @@
     
     @yield('css')
 </head>
-
 <body class="c-app">
     <div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show" id="sidebar">
         <div class="c-sidebar-brand d-lg-down-none" style="background-color: #EBEDEF!important;">
@@ -108,10 +108,10 @@
             <li class="c-sidebar-nav-title">Opciones del Sistema</li>
             @can('gestionar_pension')
                 <li class="c-sidebar-nav-item">
-                    <a class="c-sidebar-nav-link" href="{{URL::to('/gestionar-pension')}}">
+                    <a class="c-sidebar-nav-link" href="{{URL::to('/gestionar-estudiantes')}}">
                         <svg class="c-sidebar-nav-icon">
-                            <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-beach-access') }}"></use>
-                        </svg> Gestionar Pensión
+                            <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-user') }}"></use>
+                        </svg> Estudiantes
                     </a>
                 </li>
             @endcan
@@ -120,7 +120,16 @@
                     <a class="c-sidebar-nav-link" href="{{URL::to('/gestion-clientes')}}">
                         <svg class="c-sidebar-nav-icon">
                             <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-contact') }}"></use>
-                        </svg> Clientes
+                        </svg> Expediente académico
+                    </a>
+                </li>
+            @endcan
+            @can('gestionar_clientes')
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" href="{{URL::to('/gestion-residencia')}}">
+                        <svg class="c-sidebar-nav-icon">
+                            <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-house') }}"></use>
+                        </svg> Residencia
                     </a>
                 </li>
             @endcan
@@ -178,15 +187,6 @@
                                 </a>
                             </li>
                         @endcan
-                        @can('mantenimiento_semanas_descontadas')
-                            <li class="c-sidebar-nav-item">
-                                <a class="c-sidebar-nav-link" href="{{URL::to('/gestion-semanas-descontadas')}}">
-                                    <svg class="c-sidebar-nav-icon">
-                                        <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-calendar') }}"></use>
-                                    </svg> Tipos semanas descontadas
-                                </a>
-                            </li>
-                        @endcan
                         @can('mantenimiento_empresa')
                             <li class="c-sidebar-nav-item">
                                 <a class="c-sidebar-nav-link" href="{{URL::to('/informacion-empresa')}}">
@@ -202,15 +202,6 @@
                                     <svg class="c-sidebar-nav-icon">
                                         <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-shield-alt') }}"></use>
                                     </svg> Gestión de Roles
-                                </a>
-                            </li>
-                        @endcan
-                        @can('porcentaje')
-                            <li class="c-sidebar-nav-item">
-                                <a class="c-sidebar-nav-link" href="{{URL::to('/porcentaje-calculo-anual')}}">
-                                    <svg class="c-sidebar-nav-icon">
-                                        <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-calculator') }}"></use>
-                                    </svg> Porc % calculo anual
                                 </a>
                             </li>
                         @endcan
@@ -303,7 +294,7 @@
             @yield('contenido')
             <div class="d-flex flex-column ">
                 <footer class="c-footer">
-                    <div>Sistema de Gestión desarrollado por el <a
+                    <div>Sistema de Gestión desarrollado por <a
                             href="https://www.linkedin.com/in/alexander-j-marcano-a-680016a8">Ingeniero Alexander
                             Marcano
                             A.</a></div>

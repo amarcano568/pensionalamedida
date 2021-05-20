@@ -5,17 +5,23 @@
         <div class="fade-in">
             <div class="row">
                 <div class="col-sm-6 col-lg-3">
-                    <div class="card text-white bg-gradient-primary">
+                    <div class="card text-white bg-gradient-info shadow-lg">
                         <div
                             class="card-body card-body pb-0 d-flex justify-content-between align-items-start">
                             <div>
                                 <div class="text-value-lg" id="pensionesHoy">0</div>
-                                <div>Pensiones hoy</div>
+                                <div>Estudiantes</div>
                             </div>
                         </div>
                         <div style="height:70px;"  id="pensionesHoyFecha">
-                            
+                            <center>
+                                <br>
+                                <a style="color: white" href="{{URL::to('/gestionar-estudiantes')}}">
+                                    <strong>Ir a listado de estudiantes <i class="fas fa-arrow-right"></i></strong>
+                                </a>
+                            </center>
                         </div>
+                        <button id="btn-importar-nuevos-alumnos" class="btn btn-primary btn-sm"><i class="far fa-file-excel"></i>&nbsp;Importar nuevos alumnos</button>
                     </div>
                 </div>
                 <!-- /.col-->
@@ -25,42 +31,50 @@
                             class="card-body card-body pb-0 d-flex justify-content-between align-items-start">
                             <div>
                                 <div class="text-value-lg" id="pensionesMesActual">0</div>
-                                <div>Pensiones mes actual</div>
+                                <div>Grupos familiares</div>
                             </div>
                         </div>
                         <div style="height:70px;"  id="pensionesMesActualFecha">
-                            
+                            <center>
+                                <br>
+                                <a style="color: white" href="{{URL::to('/gestionar-grupos-familiares')}}">
+                                    <strong>Ir a crear un nuevo grupo <i class="fas fa-arrow-right"></i></strong>
+                                </a>
+                            </center>
                         </div>
+                        <button class="btn btn-primary btn-sm"><i class="fas fa-people-arrows"></i>&nbsp;&nbsp;Crear nuevo grupo familiar</button>
                     </div>
                 </div>
                 <!-- /.col-->
                 <div class="col-sm-6 col-lg-3">
-                    <div class="card text-white bg-gradient-warning">
+                    <div class="card text-white bg-gradient-info">
                         <div
                             class="card-body card-body pb-0 d-flex justify-content-between align-items-start">
                             <div>
                                 <div class="text-value-lg" id="pensionesMesAnterior">0</div>
-                                <div>Pensiones Mes anterior</div>
+                                <div>Informes</div>
                             </div>
                         </div>
                         <div style="height:70px;"  id="pensionesMesAnteriorFecha">
                             
                         </div>
+                        <button class="btn btn-primary btn-sm"><i class="far fa-file-alt"></i>&nbsp;Ver informes</button>
                     </div>
                 </div>
                 <!-- /.col-->
                 <div class="col-sm-6 col-lg-3">
-                    <div class="card text-white bg-gradient-danger">
+                    <div class="card text-white bg-gradient-info">
                         <div
                             class="card-body card-body pb-0 d-flex justify-content-between align-items-start">
                             <div>
                                 <div class="text-value-lg" id="pensionesAnoActual">0</div>
-                                <div>Pensiones Año actual</div>
+                                <div>Expedientes académicos</div>
                             </div>
                         </div>
                         <div style="height:70px;"  id="pensionesAnoActualFecha">
                             
                         </div>
+                        <button class="btn btn-primary btn-sm"><i class="far fa-file-alt"></i>&nbsp;Ir a los expedientes</button>
                     </div>
                 </div>
                 <!-- /.col-->
@@ -69,35 +83,12 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
-                        <div>
-                            <h4 class="card-title mb-0">Planes de Pensión</h4>
-                            <div class="small text-muted">Ultimos 30 días</div>
-                        </div>
-                        {{-- <div class="btn-toolbar d-none d-md-block" role="toolbar"
-                            aria-label="Toolbar with buttons">
-                            <div class="btn-group btn-group-toggle mx-3" data-toggle="buttons">
-                                <label class="btn btn-outline-secondary">
-                                    <input id="option1" type="radio" name="options" autocomplete="off"> Day
-                                </label>
-                                <label class="btn btn-outline-secondary active">
-                                    <input id="option2" type="radio" name="options" autocomplete="off"
-                                        checked=""> Month
-                                </label>
-                                <label class="btn btn-outline-secondary">
-                                    <input id="option3" type="radio" name="options" autocomplete="off"> Year
-                                </label>
-                            </div>
-                            <button class="btn btn-primary" type="button">
-                                <svg class="c-icon">
-                                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-cloud-download">
-                                    </use>
-                                </svg>
-                            </button>
-                        </div> --}}
-                    </div>
-                    <div class="c-chart-wrapper" style="height:300px;margin-top:40px;">
-                        <canvas class="chart" id="myChart" height="300"></canvas>
-                    </div>
+                        <br><br>
+                        <center>
+                            <img src="img/logo.jpg" alt="" class="img-responsive">
+                        </center>
+                        <br><br>
+                    </div>    
                 </div>
                 <div class="card-footer">
                     {{-- <div class="row text-center">
@@ -150,6 +141,7 @@
             <!-- /.row-->
         </div>
     </div>
+    @include('modal-importar-alumnos')
 </main>
 
 @endsection
